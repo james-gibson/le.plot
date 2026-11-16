@@ -1,0 +1,43 @@
+{
+  "name": "le-plot",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "The seed plot: every site grown from le.gume, drawn as entity tables on one page.",
+  "homepage": "https://james-gibson.github.io/le.plot/",
+  "license": "AGPL-3.0-only",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build && node scripts/deck.mjs && vite build --ssr scripts/prerender.tsx --outDir .prerender --emptyOutDir && node .prerender/prerender.js && node scripts/postbuild.mjs && node scripts/doomlint.mjs dist --fail-on high && node scripts/a11y.mjs dist --fail-on high && node scripts/contrast.mjs && node scripts/overflow.mjs && node scripts/verify-publish.mjs",
+    "preview": "vite preview",
+    "smoke": "vite build --ssr scripts/smoke.tsx --outDir .smoke --emptyOutDir && node .smoke/smoke.js",
+    "guard": "node scripts/verify-publish.mjs",
+    "doom": "node scripts/doomlint.mjs dist --fail-on high",
+    "a11y": "node scripts/a11y.mjs dist --fail-on high",
+    "contrast": "node scripts/contrast.mjs",
+    "check": "tsc --noEmit",
+    "overflow": "node scripts/overflow.mjs"
+  },
+  "dependencies": {
+    "@xyflow/react": "^13.0.1",
+    "fancy-ui-react": "0.7.0",
+    "qrcode.react": "^4.2.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-markdown": "10.1.0",
+    "react-router-dom": "7.18.5",
+    "remark-gfm": "4.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "6.3.0",
+    "tailwindcss": "4.3.5",
+    "typescript": "5.9.3",
+    "vite": "8.3.8"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

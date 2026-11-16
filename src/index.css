@@ -1,0 +1,214 @@
+@import "tailwindcss";
+@import "fancy-ui-react/tailwind.css";
+
+@theme {
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", monospace;
+
+  --color-ink: #0b0a0b;
+  --color-surface: #121013;
+  --color-surface-2: #191619;
+  --color-line: #2a242a;
+  --color-line-soft: #201b20;
+  --color-cream: #d9d3c6;
+  --color-muted: #a49a9e;
+  --color-pulse: #ff2d95;
+  --color-pulse-deep: #c81e6f;
+  --color-violet: #ffc2dd;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: color-mix(in oklab, var(--color-pulse) 32%, transparent);
+  color: var(--color-cream);
+}
+
+/* A quiet grid that hints at a plot plan without becoming a pattern. */
+.plot-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-line) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-line) 55%, transparent) 1px, transparent 1px);
+  background-size: 96px 96px;
+  mask-image: radial-gradient(70% 60% at 50% 0%, black, transparent 78%);
+}
+
+.hairline {
+  border: 1px solid var(--color-line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ------------------------------------------------------------------------- */
+/* HTML 2.0 mode — the era switch, a reset in the opposite direction.        */
+/* A reset in the opposite direction: strip the modern layer on every         */
+/* element, then let the browser's own stylesheet show through.               */
+/* ------------------------------------------------------------------------- */
+html[data-era='1996'] {
+  color-scheme: light;
+  background: #fff;
+}
+
+html[data-era='1996'] body {
+  margin: 0;
+  padding: 1.25em;
+  background: #fff !important;
+  color: #000 !important;
+  font-family: 'Times New Roman', Times, serif !important;
+  font-size: 16px !important;
+  line-height: 1.3 !important;
+}
+
+html[data-era='1996'] * {
+  display: revert !important;
+  position: static !important;
+  max-width: none !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  color: #000 !important;
+  font-family: inherit !important;
+  font-size: medium !important;
+  font-weight: normal !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  text-decoration: none !important;
+  line-height: 1.3 !important;
+}
+
+html[data-era='1996'] h1,
+html[data-era='1996'] h2,
+html[data-era='1996'] h3,
+html[data-era='1996'] h4 {
+  font-weight: bold !important;
+  margin: 0.9em 0 0.4em !important;
+}
+
+html[data-era='1996'] h1 { font-size: 1.8em !important; }
+html[data-era='1996'] h2 { font-size: 1.35em !important; }
+html[data-era='1996'] h3 { font-size: 1.15em !important; }
+
+html[data-era='1996'] p,
+html[data-era='1996'] ul,
+html[data-era='1996'] ol,
+html[data-era='1996'] table,
+html[data-era='1996'] blockquote,
+html[data-era='1996'] pre,
+html[data-era='1996'] figure {
+  margin: 0.7em 0 !important;
+}
+
+html[data-era='1996'] ul { list-style: disc outside !important; padding-left: 1.6em !important; }
+html[data-era='1996'] ol { list-style: decimal outside !important; padding-left: 1.6em !important; }
+html[data-era='1996'] li { display: list-item !important; }
+
+html[data-era='1996'] a { color: #0000ee !important; text-decoration: underline !important; }
+html[data-era='1996'] a:visited { color: #551a8b !important; }
+
+html[data-era='1996'] code,
+html[data-era='1996'] pre,
+html[data-era='1996'] samp,
+html[data-era='1996'] kbd {
+  font-family: 'Courier New', Courier, monospace !important;
+  font-size: 0.95em !important;
+}
+
+html[data-era='1996'] pre { white-space: pre !important; overflow-x: auto !important; }
+
+html[data-era='1996'] table { border-collapse: collapse !important; }
+html[data-era='1996'] th,
+html[data-era='1996'] td { border: 1px solid #000 !important; padding: 2px 6px !important; text-align: left !important; }
+html[data-era='1996'] th { font-weight: bold !important; }
+
+html[data-era='1996'] blockquote { margin-left: 2em !important; }
+html[data-era='1996'] hr { border-top: 1px solid #000 !important; margin: 1em 0 !important; }
+html[data-era='1996'] strong,
+html[data-era='1996'] b { font-weight: bold !important; }
+html[data-era='1996'] em,
+html[data-era='1996'] i { font-style: italic !important; }
+html[data-era='1996'] img { max-width: 100% !important; }
+
+html[data-era='1996'] button {
+  border: 1px solid #000 !important;
+  padding: 1px 4px !important;
+  background: #eee !important;
+}
+
+/* Decoration does not survive the reset; that is the point of the reset. */
+html[data-era='1996'] svg,
+html[data-era='1996'] .plot-grid { display: none !important; }
+
+/* ------------------------------------------------------------------------- */
+/* The map. React Flow ships its own stylesheet; these are the four things   */
+/* the default does not know: the site's ink, the site's control chrome, and */
+/* handles that are routing points rather than UI.                            */
+/* ------------------------------------------------------------------------- */
+.plot-flow .react-flow__attribution {
+  background: transparent;
+}
+
+.plot-flow .react-flow__attribution a {
+  color: var(--color-muted);
+}
+
+.plot-flow .react-flow__controls {
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.plot-flow .react-flow__controls-button {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-line);
+  color: var(--color-cream);
+  fill: currentColor;
+}
+
+.plot-flow .react-flow__controls-button:hover {
+  background: var(--color-surface-2);
+}
+
+.plot-flow .react-flow__controls-button svg {
+  fill: currentColor;
+}
+
+.plot-flow .react-flow__node {
+  font-family: var(--font-sans);
+}
+
+.plot-flow .react-flow__node:focus-visible {
+  outline: 2px solid var(--color-pulse);
+  outline-offset: 3px;
+}
+
+.plot-flow .react-flow__handle {
+  width: 1px;
+  height: 1px;
+  min-width: 1px;
+  min-height: 1px;
+  border: 0;
+  background: transparent;
+  pointer-events: none;
+}

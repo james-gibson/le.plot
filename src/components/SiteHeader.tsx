@@ -1,0 +1,85 @@
+import { NavLink } from 'react-router-dom'
+import { SECTIONS } from '../lib/content'
+import { REPO_URL, SITE } from '../lib/site'
+import { useEra } from '../lib/era'
+import { useFileView } from '../lib/fileview'
+import { MotionToggle } from './MotionToggle'
+
+const linkBase =
+  'rounded-lg px-2.5 py-1.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-cream'
+const linkActive = 'bg-surface-2 text-cream'
+
+export function SiteHeader() {
+  const { era, setEra } = useEra()
+  const { view, setView } = useFileView()
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-line/80 bg-ink/85 backdrop-blur-md">
+      <div className="mx-auto flex w-full max-w-6xl items-center gap-4 px-5 py-3 sm:px-8">
+        <NavLink to="/" className="group flex items-center gap-2.5" aria-label={`${SITE} — home`}>
+          <span className="relative grid h-7 w-7 place-items-center rounded-lg border border-line bg-surface">
+            <span className="h-2 w-2 rounded-full bg-pulse" />
+            <span className="absolute -right-0.5 -bottom-0.5 h-1.5 w-1.5 rounded-full bg-violet" />
+          </span>
+          <span className="text-sm font-semibold tracking-tight text-cream">
+            {SITE.split('.').map((part, i) => (
+              <span key={part}>
+                {i > 0 && <span className="text-pulse">.</span>}
+                {part}
+              </span>
+            ))}
+          </span>
+        </NavLink>
+
+        <nav aria-label="Sections" className="ml-2 flex flex-1 items-center gap-1 overflow-x-auto">
+          {SECTIONS.map((section) => (
+            <NavLink
+              key={section.id}
+              to={`/${section.id}`}
+              className={({ isActive }) => `${linkBase} shrink-0 ${isActive ? linkActive : ''}`}
+            >
+              {section.label}
+            </NavLink>
+          ))}
+          <NavLink
+            to="/design"
+            className={({ isActive }) => `${linkBase} shrink-0 ${isActive ? linkActive : ''}`}
+          >
+            Design
+          </NavLink>
+        </nav>
+
+        <div className="ml-auto flex items-center gap-3">
+          <div className="hidden items-center gap-3 sm:flex">
+            <MotionToggle />
+            <a
+              href={REPO_URL}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="shrink-0 rounded-lg border border-line px-2.5 py-1.5 text-xs text-muted transition-colors hover:border-pulse/50 hover:text-cream"
+            >
+              Source
+            </a>
+          </div>
+          {/* The way back out of 1996, and out of the file, must exist at every width. */}
+          <button
+            type="button"
+            onClick={() => setView(view === 'file' ? 'page' : 'file')}
+            className="shrink-0 rounded-lg border border-line px-2.5 py-1.5 text-xs text-muted transition-colors hover:border-pulse/50 hover:text-cream"
+            title={view === 'file' ? 'Render the page' : 'Show the source file'}
+          >
+            {view === 'file' ? 'render' : 'file'}
+          </button>
+          <button
+            type="button"
+            onClick={() => setEra(era === 'retro' ? 'modern' : 'retro')}
+            className="shrink-0 rounded-lg border border-line px-2.5 py-1.5 text-xs text-muted transition-colors hover:border-pulse/50 hover:text-cream"
+            title={era === 'retro' ? 'Restore modern rendering' : 'Render as HTML 2.0'}
+          >
+            {era === 'retro' ? '2026' : 'HTML 2.0'}
+          </button>
+        </div>
+      </div>
+    </header>
+  )
+}
