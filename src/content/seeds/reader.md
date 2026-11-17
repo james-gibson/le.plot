@@ -14,7 +14,7 @@ answers it without asking you to clone anything.
 
 ## Start here
 
-Open [the map](/#map). Thirteen rows: one starter, five sites grown from it, and seven systems
+Open [the map](/#map). Seventeen rows: one starter, five sites grown from it, and eleven systems
 those sites describe. Each row names a readiness (or a kind), a front door (or what it provides)
 and its parents or dependencies. Select a table for its record, or follow the row to its page.
 

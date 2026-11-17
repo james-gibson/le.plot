@@ -59,6 +59,16 @@ export function PlotPanel({ rowId }: { rowId: string }) {
         )}
       </div>
 
+      {row.status ? (
+        <div className="rounded-2xl border border-violet/40 bg-surface p-5">
+          <p className="text-xs tracking-[0.14em] text-violet uppercase">Status</p>
+          <p className="mt-1 text-sm leading-6 text-cream">
+            {row.status} — specified and reviewed, not implemented. The map draws it so the
+            proposal has an address; the page says which parts exist today.
+          </p>
+        </div>
+      ) : null}
+
       {row.role !== 'part' ? (
         <>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -176,29 +186,25 @@ export function PlotPanel({ rowId }: { rowId: string }) {
           <p className="text-xs tracking-[0.14em] text-muted uppercase">On the map</p>
           <ul className="mt-2 space-y-1 text-sm text-muted">
             {relations.map((relation) => {
-              const otherId = relation.from === row.id ? relation.to : relation.from
-              const other = getPlotRow(otherId)
+              const from = getPlotRow(relation.from)
+              const to = getPlotRow(relation.to)
+              const name = (id: string, entity: string | undefined) =>
+                id === row.id ? (
+                  <span className="font-mono text-cream">this row</span>
+                ) : (
+                  <Link
+                    to={`/plot/${id}`}
+                    className="font-mono text-cream underline decoration-line underline-offset-4 hover:text-pulse"
+                  >
+                    {entity ?? id}
+                  </Link>
+                )
               return (
                 <li key={`${relation.from}-${relation.to}`} className="flex gap-2">
                   <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-violet" />
                   <span>
-                    {relation.from === row.id ? (
-                      <>
-                        it <span className="text-cream">{relation.verb}</span>{' '}
-                      </>
-                    ) : null}
-                    <Link
-                      to={`/plot/${otherId}`}
-                      className="font-mono text-cream underline decoration-line underline-offset-4 hover:text-pulse"
-                    >
-                      {other?.entity ?? otherId}
-                    </Link>
-                    {relation.from === row.id ? null : (
-                      <>
-                        {' '}
-                        <span className="text-cream">{relation.verb}</span> it
-                      </>
-                    )}
+                    {name(relation.from, from?.entity)} <span className="text-cream">{relation.verb}</span>{' '}
+                    {name(relation.to, to?.entity)}
                   </span>
                 </li>
               )

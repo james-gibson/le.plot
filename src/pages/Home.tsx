@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Button, CopyButton } from 'fancy-ui-react'
 import { PAGES } from '../lib/content'
-import { PLOT, children, parts, seeds } from '../lib/plot'
+import { PLOT, RELATIONS, children, parts, seeds } from '../lib/plot'
 import { PARENT } from '../lib/site'
 import { MotionReveal } from '../lib/motion'
 import { PlotCanvas } from '../components/PlotCanvas'
@@ -14,13 +14,13 @@ const FACTS = [
   { k: 'Systems', v: String(PLOT.length) },
   { k: 'Grown from one', v: String(children().length) },
   { k: 'In the lab', v: String(parts().length) },
-  { k: 'Lines', v: String(children().length + children().filter((seed) => seed.vendors).length + 4) },
+  { k: 'Lines', v: String(children().length + children().filter((seed) => seed.vendors).length + RELATIONS.length) },
 ]
 
 export function Home() {
   usePageMeta(
     undefined,
-    'One page, thirteen tables: the sites grown from le.gume, and the seven systems they describe and run in.',
+    'One page, seventeen tables: the sites grown from le.gume, and the eleven systems they describe and run in.',
   )
 
   return (
@@ -44,7 +44,7 @@ export function Home() {
             <h1 className="mt-6 text-4xl leading-[1.05] font-semibold tracking-tight text-cream sm:text-6xl">
               One starter,
               <br />
-              <span className="text-pulse">thirteen</span> systems.
+              <span className="text-pulse">seventeen</span> systems.
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-8 text-muted">
@@ -103,7 +103,7 @@ export function Home() {
               The plot, in one page
             </h2>
             <p className="mt-2 max-w-2xl text-muted">
-              Thirteen tables and twelve lines. Solid lines are inheritance; dashed lines are a
+              Seventeen tables and fourteen lines. Solid lines are inheritance; dashed lines are a
               vendored copy of the parent&rsquo;s rules, carrying the version it was taken at; the
               thin lines are a claim a row states in full on its page. Select a table to read its
               row without leaving the page.
@@ -156,7 +156,7 @@ export function Home() {
             <p className="mt-2 text-sm leading-6 text-muted">
               A seed row carries a <span className="text-cream">rung</span>: how much of the
               machine its front door assumes. A part row carries a{' '}
-              <span className="text-cream">kind</span>: library, tool, app or upstream, plus the
+              <span className="text-cream">kind</span>: library, tool, app, upstream, package or workspace, plus the
               default <span className="text-cream">ports</span> it binds. Readiness, category and a
               socket are different questions and get different columns.
             </p>

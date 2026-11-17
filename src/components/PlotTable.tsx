@@ -133,6 +133,9 @@ export function PlotTable() {
                   </th>
                   <td className="border-b border-line-soft px-4 py-3 text-xs text-muted">
                     {KIND_LABEL[part.kind]}
+                    {part.status ? (
+                      <span className="ml-1 text-violet">({part.status})</span>
+                    ) : null}
                   </td>
                   <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
                     {part.language}

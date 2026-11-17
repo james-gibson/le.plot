@@ -26,7 +26,7 @@ import { PlotNode, type PlotFlowNode } from './PlotNode'
 /**
  * The map.
  *
- * Thirteen tables, twelve lines. React Flow draws it because the reader is the
+ * Seventeen tables, fourteen lines. React Flow draws it because the reader is the
  * one who decides what to look at: pan to a row, zoom into its fields, select
  * it for the record. Nothing moves on its own — a diagram is not a slideshow,
  * and the motion budget applies.

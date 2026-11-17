@@ -41,8 +41,8 @@ If a rule's subject was deleted, delete the rule and record why on `/docs/inheri
 
 `src/lib/plot.ts` holds one record per row and is the map's only input: the canvas maps records to
 nodes, `PlotTable` maps them to two tables, `PlotPanel` maps one to the fields above a plot page.
-There are two shapes — a seed (a site, with a rung and a parent) and a part (a library/tool/app/
-upstream, with a kind and dependencies).
+There are two shapes — a seed (a site, with a rung and a parent) and a part (a library, tool, app, upstream, package or
+workspace, with a kind and dependencies).
 
 - Adding a row means a record **and** `src/content/plot/<id>.md`. The module checks both
   directions at import time, and refuses a relation that names a row it does not hold.

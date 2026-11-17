@@ -68,25 +68,25 @@ export function PlotNode({ data, selected }: NodeProps<PlotFlowNode>) {
         id="in-l"
         type="target"
         position={Position.Left}
-        style={{ opacity: 0, top: '30%' }}
+        style={{ opacity: 0, top: '55%' }}
       />
       <Handle
         id="in-r"
         type="target"
         position={Position.Right}
-        style={{ opacity: 0, top: '70%' }}
+        style={{ opacity: 0, top: '55%' }}
       />
       <Handle
         id="out-l"
         type="source"
         position={Position.Left}
-        style={{ opacity: 0, top: '70%' }}
+        style={{ opacity: 0, top: '55%' }}
       />
       <Handle
         id="out-r"
         type="source"
         position={Position.Right}
-        style={{ opacity: 0, top: '30%' }}
+        style={{ opacity: 0, top: '55%' }}
       />
 
       <header className="flex items-center justify-between gap-2 border-b border-line bg-surface-2 px-3 py-2">
@@ -96,12 +96,21 @@ export function PlotNode({ data, selected }: NodeProps<PlotFlowNode>) {
               row.role === 'starter' ? 'bg-pulse' : row.role === 'seed' ? 'bg-violet' : 'bg-muted'
             }`}
           />
-          <span className="truncate font-mono text-[12.5px] font-semibold text-cream">
+          <span
+            className="truncate font-mono text-[12.5px] font-semibold text-cream"
+            title={row.entity}
+          >
             {row.entity}
           </span>
         </span>
-        <span className="shrink-0 rounded-full border border-line px-1.5 py-px text-[9px] tracking-[0.12em] text-muted uppercase">
-          {row.role}
+        {/* One badge, not two: a status is the role that matters. A second
+            pill did not fit beside a long package name and wrapped the header. */}
+        <span
+          className={`shrink-0 rounded-full border px-1.5 py-px text-[9px] tracking-[0.12em] uppercase ${
+            row.status ? 'border-violet/50 text-violet' : 'border-line text-muted'
+          }`}
+        >
+          {row.status ?? row.role}
         </span>
       </header>
 
@@ -109,8 +118,7 @@ export function PlotNode({ data, selected }: NodeProps<PlotFlowNode>) {
         <Row k="PK id" v={row.id} />
         {isPart ? (
           <>
-            <Row k="kind" v={KIND_LABEL[row.kind]} />
-            <Row k="built" v={row.language} />
+            <Row k="kind" v={`${KIND_LABEL[row.kind]} · ${row.language}`} />
             <Row
               k="depends"
               v={row.depends.length ? row.depends.map((dependency) => dependency.id).join(', ') : 'none'}

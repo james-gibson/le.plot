@@ -9,7 +9,7 @@ seeds: grower, packager
 
 # The record
 
-The diagram and the tables are the same thirteen objects. So are the thirteen pages under `/plot`.
+The diagram and the tables are the same seventeen objects. So are the seventeen pages under `/plot`.
 
 `src/lib/plot.ts` holds one record per row, in two shapes:
 
@@ -18,10 +18,11 @@ The diagram and the tables are the same thirteen objects. So are the thirteen pa
   its own history starts, and where its table sits on the map;
 - **a part row** — a library, tool, app or upstream: name, kind, language, what it provides, what it
   depends on, the default ports it binds when it binds any, and the same position and history.
+  Its kind is one of library, tool, app, upstream, package or workspace.
 
 One file, two shapes, because they answer different questions. A seed row answers "who is this
 for"; a part row answers "what does this do". Forcing one shape would have meant a `rung` of
-`undefined` on seven rows, or a `kind` on six rows that does not apply.
+`undefined` on eleven rows, or a `kind` on six rows that does not apply.
 
 ## Why the fields are code
 
@@ -78,7 +79,7 @@ mistake it met first and called it done.
 
 - **No fetched data.** The plot is not a live GitHub query. A build that needs the network to draw
   a diagram is a build that fails in a train.
-- **No layout engine.** Positions are declared in the record. Thirteen nodes do not need a force
+- **No layout engine.** Positions are declared in the record. Seventeen nodes do not need a force
   simulation, and a diagram that re-arranges itself is harder to return to than one that does not.
 - **No prose.** The record says `rung: 0`; the page says what that costs a homeowner. Mixing them
   would make the map a summary and the page a duplicate.

@@ -38,7 +38,7 @@ import { SCALE } from './seeds'
 import { PARENT } from './site'
 
 export type Role = 'starter' | 'seed' | 'part'
-export type PartKind = 'library' | 'tool' | 'app' | 'upstream'
+export type PartKind = 'library' | 'tool' | 'app' | 'upstream' | 'package' | 'workspace'
 
 /** A default port the service binds, and what answers on it. */
 export type Port = {
@@ -71,6 +71,8 @@ type Common = {
   note: string
   /** default ports the record binds, when it binds any. Omitted is not zero. */
   ports?: Port[]
+  /** specified but not implemented: the map must not imply otherwise */
+  status?: 'proposal'
   /** where its table sits on the map, in flow coordinates */
   at: { x: number; y: number }
 }
@@ -258,7 +260,7 @@ export const PLOT: PlotRow[] = [
     repo: 'james-gibson/isotope',
     since: '2026-04-04',
     note: 'The floor under the lab: every tool asks it the same question before letting a caller act.',
-    at: row(0, 620),
+    at: row(0, 560),
   },
   {
     id: 'ocd-smoke-alarm',
@@ -278,7 +280,7 @@ export const PLOT: PlotRow[] = [
     repo: 'james-gibson/smoke-alarm',
     since: '2026-04-03',
     note: 'One binary, two modes: a terminal UI for triage and a service lezz.go starts as a LaunchAgent.',
-    at: row(280, 620),
+    at: row(260, 560),
   },
   {
     id: 'adhd',
@@ -299,7 +301,7 @@ export const PLOT: PlotRow[] = [
     repo: 'james-gibson/adhd',
     since: '2026-04-03',
     note: 'The thing that turns a monitor’s state into lights, and its log into something a peer can read.',
-    at: row(560, 620),
+    at: row(520, 560),
   },
   {
     id: 'local-time',
@@ -314,7 +316,7 @@ export const PLOT: PlotRow[] = [
     repo: 'james-gibson/local-time',
     since: '2025-09-08',
     note: 'The time model two seed sites publish against: one imports its shape, the other emits a universe of the same kind.',
-    at: row(840, 620),
+    at: row(780, 560),
   },
   {
     id: 'lezz.go',
@@ -338,7 +340,7 @@ export const PLOT: PlotRow[] = [
     repo: 'james-gibson/lezz.go',
     since: '2026-04-02',
     note: 'The only row whose job is the other rows: install them, update them, and start a cluster on demand.',
-    at: row(0, 900),
+    at: row(0, 830),
   },
   {
     id: 'le.mon',
@@ -353,7 +355,7 @@ export const PLOT: PlotRow[] = [
     repo: null,
     since: '2026-10-27',
     note: 'The display exists before its source does; that is the claim, not an unfinished state.',
-    at: row(280, 900),
+    at: row(1300, 560),
   },
   {
     id: 'openttd',
@@ -369,7 +371,68 @@ export const PLOT: PlotRow[] = [
     repo: 'gibsunas/openttd',
     since: '2025-10-01',
     note: 'Not a le.gume site and not a lab tool: the simulation those studies measure, and the reason their numbers mean anything.',
-    at: row(1120, 900),
+    at: row(1040, 560),
+  },
+  {
+    id: 'le.roy',
+    entity: 'le.roy',
+    title: 'Rotate or yield: the claim tool, with jenkins as its loud escape hatch',
+    role: 'part',
+    kind: 'tool',
+    language: 'Go',
+    provides: 'check, rotate, yield — and `jenkins`, which always yields and announces the yield over mDNS',
+    depends: [{ id: 'lezz.go', verb: 'is specified in' }],
+    status: 'proposal',
+    live: null,
+    repo: 'james-gibson/lezz.go',
+    since: '2026-10-26',
+    note: 'A proposal, not a binary: it accepts a rotation challenge and refuses everything else. The page says which parts exist today.',
+    at: row(260, 830),
+  },
+  {
+    id: 'lemon-x-files',
+    entity: 'lemon-x-files',
+    title: 'The Nx workspace template the ade-stand clones and overlays',
+    role: 'part',
+    kind: 'workspace',
+    language: 'TypeScript',
+    provides: 'packages, tools and the init/setup scripts a generated lemon workspace is built from',
+    depends: [],
+    live: null,
+    repo: 'gibsunas/lemon-x-files',
+    since: '2025-04-01',
+    note: 'A template checkout, used read-only: the generator clones it, and nothing here pushes back.',
+    at: row(1040, 830),
+  },
+  {
+    id: 'lemon-extract',
+    entity: '@lemon/extract',
+    title: 'A CLI that reads a TypeScript monorepo’s tsconfigs and says what they include',
+    role: 'part',
+    kind: 'package',
+    language: 'TypeScript',
+    provides: 'a count of each tsconfig naming convention, and the files each config pulls in',
+    depends: [],
+    live: null,
+    repo: 'gibsunas/lemon-extract',
+    since: '2020-08-08',
+    note: 'The published 0.2.11 is narrower than its repository README: the tool that shipped counts tsconfigs, the README describes a cross-repo change plan.',
+    at: row(520, 830),
+  },
+  {
+    id: 'create-ade-stand',
+    entity: '@lemon/create-ade-stand',
+    title: 'npm create @lemon/ade-stand: an Nx workspace from a template, in one command',
+    role: 'part',
+    kind: 'package',
+    language: 'TypeScript',
+    provides: 'a locked, root-refusing generator that clones the template and overlays the generated workspace',
+    depends: [{ id: 'lemon-x-files', verb: 'clones and overlays' }],
+    live: null,
+    repo: 'gibsunas/lemon-ade-stand',
+    since: '2025-03-16',
+    note: 'Published as @lemon/create-ade-stand to abuse the npm create alias; the repository is lemon-ade-stand.',
+    at: row(780, 830),
   },
 ]
 
@@ -394,6 +457,16 @@ export const RELATIONS: Relation[] = [
     from: 'that-train-dashboard',
     to: 'openttd',
     verb: 'runs its studies on',
+  },
+  {
+    from: 'create-ade-stand',
+    to: 'lemon-x-files',
+    verb: 'clones and overlays',
+  },
+  {
+    from: 'lezz.go',
+    to: 'le.roy',
+    verb: 'specifies (as a proposal)',
   },
 ]
 
@@ -427,6 +500,8 @@ export const KIND_LABEL: Record<PartKind, string> = {
   tool: 'tool',
   app: 'app',
   upstream: 'upstream',
+  package: 'package',
+  workspace: 'workspace',
 }
 
 export { NODE_W }

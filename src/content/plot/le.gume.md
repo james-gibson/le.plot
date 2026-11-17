@@ -9,7 +9,7 @@ seeds: reader, grower
 
 # le.gume
 
-Six rows in this plot are sites made of the same parts, and this is where the parts come from. The plot has seven more rows that are not sites at all — the lab they describe.
+Six rows in this plot are sites made of the same parts, and this is where the parts come from. The plot has eleven more rows that are not sites at all — the lab they describe.
 
 `le.gume` is a documentation site whose content is Markdown files, whose navigation is derived
 from the file tree, whose build refuses to publish when the output contradicts the source, and
