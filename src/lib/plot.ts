@@ -112,7 +112,7 @@ export type PlotRow = SeedRow | PartRow
 /** A claim between two rows. The verb is what the panel prints; the line is unlabelled. */
 export type Relation = { from: string; to: string; verb: string }
 
-const NODE_W = 260
+const NODE_W = 250
 const row = (x: number, y: number) => ({ x, y })
 
 export const PLOT: PlotRow[] = [
@@ -280,7 +280,7 @@ export const PLOT: PlotRow[] = [
     repo: 'james-gibson/smoke-alarm',
     since: '2026-04-03',
     note: 'One binary, two modes: a terminal UI for triage and a service lezz.go starts as a LaunchAgent.',
-    at: row(260, 560),
+    at: row(262, 560),
   },
   {
     id: 'adhd',
@@ -301,7 +301,7 @@ export const PLOT: PlotRow[] = [
     repo: 'james-gibson/adhd',
     since: '2026-04-03',
     note: 'The thing that turns a monitor’s state into lights, and its log into something a peer can read.',
-    at: row(520, 560),
+    at: row(524, 560),
   },
   {
     id: 'local-time',
@@ -316,7 +316,7 @@ export const PLOT: PlotRow[] = [
     repo: 'james-gibson/local-time',
     since: '2025-09-08',
     note: 'The time model two seed sites publish against: one imports its shape, the other emits a universe of the same kind.',
-    at: row(780, 560),
+    at: row(786, 560),
   },
   {
     id: 'lezz.go',
@@ -355,7 +355,7 @@ export const PLOT: PlotRow[] = [
     repo: null,
     since: '2026-10-27',
     note: 'The display exists before its source does; that is the claim, not an unfinished state.',
-    at: row(1300, 560),
+    at: row(1310, 560),
   },
   {
     id: 'openttd',
@@ -371,7 +371,7 @@ export const PLOT: PlotRow[] = [
     repo: 'gibsunas/openttd',
     since: '2025-10-01',
     note: 'Not a le.gume site and not a lab tool: the simulation those studies measure, and the reason their numbers mean anything.',
-    at: row(1040, 560),
+    at: row(1048, 560),
   },
   {
     id: 'le.roy',
@@ -387,7 +387,7 @@ export const PLOT: PlotRow[] = [
     repo: 'james-gibson/lezz.go',
     since: '2026-10-26',
     note: 'A proposal, not a binary: it accepts a rotation challenge and refuses everything else. The page says which parts exist today.',
-    at: row(260, 830),
+    at: row(262, 830),
   },
   {
     id: 'lemon-x-files',
@@ -402,7 +402,7 @@ export const PLOT: PlotRow[] = [
     repo: 'gibsunas/lemon-x-files',
     since: '2025-04-01',
     note: 'A template checkout, used read-only: the generator clones it, and nothing here pushes back.',
-    at: row(1040, 830),
+    at: row(1048, 830),
   },
   {
     id: 'lemon-extract',
@@ -417,7 +417,7 @@ export const PLOT: PlotRow[] = [
     repo: 'gibsunas/lemon-extract',
     since: '2020-08-08',
     note: 'The published 0.2.11 is narrower than its repository README: the tool that shipped counts tsconfigs, the README describes a cross-repo change plan.',
-    at: row(520, 830),
+    at: row(524, 830),
   },
   {
     id: 'create-ade-stand',
@@ -432,7 +432,7 @@ export const PLOT: PlotRow[] = [
     repo: 'gibsunas/lemon-ade-stand',
     since: '2025-03-16',
     note: 'Published as @lemon/create-ade-stand to abuse the npm create alias; the repository is lemon-ade-stand.',
-    at: row(780, 830),
+    at: row(786, 830),
   },
 ]
 
