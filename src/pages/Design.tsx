@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, CopyButton } from 'fancy-ui-react'
 import { MotionReveal, useMotion } from '../lib/motion'
@@ -6,6 +6,7 @@ import { AgentHandoff, SITE_HANDOFF } from '../components/AgentHandoff'
 import { PlotCanvas } from '../components/PlotCanvas'
 import { PlotTable } from '../components/PlotTable'
 import { usePageMeta } from '../lib/usePageMeta'
+import { ALL_GROUPS, type GroupId } from '../lib/plot'
 
 function Sample({
   title,
@@ -61,6 +62,16 @@ export function Design() {
   )
 
   const { mode } = useMotion()
+  const [groups, setGroups] = useState<GroupId[]>(ALL_GROUPS)
+  const [picked, setPicked] = useState<string | null>(null)
+
+  const toggle = (group: GroupId) => {
+    setGroups((current) => {
+      const next = current.includes(group) ? current.filter((id) => id !== group) : [...current, group]
+      return next.length ? next : ALL_GROUPS
+    })
+    setPicked(null)
+  }
 
   return (
     <div className="mx-auto w-full max-w-5xl px-5 py-14 sm:px-8 sm:py-20">
@@ -118,7 +129,16 @@ export function Design() {
             </>
           }
         >
-          <PlotCanvas />
+          <PlotCanvas
+            groups={groups}
+            onToggle={toggle}
+            onAll={() => {
+              setGroups(ALL_GROUPS)
+              setPicked(null)
+            }}
+            picked={picked}
+            onPick={setPicked}
+          />
         </Sample>
 
         <Sample
@@ -133,7 +153,7 @@ export function Design() {
             </>
           }
         >
-          <PlotTable />
+          <PlotTable groups={groups} />
         </Sample>
 
         <Sample

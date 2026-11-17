@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { KIND_LABEL, children, parts, rungLabel, seeds } from '../lib/plot'
+import { KIND_LABEL, children, parts, rungLabel, seeds, type GroupId } from '../lib/plot'
 
 /**
  * The map as tables.
@@ -9,13 +9,21 @@ import { KIND_LABEL, children, parts, rungLabel, seeds } from '../lib/plot'
  * row: a site grown from the starter, and a part of the lab the sites describe.
  * Forcing them into one grid would mean columns that are blank half the time.
  */
-export function PlotTable() {
+export function PlotTable({ groups }: { groups: GroupId[] }) {
+  const seedRows = seeds().filter((seed) => groups.includes(seed.group))
+  const partRows = parts().filter((part) => groups.includes(part.group))
+
   return (
     <div className="space-y-10">
       <div>
         <h3 className="text-xs tracking-[0.18em] text-muted uppercase">
-          Grown from the starter — {children().length + 1} rows
+          Grown from the starter — {seedRows.length} of {children().length + 1} rows
         </h3>
+        {seedRows.length === 0 ? (
+          <p className="mt-3 rounded-xl border border-line px-4 py-3 text-sm text-muted">
+            No seed rows in this layer: the deployments are the ones grown from the starter.
+          </p>
+        ) : (
         <div className="mt-3 overflow-x-auto rounded-2xl border border-line">
           <table className="w-full border-collapse text-left text-sm">
             <caption className="sr-only">
@@ -35,7 +43,7 @@ export function PlotTable() {
               </tr>
             </thead>
             <tbody>
-              {seeds().map((seed) => (
+              {seedRows.map((seed) => (
                 <tr key={seed.id} className="align-top">
                   <th scope="row" className="border-b border-line-soft px-4 py-3 text-left font-normal">
                     <Link
@@ -77,19 +85,25 @@ export function PlotTable() {
                         : 'deferred'}
                   </td>
                   <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
-                    {seed.since}
+                    {seed.since ?? '—'}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        )}
       </div>
 
       <div>
         <h3 className="text-xs tracking-[0.18em] text-muted uppercase">
-          The lab the sites run in — {parts().length} rows
+          The lab and the reading stack — {partRows.length} of {parts().length} rows
         </h3>
+        {partRows.length === 0 ? (
+          <p className="mt-3 rounded-xl border border-line px-4 py-3 text-sm text-muted">
+            No lab rows in this layer: this view is the deployments.
+          </p>
+        ) : (
         <div className="mt-3 overflow-x-auto rounded-2xl border border-line">
           <table className="w-full border-collapse text-left text-sm">
             <caption className="sr-only">
@@ -109,7 +123,7 @@ export function PlotTable() {
               </tr>
             </thead>
             <tbody>
-              {parts().map((part) => (
+              {partRows.map((part) => (
                 <tr key={part.id} className="align-top">
                   <th scope="row" className="border-b border-line-soft px-4 py-3 text-left font-normal">
                     <Link
@@ -159,13 +173,14 @@ export function PlotTable() {
                     )}
                   </td>
                   <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
-                    {part.since}
+                    {part.since ?? '—'}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        )}
       </div>
     </div>
   )

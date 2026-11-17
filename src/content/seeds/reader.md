@@ -14,8 +14,8 @@ answers it without asking you to clone anything.
 
 ## Start here
 
-Open [the map](/#map). Seventeen rows: one starter, five sites grown from it, and eleven systems
-those sites describe. Each row names a readiness (or a kind), a front door (or what it provides)
+Open [the map](/#map). Twenty-six rows in three layers: eight deployments, twelve lab systems and six
+reading tools. Each row names a readiness (or a kind), a front door (or what it provides)
 and its parents or dependencies. Select a table for its record, or follow the row to its page.
 
 ## What the readiness column is for

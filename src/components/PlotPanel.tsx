@@ -36,7 +36,7 @@ export function PlotPanel({ rowId }: { rowId: string }) {
             </div>
             <div>
               <p className="text-xs tracking-[0.14em] text-muted uppercase">Since</p>
-              <p className="mt-1 font-mono text-sm text-cream">{row.since}</p>
+              <p className="mt-1 font-mono text-sm text-cream">{row.since ?? '—'}</p>
             </div>
           </>
         ) : (
@@ -53,7 +53,7 @@ export function PlotPanel({ rowId }: { rowId: string }) {
             </div>
             <div>
               <p className="text-xs tracking-[0.14em] text-muted uppercase">Growing since</p>
-              <p className="mt-1 font-mono text-sm text-cream">{row.since}</p>
+              <p className="mt-1 font-mono text-sm text-cream">{row.since ?? '—'}</p>
             </div>
           </>
         )}

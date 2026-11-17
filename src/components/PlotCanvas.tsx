@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Background,
@@ -11,25 +11,29 @@ import {
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import {
+  ALL_GROUPS,
+  GROUPS,
   NODE_W,
   PLOT,
   RELATIONS,
   children,
   getPlotRow,
-  parts,
   rungLabel,
+  type GroupId,
   type PlotRow,
 } from '../lib/plot'
 import { useMotion } from '../lib/motion'
 import { PlotNode, type PlotFlowNode } from './PlotNode'
 
 /**
- * The map.
+ * The map, with layers.
  *
- * Seventeen tables, fourteen lines. React Flow draws it because the reader is the
- * one who decides what to look at: pan to a row, zoom into its fields, select
- * it for the record. Nothing moves on its own — a diagram is not a slideshow,
- * and the motion budget applies.
+ * Twenty-six tables and eighteen lines is too much to read at once, and most
+ * readers want one question answered: what is deployed, what runs here, or what
+ * do I write with. So the map has three groups and a way back to everything.
+ * The geography never moves — the same row sits in the same place in every
+ * view — and a toggle hides what does not answer the question, then fits the
+ * viewport to what is left.
  *
  * It is drawn in the browser only. The prerender ships the tables below the
  * canvas, which are the same rows in the same order; an agent or a reader
@@ -62,10 +66,10 @@ function vendorHandles(child: PlotRow): { out: string; in: string } {
     : { out: 'out-right', in: 'in-left' }
 }
 
-const edges: BuiltInEdge[] = []
+const baseEdges: BuiltInEdge[] = []
 
 for (const child of children()) {
-  edges.push({
+  baseEdges.push({
     id: `${root.id}-inherits-${child.id}`,
     source: root.id,
     target: child.id,
@@ -80,7 +84,7 @@ for (const child of children()) {
 
   if (!child.vendors) continue
   const { out, in: target } = vendorHandles(child)
-  edges.push({
+  baseEdges.push({
     id: `${root.id}-rules-${child.id}`,
     source: root.id,
     target: child.id,
@@ -94,9 +98,9 @@ for (const child of children()) {
   })
 }
 
-// The cross claims. A horizontal pair leaves and enters on the sides; a
-// vertical pair uses the top and bottom, where inheritance already lives.
-for (const [index, relation] of RELATIONS.entries()) {
+// The cross claims. A same-row pair leaves and enters on the sides; a
+// cross-row pair uses the top and bottom, where inheritance already lives.
+for (const relation of RELATIONS) {
   const from = getPlotRow(relation.from)
   const to = getPlotRow(relation.to)
   if (!from || !to) continue
@@ -104,20 +108,19 @@ for (const [index, relation] of RELATIONS.entries()) {
   const b = centreOf(to)
   const dx = b.x - a.x
   const dy = b.y - a.y
-  // A cross-row claim leaves the bottom of its card; only a same-row claim runs
-  // along the sides, where a bezier would otherwise sweep across the row.
-  const horizontal = Math.abs(dy) < 80 && Math.abs(dx) > 80
-  edges.push({
+  // Vertical only when the two cards are nearly in a column. A bottom-to-top
+  // path whose target sits *above* the source has to loop the whole row; the
+  // side handles make the same claim without drawing a box around the lab.
+  const vertical = Math.abs(dx) < 150 && dy > 0
+  baseEdges.push({
     id: `rel-${relation.from}-${relation.to}`,
     source: relation.from,
     target: relation.to,
-    sourceHandle: horizontal ? (dx > 0 ? 'out-r' : 'out-l') : 'out',
-    targetHandle: horizontal ? (dx > 0 ? 'in-l' : 'in-r') : 'in',
-    type: 'smoothstep',
-    pathOptions: { borderRadius: 16, offset: 20 },
+    sourceHandle: vertical ? 'out' : dx > 0 ? 'out-r' : 'out-l',
+    targetHandle: vertical ? 'in' : dx > 0 ? 'in-l' : 'in-r',
+    type: 'default',
     style: { stroke: '#a49a9e', strokeWidth: 1.1 },
     markerEnd: { type: MarkerType.ArrowClosed, color: '#a49a9e', width: 14, height: 14 },
-    zIndex: 20 + index,
   })
 }
 
@@ -185,73 +188,145 @@ function Markers() {
   )
 }
 
-export function PlotCanvas() {
-  const [mounted, setMounted] = useState(false)
-    const [picked, setPicked] = useState<string | null>(null)
+type Props = {
+  groups: GroupId[]
+  onToggle: (group: GroupId) => void
+  onAll: () => void
+  picked: string | null
+  onPick: (id: string | null) => void
+}
+
+export function PlotCanvas({ groups, onToggle, onAll, picked, onPick }: Props) {
   const instanceRef = useRef<ReactFlowInstance<PlotFlowNode, BuiltInEdge> | null>(null)
   const { mode } = useMotion()
 
+  const wrapRef = useRef<HTMLDivElement | null>(null)
+  const visible = useMemo(() => new Set(PLOT.filter((row) => groups.includes(row.group)).map((row) => row.id)), [groups])
+  const shownNodes = useMemo(() => nodes.filter((node) => visible.has(node.id)), [visible])
+  const shownEdges = useMemo(
+    () => baseEdges.filter((edge) => visible.has(edge.source) && visible.has(edge.target)),
+    [visible],
+  )
+
+  // A view change is a camera move, not a re-layout: the geography stays put and
+  // the viewport fits whatever is left. The fit is computed here from the visible
+  // records rather than asked of `fitView`, because a filtered view can open
+  // before the filtered nodes have been measured — and a blank canvas is a worse
+  // failure than an approximate frame.
+  const fit = (animate: boolean) => {
+    const el = wrapRef.current
+    const instance = instanceRef.current
+    if (!el || !instance || shownNodes.length === 0) return
+    const width = el.clientWidth
+    const height = el.clientHeight
+    const xs = shownNodes.map((node) => node.position.x)
+    const ys = shownNodes.map((node) => node.position.y)
+    const minX = Math.min(...xs)
+    const maxX = Math.max(...xs) + NODE_W
+    const minY = Math.min(...ys)
+    const maxY = Math.max(...ys) + 170
+    const pad = 28
+    const zoom = Math.max(
+      0.15,
+      Math.min((width - pad * 2) / (maxX - minX), (height - pad * 2) / (maxY - minY), 1.2),
+    )
+    instance.setViewport(
+      {
+        x: (width - (maxX - minX) * zoom) / 2 - minX * zoom,
+        y: (height - (maxY - minY) * zoom) / 2 - minY * zoom,
+        zoom,
+      },
+      { duration: animate && mode !== 'still' ? 320 : 0 },
+    )
+  }
+
   useEffect(() => {
-    setMounted(true)
+    const timers = [40, 240].map((delay) => setTimeout(() => fit(true), delay))
+    return () => timers.forEach(clearTimeout)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [groups, mode])
+
+  useEffect(() => {
+    const el = wrapRef.current
+    if (!el || typeof ResizeObserver === 'undefined') return
+    const observer = new ResizeObserver(() => fit(false))
+    observer.observe(el)
+    return () => observer.disconnect()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const row = picked ? getPlotRow(picked) : undefined
+  const everything = groups.length === ALL_GROUPS.length
 
   return (
     <div>
+      <div className="mb-4 flex flex-wrap items-center gap-2" role="group" aria-label="Choose what the map shows">
+        {GROUPS.map((group) => {
+          const active = groups.includes(group.id)
+          const count = PLOT.filter((entry) => entry.group === group.id).length
+          return (
+            <button
+              key={group.id}
+              type="button"
+              aria-pressed={active}
+              onClick={() => onToggle(group.id)}
+              title={group.blurb}
+              className={`rounded-full border px-3 py-1 text-xs transition-colors ${
+                active
+                  ? 'border-pulse/60 bg-pulse/10 text-cream'
+                  : 'border-line text-muted hover:border-line-soft hover:text-cream'
+              }`}
+            >
+              {group.label} <span className="font-mono text-[10px] text-muted">{count}</span>
+            </button>
+          )
+        })}
+        <button
+          type="button"
+          aria-pressed={everything}
+          onClick={onAll}
+          className={`rounded-full border px-3 py-1 text-xs transition-colors ${
+            everything
+              ? 'border-cream/50 bg-surface-2 text-cream'
+              : 'border-line text-muted hover:border-line-soft hover:text-cream'
+          }`}
+        >
+          Everything <span className="font-mono text-[10px] text-muted">{PLOT.length}</span>
+        </button>
+        <span className="ml-1 text-[11px] text-muted">
+          showing {shownNodes.length} of {PLOT.length} rows
+        </span>
+      </div>
+
       <div className="relative overflow-hidden rounded-2xl border border-line bg-[#0c0a0c]">
         <Markers />
-        {mounted ? (
-          <div className="plot-flow h-[440px] md:h-[780px]">
-            <ReactFlow
-              nodes={nodes}
-              edges={edges}
-              nodeTypes={nodeTypes}
-              /* A phone shows the whole plot as a shape, not as clipped cards:
-                 the tables below carry the values, and a tap on a card zooms to
-                 reading size. Clipping the map looked broken; a small map does
-                 not. */
-              fitView
-              fitViewOptions={{ padding: 0.1, duration: mode === 'still' ? 0 : 220 }}
-              minZoom={0.18}
-              maxZoom={1.8}
-              nodesConnectable={false}
-              elementsSelectable
-              onNodeClick={(_, node) => {
-                setPicked(node.id)
-                // Read the table by looking at it: a click brings the row to a
-                // legible zoom and centres it, rather than leaving the reader to
-                // scroll-zoom after selecting.
-                const centre = centreOf(PLOT.find((row) => row.id === node.id) ?? root)
-                instanceRef.current?.setCenter(centre.x, centre.y, {
-                  zoom: 0.95,
-                  duration: mode === 'still' ? 0 : 260,
-                })
-              }}
-              onPaneClick={() => setPicked(null)}
-              onInit={(instance) => {
-                instanceRef.current = instance
-                // `fitView` is queued until the nodes are measured; a second call
-                // after the first paint makes the initial view deterministic even
-                // if a node's height arrived late.
-                setTimeout(() => instance.fitView({ padding: 0.1, duration: 0 }), 60)
-              }}
-            >
-              <Background color="#2a242a" gap={24} size={1} />
-              <Controls showInteractive={false} position="top-right" />
-            </ReactFlow>
-          </div>
-        ) : (
-          <div className="flex h-[440px] flex-col items-center justify-center gap-3 px-6 text-center md:h-[780px]">
-            <p className="font-mono text-xs tracking-[0.16em] text-muted uppercase">
-              the map is drawn in the browser
-            </p>
-            <p className="max-w-sm text-sm leading-6 text-muted">
-              The same rows are in the tables below, in the same order — nothing here is on the
-              diagram and nowhere else.
-            </p>
-          </div>
-        )}
+        <div ref={wrapRef} className="plot-flow h-[440px] md:h-[780px]">
+          <ReactFlow
+            nodes={shownNodes}
+            edges={shownEdges}
+            nodeTypes={nodeTypes}
+            minZoom={0.15}
+            maxZoom={1.8}
+            nodesConnectable={false}
+            elementsSelectable
+            onNodeClick={(_, node) => {
+              onPick(node.id)
+              const centre = centreOf(PLOT.find((entry) => entry.id === node.id) ?? root)
+              instanceRef.current?.setCenter(centre.x, centre.y, {
+                zoom: 0.95,
+                duration: mode === 'still' ? 0 : 260,
+              })
+            }}
+            onPaneClick={() => onPick(null)}
+            onInit={(instance) => {
+              instanceRef.current = instance
+              fit(false)
+            }}
+          >
+            <Background color="#2a242a" gap={24} size={1} />
+            <Controls showInteractive={false} position="top-right" />
+          </ReactFlow>
+        </div>
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] text-muted">
@@ -283,8 +358,8 @@ export function PlotCanvas() {
             <p className="text-[11px] tracking-[0.12em] text-muted uppercase">
               {row.role === 'part'
                 ? `${row.kind} · ${row.language}`
-                : `rung ${row.rung} · ${rungLabel(row.rung)}`}{' '}
-              · since {row.since}
+                : `rung ${row.rung} · ${rungLabel(row.rung)}`}
+              {row.since ? ` · since ${row.since}` : ''}
             </p>
           </div>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">{row.note}</p>
@@ -305,14 +380,16 @@ export function PlotCanvas() {
                 {row.live.replace('https://', '')}
               </a>
             ) : null}
-            <a
-              href={`https://github.com/${row.repo}`}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="text-muted underline decoration-line underline-offset-4 hover:text-cream"
-            >
-              {row.repo}
-            </a>
+            {row.repo ? (
+              <a
+                href={`https://github.com/${row.repo}`}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="text-muted underline decoration-line underline-offset-4 hover:text-cream"
+              >
+                {row.repo}
+              </a>
+            ) : null}
           </div>
         </div>
       ) : null}

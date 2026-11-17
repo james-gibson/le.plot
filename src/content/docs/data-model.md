@@ -9,7 +9,7 @@ seeds: grower, packager
 
 # The record
 
-The diagram and the tables are the same seventeen objects. So are the seventeen pages under `/plot`.
+The diagram and the tables are the same twenty-six objects. So are the twenty-six pages under `/plot`.
 
 `src/lib/plot.ts` holds one record per row, in two shapes:
 
@@ -22,7 +22,7 @@ The diagram and the tables are the same seventeen objects. So are the seventeen 
 
 One file, two shapes, because they answer different questions. A seed row answers "who is this
 for"; a part row answers "what does this do". Forcing one shape would have meant a `rung` of
-`undefined` on eleven rows, or a `kind` on six rows that does not apply.
+`undefined` on nineteen rows, or a `kind` on seven rows that does not apply.
 
 ## Why the fields are code
 
@@ -47,6 +47,20 @@ omitted.
 The field is also not a reservation. Every default below is read from the repository — a config
 file, a flag or a second cluster can move it — and the page says so rather than implying a
 guarantee.
+
+## Three layers, one geography
+
+Every record carries a `group`: `examples` (a deployment you can open), `lab` (something that runs
+on this machine), or `docs` (a tool that reads or writes the documents). The map's switches filter
+on that field; a view is the rows whose group is switched on, and a line is drawn only when both of
+its ends are.
+
+The geography does not move between views. A record has one `at` position, and toggling a layer
+fits the viewport to what remains rather than re-laying the map out — the row you found yesterday is
+in the same place today, which is the only property that makes return visits cheap.
+
+A row belongs to exactly one group. If a future row answers two questions, give it a primary group
+and say the second in its page; a node in two layers is a row nobody can find twice.
 
 ## The lines are derived
 
@@ -79,7 +93,7 @@ mistake it met first and called it done.
 
 - **No fetched data.** The plot is not a live GitHub query. A build that needs the network to draw
   a diagram is a build that fails in a train.
-- **No layout engine.** Positions are declared in the record. Seventeen nodes do not need a force
+- **No layout engine.** Positions are declared in the record. Twenty-six nodes do not need a force
   simulation, and a diagram that re-arranges itself is harder to return to than one that does not.
 - **No prose.** The record says `rung: 0`; the page says what that costs a homeowner. Mixing them
   would make the map a summary and the page a duplicate.

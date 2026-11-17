@@ -38,6 +38,17 @@ import { SCALE } from './seeds'
 import { PARENT } from './site'
 
 export type Role = 'starter' | 'seed' | 'part'
+
+/** What a reader came for. Every row belongs to exactly one. */
+export type GroupId = 'examples' | 'lab' | 'docs'
+
+export const GROUPS: { id: GroupId; label: string; blurb: string }[] = [
+  { id: 'examples', label: 'Deployments', blurb: 'the sites you can open' },
+  { id: 'lab', label: 'The lab', blurb: 'what runs on the machine' },
+  { id: 'docs', label: 'Reading & writing', blurb: 'the tools that edit and read the documentation' },
+]
+
+export const ALL_GROUPS: GroupId[] = GROUPS.map((group) => group.id)
 export type PartKind = 'library' | 'tool' | 'app' | 'upstream' | 'package' | 'workspace'
 
 /** A default port the service binds, and what answers on it. */
@@ -65,8 +76,10 @@ type Common = {
   live: string | null
   /** owner/name on GitHub, or null when the work is held locally */
   repo: string | null
-  /** first commit in its own history — the day it stopped being somebody else's */
-  since: string
+  /** first commit in its own history, when it has one that can be read */
+  since?: string
+  /** which question this row answers */
+  group: GroupId
   /** the one-line reason it exists */
   note: string
   /** default ports the record binds, when it binds any. Omitted is not zero. */
@@ -119,6 +132,7 @@ export const PLOT: PlotRow[] = [
   // --- the seed family -----------------------------------------------------
   {
     id: 'le.gume',
+    group: 'examples',
     entity: 'le.gume',
     title: 'The starter: a documentation site that documents itself',
     role: 'starter',
@@ -133,10 +147,11 @@ export const PLOT: PlotRow[] = [
     ships: ['cornichon', 'silverskin'],
     vendors: null,
     note: 'The seed every site below was grown from. Its sections are the vocabulary the children keep or drop.',
-    at: row(560, 0),
+    at: row(655, 0),
   },
   {
     id: 'le.go',
+    group: 'examples',
     entity: 'le.go',
     title: 'The 42i system, introduced through citations',
     role: 'seed',
@@ -155,10 +170,11 @@ export const PLOT: PlotRow[] = [
     ships: ['silverskin'],
     vendors: null,
     note: 'An educational deploy of the seed: how a citation became a magic string, and how to snap it back into bricks.',
-    at: row(0, 300),
+    at: row(0, 280),
   },
   {
     id: 'le.gume-energy',
+    group: 'examples',
     entity: 'le.gume-energy',
     title: 'A non-identifying, local-time record of one home solar system',
     role: 'seed',
@@ -177,10 +193,11 @@ export const PLOT: PlotRow[] = [
     ships: ['cornichon', 'silverskin'],
     vendors: { version: '748e35f', overrides: [] },
     note: 'Production, weather, utility usage and the events that explain the gaps — one household, measured, with nothing identifying it.',
-    at: row(280, 300),
+    at: row(262, 280),
   },
   {
     id: 'le.gume-shell',
+    group: 'examples',
     entity: 'le.gume-shell',
     title: 'A shell for the lab: what runs, where to start, what it costs',
     role: 'seed',
@@ -199,10 +216,11 @@ export const PLOT: PlotRow[] = [
     ships: ['cornichon', 'dill', 'gherkin', 'piccalilli', 'silverskin'],
     vendors: null,
     note: 'The same seed, a different question: not "what is this" but "what is running, and what happens if I stop it".',
-    at: row(560, 300),
+    at: row(524, 280),
   },
   {
     id: 'le.railhead',
+    group: 'examples',
     entity: 'le.railhead',
     title: 'A local-time record of an RL environment where a model plays OpenTTD',
     role: 'seed',
@@ -221,10 +239,11 @@ export const PLOT: PlotRow[] = [
     ships: [],
     vendors: { version: '29d863e', overrides: ['RULES-02'] },
     note: 'A record of somebody else’s environment, kept to the parent’s rules — and one rule behind them, on purpose, until the next catch-up.',
-    at: row(840, 300),
+    at: row(786, 280),
   },
   {
     id: 'that-train-dashboard',
+    group: 'examples',
     entity: 'that-train-dashboard',
     title: 'A research team’s dashboard for economic studies run as simulations',
     role: 'seed',
@@ -243,12 +262,13 @@ export const PLOT: PlotRow[] = [
     ships: [],
     vendors: { version: '29d863e', overrides: ['RULES-06'] },
     note: 'The same content contract, a different cast: a research team writes down what the model can and cannot show.',
-    at: row(1120, 300),
+    at: row(1048, 280),
   },
 
   // --- the lab the sites describe and run in -------------------------------
   {
     id: 'isotope',
+    group: 'lab',
     entity: 'isotope',
     title: 'A Go library that measures how far a caller has drifted, and what it may still do',
     role: 'part',
@@ -260,10 +280,11 @@ export const PLOT: PlotRow[] = [
     repo: 'james-gibson/isotope',
     since: '2026-04-04',
     note: 'The floor under the lab: every tool asks it the same question before letting a caller act.',
-    at: row(0, 560),
+    at: row(0, 840),
   },
   {
     id: 'ocd-smoke-alarm',
+    group: 'lab',
     entity: 'ocd-smoke-alarm',
     title: 'Continuous health monitoring for HTTP endpoints',
     role: 'part',
@@ -280,10 +301,11 @@ export const PLOT: PlotRow[] = [
     repo: 'james-gibson/smoke-alarm',
     since: '2026-04-03',
     note: 'One binary, two modes: a terminal UI for triage and a service lezz.go starts as a LaunchAgent.',
-    at: row(262, 560),
+    at: row(262, 840),
   },
   {
     id: 'adhd',
+    group: 'lab',
     entity: 'adhd',
     title: 'Alarm lights in a terminal, and a headless MCP relay in the same binary',
     role: 'part',
@@ -301,10 +323,11 @@ export const PLOT: PlotRow[] = [
     repo: 'james-gibson/adhd',
     since: '2026-04-03',
     note: 'The thing that turns a monitor’s state into lights, and its log into something a peer can read.',
-    at: row(524, 560),
+    at: row(524, 840),
   },
   {
     id: 'local-time',
+    group: 'lab',
     entity: 'local-time',
     title: 'Temporal universes, with addresses you can check',
     role: 'part',
@@ -316,10 +339,11 @@ export const PLOT: PlotRow[] = [
     repo: 'james-gibson/local-time',
     since: '2025-09-08',
     note: 'The time model two seed sites publish against: one imports its shape, the other emits a universe of the same kind.',
-    at: row(786, 560),
+    at: row(262, 560),
   },
   {
     id: 'lezz.go',
+    group: 'lab',
     entity: 'lezz.go',
     title: 'The orchestrator that installs, updates and demos the lab',
     role: 'part',
@@ -340,10 +364,11 @@ export const PLOT: PlotRow[] = [
     repo: 'james-gibson/lezz.go',
     since: '2026-04-02',
     note: 'The only row whose job is the other rows: install them, update them, and start a cluster on demand.',
-    at: row(0, 830),
+    at: row(786, 840),
   },
   {
     id: 'le.mon',
+    group: 'lab',
     entity: 'le.mon',
     title: 'A set-top display with nothing plugged in — on purpose',
     role: 'part',
@@ -355,10 +380,11 @@ export const PLOT: PlotRow[] = [
     repo: null,
     since: '2026-10-27',
     note: 'The display exists before its source does; that is the claim, not an unfinished state.',
-    at: row(1310, 560),
+    at: row(1048, 560),
   },
   {
     id: 'openttd',
+    group: 'lab',
     entity: 'openttd',
     title: 'The sandbox the train studies run in, pinned as a fork',
     role: 'part',
@@ -371,10 +397,11 @@ export const PLOT: PlotRow[] = [
     repo: 'gibsunas/openttd',
     since: '2025-10-01',
     note: 'Not a le.gume site and not a lab tool: the simulation those studies measure, and the reason their numbers mean anything.',
-    at: row(1048, 560),
+    at: row(524, 560),
   },
   {
     id: 'le.roy',
+    group: 'lab',
     entity: 'le.roy',
     title: 'Rotate or yield: the claim tool, with jenkins as its loud escape hatch',
     role: 'part',
@@ -387,10 +414,11 @@ export const PLOT: PlotRow[] = [
     repo: 'james-gibson/lezz.go',
     since: '2026-10-26',
     note: 'A proposal, not a binary: it accepts a rotation challenge and refuses everything else. The page says which parts exist today.',
-    at: row(262, 830),
+    at: row(1048, 840),
   },
   {
     id: 'lemon-x-files',
+    group: 'lab',
     entity: 'lemon-x-files',
     title: 'The Nx workspace template the ade-stand clones and overlays',
     role: 'part',
@@ -402,10 +430,11 @@ export const PLOT: PlotRow[] = [
     repo: 'gibsunas/lemon-x-files',
     since: '2025-04-01',
     note: 'A template checkout, used read-only: the generator clones it, and nothing here pushes back.',
-    at: row(1048, 830),
+    at: row(1310, 840),
   },
   {
     id: 'lemon-extract',
+    group: 'lab',
     entity: '@lemon/extract',
     title: 'A CLI that reads a TypeScript monorepo’s tsconfigs and says what they include',
     role: 'part',
@@ -417,10 +446,11 @@ export const PLOT: PlotRow[] = [
     repo: 'gibsunas/lemon-extract',
     since: '2020-08-08',
     note: 'The published 0.2.11 is narrower than its repository README: the tool that shipped counts tsconfigs, the README describes a cross-repo change plan.',
-    at: row(524, 830),
+    at: row(0, 1120),
   },
   {
     id: 'create-ade-stand',
+    group: 'lab',
     entity: '@lemon/create-ade-stand',
     title: 'npm create @lemon/ade-stand: an Nx workspace from a template, in one command',
     role: 'part',
@@ -432,9 +462,164 @@ export const PLOT: PlotRow[] = [
     repo: 'gibsunas/lemon-ade-stand',
     since: '2025-03-16',
     note: 'Published as @lemon/create-ade-stand to abuse the npm create alias; the repository is lemon-ade-stand.',
-    at: row(786, 830),
+    at: row(262, 1120),
   },
-]
+  {
+    id: 'zaphood',
+    entity: 'zaphood',
+    title: 'The Office of Z.B. — a 1998 homepage, built on purpose',
+    role: 'seed',
+    group: 'examples',
+    rung: 0,
+    front: '/',
+    live: 'https://james-gibson.github.io/zaphood',
+    repo: 'james-gibson/zaphood',
+    since: '2026-11-13',
+    inherits: 'le.gume',
+    keeps: [],
+    adds: [
+      'a component library installed the way a 1998 tutorial would',
+      'a marquee, a blink, a tiled background, a visitor counter and a webring',
+      'an awards page the Office gave itself',
+    ],
+    ships: [],
+    vendors: { version: '29d863e', overrides: ['RULES-06'] },
+    note: 'A child seed that breaks every polite rule of the internet on purpose: the content model survives the taste.',
+    at: row(1310, 280),
+  },
+  {
+    id: 'hweat-penny',
+    entity: 'hweat-penny',
+    title: 'Hwheat Penny — one penny, one rotation, counted',
+    role: 'part',
+    group: 'examples',
+    kind: 'app',
+    language: 'TypeScript',
+    provides: 'a single-page explainer of the penny, the rotation and the isotope, with a voice',
+    depends: [],
+    live: 'https://james-gibson.github.io/hweat-penny',
+    repo: 'james-gibson/hweat-penny',
+    since: '2026-11-14',
+    note: 'The lab calls it le.hweat-penny; the repository does not. A site, not a seed: no content tree, no guard.',
+    at: row(0, 560),
+  },
+  {
+    id: 'fire-marshall',
+    entity: 'fire-marshall',
+    title: 'The counter display: protection catalogue against configured state',
+    role: 'part',
+    group: 'lab',
+    kind: 'tool',
+    language: 'Go · React',
+    provides: 'a read-only board counting occupancy against capacity, protection by protection',
+    depends: [
+      { id: 'adhd', verb: 'is the counter display to' },
+      { id: 'synapse', verb: 'resolves its catalogue against' },
+    ],
+    ports: [{ port: 19120, purpose: 'the dashboard, bound to the loopback interface as a lezz service' }],
+    live: null,
+    repo: null,
+    since: '2026-10-08',
+    note: 'A fire marshal board does not report the show: it counts occupancy, names the exits and shows the alarm.',
+    at: row(786, 560),
+  },
+  {
+    id: 'synapse',
+    entity: 'synapse',
+    title: 'The code-knowledge graph an agent reads instead of grepping',
+    role: 'part',
+    group: 'docs',
+    kind: 'tool',
+    language: 'Elixir',
+    provides: 'indexed search, whole-file reads, call edges and an index-status surface',
+    depends: [],
+    ports: [
+      { port: 8585, purpose: 'the MCP server (HTTP)' },
+      { port: 8587, purpose: 'the lab mirror that owns the MCP session' },
+    ],
+    live: null,
+    repo: null,
+    since: '2026-10-08',
+    note: 'A local service with no published source: the index is on this machine, and so is the mirror that survives its restarts.',
+    at: row(1572, 840),
+  },
+  {
+    id: 'opencode',
+    entity: 'opencode',
+    title: 'The agent harness this page was written in',
+    role: 'part',
+    group: 'docs',
+    kind: 'app',
+    language: 'TypeScript',
+    provides: 'a TUI, a local HTTP server and an SDK for running agents against a repository',
+    depends: [],
+    ports: [{ port: 4096, purpose: 'default opencode serve port; the TUI assigns a random one unless pinned' }],
+    live: 'https://opencode.ai',
+    repo: 'sst/opencode',
+    note: 'The harness that reads the vault and writes the pages; its server is the door an SDK or an IDE plugin uses.',
+    at: row(524, 1120),
+  },
+  {
+    id: 'openknowledge',
+    entity: 'openknowledge',
+    title: 'A local Markdown editor and LLM wiki',
+    role: 'part',
+    group: 'docs',
+    kind: 'app',
+    language: 'TypeScript',
+    provides: 'a desktop editor with MCP integrations; local-first, no account',
+    depends: [],
+    live: 'https://openknowledge.ai',
+    repo: 'inkeep/open-knowledge',
+    since: '2026-06-03',
+    note: 'Where the Markdown is edited by hand; the site is built from the same files, so the editor never owns the truth.',
+    at: row(786, 1120),
+  },
+  {
+    id: 'obsidian',
+    entity: 'obsidian',
+    title: 'A local Markdown vault with plugins',
+    role: 'part',
+    group: 'docs',
+    kind: 'app',
+    language: 'Electron',
+    provides: 'a vault on disk, a plugin surface and a graph view',
+    depends: [],
+    live: 'https://obsidian.md',
+    repo: null,
+    note: 'One of the editors that can open the vault. Nothing on this plot depends on it, which is the point of plain files.',
+    at: row(1048, 1120),
+  },
+  {
+    id: 'zed',
+    entity: 'zed',
+    title: 'An editor with an agent panel, written in Rust',
+    role: 'part',
+    group: 'docs',
+    kind: 'app',
+    language: 'Rust',
+    provides: 'a fast editor, a multi-buffer and an agent panel that speaks to a harness',
+    depends: [],
+    live: 'https://zed.dev',
+    repo: 'zed-industries/zed',
+    note: 'The editor in the reading stack: it opens the same files, and the harness does the writing.',
+    at: row(1310, 1120),
+  },
+  {
+    id: 'xcode',
+    entity: 'xcode',
+    title: 'Apple’s IDE and toolchain',
+    role: 'part',
+    group: 'docs',
+    kind: 'app',
+    language: 'Swift · Objective-C',
+    provides: 'the compiler and simulator that build le.mon',
+    depends: [],
+    live: 'https://developer.apple.com/xcode/',
+    repo: null,
+    note: 'The one row that exists for a single build: le.mon is Swift, and nothing else here needs Apple’s toolchain.',
+    at: row(1572, 1120),
+  },]
 
 /** The claims a line draws. Inheritance and vendors are derived from the rows above. */
 export const RELATIONS: Relation[] = [
@@ -467,6 +652,16 @@ export const RELATIONS: Relation[] = [
     from: 'lezz.go',
     to: 'le.roy',
     verb: 'specifies (as a proposal)',
+  },
+  {
+    from: 'fire-marshall',
+    to: 'adhd',
+    verb: 'is the counter display to',
+  },
+  {
+    from: 'fire-marshall',
+    to: 'synapse',
+    verb: 'resolves its catalogue against',
   },
 ]
 
