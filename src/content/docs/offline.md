@@ -9,15 +9,16 @@ seeds: reader
 
 # The plot, offline
 
-Five seeds, one starter, drawn as tables. This file is the same argument as the map, cut into
+Thirteen systems, one plot, drawn as tables. This file is the same argument as the map, cut into
 slides and rendered to a single HTML file by the build.
 ---
 
-## One page, five tables
+## One page, thirteen tables
 
-Every site grown from `le.gume` is on one page, as an entity table with keys and fields. The lines
-between them are relationships, not decoration: solid is inheritance, dashed is a vendored copy of
-the parent's rules.
+Every site grown from `le.gume` — and the libraries, tools and sandbox those sites describe — is on
+one page, as an entity table with keys and fields. The lines are relationships, not decoration:
+solid is inheritance, dashed is a vendored copy of the parent's rules, thin is a claim the row
+states.
 ---
 
 ## The starter
@@ -31,12 +32,13 @@ from the file tree, the build refuses to publish a contradiction, and the deploy
 - 1 build
 ---
 
-## The four children
+## The children
 
 - **le.go** — a brick-set manual; every visual decision replaced
 - **le.gume-energy** — one home solar system, with a data pipeline and a rung-0 front door
 - **le.gume-shell** — the lab, from a shell prompt; all seven sections kept
 - **le.railhead** — somebody else's environment, with the parent's rules vendored
+- **that-train-dashboard** — a research team's studies, published against le.railhead
 ---
 
 ## Two kinds of line
@@ -57,9 +59,15 @@ The child's CI runs a catch-up check before the build. Being behind is allowed; 
 silently is not.
 ---
 
+## The lab
+
+Seven rows are not sites: `local-time`, `isotope`, `ocd-smoke-alarm`, `adhd`, `lezz.go`, `le.mon`,
+`openttd`. They are the libraries, tools, display and sandbox the sites describe. Their internal
+dependencies stay in each row's `depends` field — drawn, they were a hairball.
+
 ## What it costs
 
-- a page per seed, and a record beside it
+- a page per row, and a record beside it
 - a check in both directions, so neither half can go missing quietly
 - a guard that fails a build rather than a review
 - no live query: the plot is a build artifact, not a dashboard

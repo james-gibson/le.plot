@@ -9,7 +9,7 @@ seeds: reader, grower
 
 # le.gume
 
-Five sites in this plot are made of the same parts. This is where the parts come from.
+Six rows in this plot are sites made of the same parts, and this is where the parts come from. The plot has seven more rows that are not sites at all — the lab they describe.
 
 `le.gume` is a documentation site whose content is Markdown files, whose navigation is derived
 from the file tree, whose build refuses to publish when the output contradicts the source, and
@@ -40,5 +40,6 @@ this plot exists to make visible, one row at a time.
 
 - The starter's own front door: `/docs/quickstart`, then `/docs/content-model`.
 - Its rules: `/rules.md` — the version a child vendors is a commit id, not a date.
-- This plot's four children: [le.go](/plot/le.go), [le.gume-energy](/plot/le.gume-energy),
-  [le.gume-shell](/plot/le.gume-shell), [le.railhead](/plot/le.railhead).
+- This plot's children: [le.go](/plot/le.go), [le.gume-energy](/plot/le.gume-energy),
+  [le.gume-shell](/plot/le.gume-shell), [le.railhead](/plot/le.railhead),
+  [that-train-dashboard](/plot/that-train-dashboard).

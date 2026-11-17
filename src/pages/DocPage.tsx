@@ -58,7 +58,7 @@ export function DocPage({ page }: { page: Page }) {
 
         {page.section === 'seeds' && <SeedPanel seedId={page.slug} />}
 
-        {page.section === 'plot' && <PlotPanel seedId={page.slug} />}
+        {page.section === 'plot' && <PlotPanel rowId={page.slug} />}
 
 
         <div className="pb-4">

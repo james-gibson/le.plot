@@ -1,99 +1,155 @@
 import { Link } from 'react-router-dom'
-import { PLOT, rungLabel } from '../lib/plot'
+import { KIND_LABEL, children, parts, rungLabel, seeds } from '../lib/plot'
 
 /**
- * The map as a table.
+ * The map as tables.
  *
  * Rendered on the server, printed in the static shell, and the only version a
- * reader without JavaScript gets. It is not a fallback in the apologetic sense:
- * five rows is a table, and a table is usually the better instrument. The
- * diagram is for the shape; this is for the values.
+ * reader without JavaScript gets. Two tables because the plot has two kinds of
+ * row: a site grown from the starter, and a part of the lab the sites describe.
+ * Forcing them into one grid would mean columns that are blank half the time.
  */
 export function PlotTable() {
   return (
-    <div className="overflow-x-auto rounded-2xl border border-line">
-      <table className="w-full border-collapse text-left text-sm">
-        <caption className="sr-only">
-          The five seeds on the plot: role, readiness, front door, parent, published isotopes and
-          the rules copy each keeps.
-        </caption>
-        <thead className="bg-surface-2 text-cream">
-          <tr>
-            <th scope="col" className="border-b border-line px-4 py-3 font-semibold">
-              Seed
-            </th>
-            <th scope="col" className="border-b border-line px-4 py-3 font-semibold">
-              Role
-            </th>
-            <th scope="col" className="border-b border-line px-4 py-3 font-semibold">
-              Readiness
-            </th>
-            <th scope="col" className="border-b border-line px-4 py-3 font-semibold">
-              Front door
-            </th>
-            <th scope="col" className="border-b border-line px-4 py-3 font-semibold">
-              Inherits
-            </th>
-            <th scope="col" className="border-b border-line px-4 py-3 font-semibold">
-              Ships
-            </th>
-            <th scope="col" className="border-b border-line px-4 py-3 font-semibold">
-              Rules
-            </th>
-            <th scope="col" className="border-b border-line px-4 py-3 font-semibold">
-              Since
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {PLOT.map((seed) => (
-            <tr key={seed.id} className="align-top">
-              <th scope="row" className="border-b border-line-soft px-4 py-3 text-left font-normal">
-                <Link
-                  to={`/plot/${seed.id}`}
-                  className="font-mono text-[13px] text-cream underline decoration-line underline-offset-4 hover:text-pulse"
-                >
-                  {seed.entity}
-                </Link>
-                {seed.live ? (
-                  <a
-                    href={`${seed.live}/`}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="mt-1 block font-mono text-[11px] text-muted hover:text-cream"
-                  >
-                    live ↗
-                  </a>
-                ) : null}
-              </th>
-              <td className="border-b border-line-soft px-4 py-3 text-xs text-muted">{seed.role}</td>
-              <td className="border-b border-line-soft px-4 py-3 text-xs">
-                <span className="font-mono text-cream">{seed.rung}</span>
-                <span className="mt-0.5 block text-muted">{rungLabel(seed.rung)}</span>
-              </td>
-              <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-cream">
-                {seed.front}
-              </td>
-              <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
-                {seed.inherits ?? '—'}
-              </td>
-              <td className="border-b border-line-soft px-4 py-3 text-xs text-muted">
-                {seed.ships.length ? seed.ships.join(', ') : 'none'}
-              </td>
-              <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
-                {seed.vendors
-                  ? `@${seed.vendors.version}`
-                  : seed.role === 'starter'
-                    ? 'publishes'
-                    : 'deferred'}
-              </td>
-              <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
-                {seed.since}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="space-y-10">
+      <div>
+        <h3 className="text-xs tracking-[0.18em] text-muted uppercase">
+          Grown from the starter — {children().length + 1} rows
+        </h3>
+        <div className="mt-3 overflow-x-auto rounded-2xl border border-line">
+          <table className="w-full border-collapse text-left text-sm">
+            <caption className="sr-only">
+              One starter and the {children().length} sites grown from it: readiness, front door,
+              parent, published isotopes and the rules copy each keeps.
+            </caption>
+            <thead className="bg-surface-2 text-cream">
+              <tr>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Seed</th>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Role</th>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Readiness</th>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Front door</th>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Inherits</th>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Ships</th>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Rules</th>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Since</th>
+              </tr>
+            </thead>
+            <tbody>
+              {seeds().map((seed) => (
+                <tr key={seed.id} className="align-top">
+                  <th scope="row" className="border-b border-line-soft px-4 py-3 text-left font-normal">
+                    <Link
+                      to={`/plot/${seed.id}`}
+                      className="font-mono text-[13px] text-cream underline decoration-line underline-offset-4 hover:text-pulse"
+                    >
+                      {seed.entity}
+                    </Link>
+                    {seed.live ? (
+                      <a
+                        href={`${seed.live}/`}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="mt-1 block font-mono text-[11px] text-muted hover:text-cream"
+                      >
+                        live ↗
+                      </a>
+                    ) : null}
+                  </th>
+                  <td className="border-b border-line-soft px-4 py-3 text-xs text-muted">{seed.role}</td>
+                  <td className="border-b border-line-soft px-4 py-3 text-xs">
+                    <span className="font-mono text-cream">{seed.rung}</span>
+                    <span className="mt-0.5 block text-muted">{rungLabel(seed.rung)}</span>
+                  </td>
+                  <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-cream">
+                    {seed.front}
+                  </td>
+                  <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
+                    {seed.inherits ?? '—'}
+                  </td>
+                  <td className="border-b border-line-soft px-4 py-3 text-xs text-muted">
+                    {seed.ships.length ? seed.ships.join(', ') : 'none'}
+                  </td>
+                  <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
+                    {seed.vendors
+                      ? `@${seed.vendors.version}`
+                      : seed.role === 'starter'
+                        ? 'publishes'
+                        : 'deferred'}
+                  </td>
+                  <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
+                    {seed.since}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-xs tracking-[0.18em] text-muted uppercase">
+          The lab the sites run in — {parts().length} rows
+        </h3>
+        <div className="mt-3 overflow-x-auto rounded-2xl border border-line">
+          <table className="w-full border-collapse text-left text-sm">
+            <caption className="sr-only">
+              The libraries, tools, apps and upstream the seed sites describe: what each provides,
+              what it depends on, and where its source is.
+            </caption>
+            <thead className="bg-surface-2 text-cream">
+              <tr>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">System</th>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Kind</th>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Built</th>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Provides</th>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Depends on</th>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Since</th>
+              </tr>
+            </thead>
+            <tbody>
+              {parts().map((part) => (
+                <tr key={part.id} className="align-top">
+                  <th scope="row" className="border-b border-line-soft px-4 py-3 text-left font-normal">
+                    <Link
+                      to={`/plot/${part.id}`}
+                      className="font-mono text-[13px] text-cream underline decoration-line underline-offset-4 hover:text-pulse"
+                    >
+                      {part.entity}
+                    </Link>
+                    {part.repo ? (
+                      <a
+                        href={`https://github.com/${part.repo}`}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="mt-1 block font-mono text-[11px] text-muted hover:text-cream"
+                      >
+                        source ↗
+                      </a>
+                    ) : (
+                      <span className="mt-1 block font-mono text-[11px] text-muted">local only</span>
+                    )}
+                  </th>
+                  <td className="border-b border-line-soft px-4 py-3 text-xs text-muted">
+                    {KIND_LABEL[part.kind]}
+                  </td>
+                  <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
+                    {part.language}
+                  </td>
+                  <td className="border-b border-line-soft px-4 py-3 text-xs text-muted">
+                    {part.provides}
+                  </td>
+                  <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
+                    {part.depends.length ? part.depends.map((dependency) => dependency.id).join(', ') : 'none'}
+                  </td>
+                  <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
+                    {part.since}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   )
 }

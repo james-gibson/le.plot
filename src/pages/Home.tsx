@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Button, CopyButton } from 'fancy-ui-react'
 import { PAGES } from '../lib/content'
-import { PLOT, children } from '../lib/plot'
+import { PLOT, children, parts, seeds } from '../lib/plot'
 import { PARENT } from '../lib/site'
 import { MotionReveal } from '../lib/motion'
 import { PlotCanvas } from '../components/PlotCanvas'
@@ -11,16 +11,16 @@ import { usePageMeta } from '../lib/usePageMeta'
 const CLONE = `git clone ${PARENT.repo}.git my-site\ncd my-site && npm install && npm run dev`
 
 const FACTS = [
-  { k: 'Seeds', v: String(PLOT.length) },
+  { k: 'Systems', v: String(PLOT.length) },
   { k: 'Grown from one', v: String(children().length) },
-  { k: 'Relationships', v: String(children().length + 2) },
-  { k: 'Pages', v: String(PAGES.length) },
+  { k: 'In the lab', v: String(parts().length) },
+  { k: 'Lines', v: String(children().length + children().filter((seed) => seed.vendors).length + 4) },
 ]
 
 export function Home() {
   usePageMeta(
     undefined,
-    'One page, five tables: every site grown from le.gume, what each kept, and what each added.',
+    'One page, thirteen tables: the sites grown from le.gume, and the seven systems they describe and run in.',
   )
 
   return (
@@ -35,22 +35,22 @@ export function Home() {
             {/* The hero is not wrapped in MotionReveal on purpose: it is the
                 first thing a reader without JavaScript should see, and a reveal
                 that starts at opacity 0 is a blank screen when the script never
-                arrives. Motion is for the card beside it. */}
+                arrives. Motion is for the reading guide below the map. */}
             <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 px-3 py-1 text-xs tracking-wide text-muted">
               <span className="h-1.5 w-1.5 rounded-full bg-pulse" />
-              le.plot · the seed plot
+              le.plot · the plot
             </p>
 
             <h1 className="mt-6 text-4xl leading-[1.05] font-semibold tracking-tight text-cream sm:text-6xl">
-              Five seeds,
+              One starter,
               <br />
-              one <span className="text-pulse">starter</span>.
+              <span className="text-pulse">thirteen</span> systems.
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-8 text-muted">
-              Every site grown from <span className="font-mono text-cream">le.gume</span>, drawn as
-              entity tables on one page. Each table is a seed; each line is a relationship you can
-              check in the repository, not a claim about one.
+              Every site grown from <span className="font-mono text-cream">le.gume</span> — and the
+              libraries, tools and sandbox those sites describe — drawn as entity tables on one
+              page. Each table is a row you can check in a repository, not a claim about one.
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-3">
@@ -77,8 +77,8 @@ export function Home() {
                 <code>{CLONE}</code>
               </pre>
               <p className="mt-4 text-sm leading-6 text-muted">
-                The clone is the whole distribution. There is no generator to trust, and no version
-                of the template hidden inside a package you did not read.
+                The clone is the whole distribution. There is no generator to trust, and no
+                version of the template hidden inside a package you did not read.
               </p>
             </div>
           </div>
@@ -103,9 +103,10 @@ export function Home() {
               The plot, in one page
             </h2>
             <p className="mt-2 max-w-2xl text-muted">
-              Five tables and six lines. Solid lines are inheritance; dashed lines are a vendored
-              copy of the parent&rsquo;s rules, carrying the version it was taken at. Select a table
-              to read its row without leaving the page.
+              Thirteen tables and twelve lines. Solid lines are inheritance; dashed lines are a
+              vendored copy of the parent&rsquo;s rules, carrying the version it was taken at; the
+              thin lines are a claim a row states in full on its page. Select a table to read its
+              row without leaving the page.
             </p>
           </div>
           <Link
@@ -123,11 +124,12 @@ export function Home() {
 
       <section className="mx-auto w-full max-w-6xl px-5 pb-4 sm:px-8">
         <h2 className="text-2xl font-semibold tracking-tight text-cream sm:text-3xl">
-          The same rows, as a table
+          The same rows, as tables
         </h2>
         <p className="mt-2 max-w-2xl text-muted">
           Printed in the static page, so a reader without JavaScript — or an agent reading the
-          build — gets the values rather than an empty canvas.
+          build — gets the values rather than an empty canvas. Two tables, because the plot has two
+          kinds of row: the sites, and the systems they describe.
         </p>
         <div className="mt-6">
           <PlotTable />
@@ -142,16 +144,18 @@ export function Home() {
           <div className="rounded-2xl border border-line bg-surface p-5">
             <p className="font-mono text-xs text-pulse">PK · FK</p>
             <p className="mt-2 text-sm leading-6 text-muted">
-              <span className="text-cream">PK</span> is the seed&rsquo;s own key: its name is its
-              route and its URL. <span className="text-cream">FK</span> is the seed it was grown
-              from. There is one null foreign key on the page, and it belongs to the starter.
+              <span className="text-cream">PK</span> is the row&rsquo;s own key: its name is its
+              route and its URL. <span className="text-cream">FK</span> is the row it was grown
+              from. There is one null foreign key on the plot, and it belongs to the starter.
             </p>
           </div>
           <div className="rounded-2xl border border-line bg-surface p-5">
-            <p className="font-mono text-xs text-pulse">rung</p>
+            <p className="font-mono text-xs text-pulse">rung · kind</p>
             <p className="mt-2 text-sm leading-6 text-muted">
-              How much of the machine the front door assumes. A rung-0 reader wants a website and a
-              bill; a rung-4 reader designs systems other people run. Readiness, not seniority.
+              A seed row carries a <span className="text-cream">rung</span>: how much of the
+              machine its front door assumes. A part row carries a{' '}
+              <span className="text-cream">kind</span>: library, tool, app or upstream. Readiness
+              and category are different questions and get different columns.
             </p>
           </div>
           <div className="rounded-2xl border border-line bg-surface p-5">
@@ -159,10 +163,16 @@ export function Home() {
             <p className="mt-2 text-sm leading-6 text-muted">
               The bar sits at the parent end, the fork at the child end: one starter, many children.
               A dashed line does not add a second parent — it records a second claim about the same
-              two rows.
+              two rows. The lab&rsquo;s internal dependencies are in each row&rsquo;s{' '}
+              <span className="font-mono">depends</span> field, not drawn: ten more lines between
+              seven nodes was a hairball.
             </p>
           </div>
         </MotionReveal>
+        <p className="mt-6 text-sm text-muted">
+          There are {seeds().length} seed rows and {parts().length} part rows, across{' '}
+          {PAGES.length} pages.
+        </p>
       </section>
     </>
   )

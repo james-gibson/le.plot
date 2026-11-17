@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 import { Handle, Position, type Node, type NodeProps } from '@xyflow/react'
-import { rungLabel, type PlotSeed } from '../lib/plot'
+import { KIND_LABEL, rungLabel, type PlotRow } from '../lib/plot'
 
-/** The node the flow draws: one seed as a table, keys first. */
-export type PlotFlowNode = Node<{ seed: PlotSeed }, 'seed'>
+/** The node the flow draws: one row of the plot as a table, keys first. */
+export type PlotFlowNode = Node<{ row: PlotRow }, 'seed'>
 
 function Row({ k, v, title }: { k: string; v: string; title?: string }) {
   return (
@@ -22,10 +22,11 @@ function Row({ k, v, title }: { k: string; v: string; title?: string }) {
 }
 
 export function PlotNode({ data, selected }: NodeProps<PlotFlowNode>) {
-  const seed = data.seed
-  const rules = seed.vendors
-    ? `vendored @${seed.vendors.version}`
-    : seed.role === 'starter'
+  const row = data.row
+  const isPart = row.role === 'part'
+  const rules = !isPart && row.vendors
+    ? `vendored @${row.vendors.version}`
+    : row.role === 'starter'
       ? 'publishes rules.md'
       : 'deferred'
 
@@ -35,8 +36,8 @@ export function PlotNode({ data, selected }: NodeProps<PlotFlowNode>) {
         selected ? 'border-pulse shadow-[0_0_0_1px_var(--color-pulse)]' : 'border-line'
       }`}
     >
-      {/* Six handles: the map routes a line from the one side the child sits on,
-          so two relationships between the same pair draw as two lines, not one. */}
+      {/* Vertical handles carry inheritance; the side pair carries a cross claim,
+          so an edge that runs along a row does not leave the top of a card. */}
       <Handle id="in" type="target" position={Position.Top} style={{ opacity: 0 }} />
       <Handle
         id="in-left"
@@ -63,49 +64,100 @@ export function PlotNode({ data, selected }: NodeProps<PlotFlowNode>) {
         position={Position.Bottom}
         style={{ opacity: 0, left: '70%' }}
       />
+      <Handle
+        id="in-l"
+        type="target"
+        position={Position.Left}
+        style={{ opacity: 0, top: '30%' }}
+      />
+      <Handle
+        id="in-r"
+        type="target"
+        position={Position.Right}
+        style={{ opacity: 0, top: '70%' }}
+      />
+      <Handle
+        id="out-l"
+        type="source"
+        position={Position.Left}
+        style={{ opacity: 0, top: '70%' }}
+      />
+      <Handle
+        id="out-r"
+        type="source"
+        position={Position.Right}
+        style={{ opacity: 0, top: '30%' }}
+      />
 
       <header className="flex items-center justify-between gap-2 border-b border-line bg-surface-2 px-3 py-2">
         <span className="flex min-w-0 items-center gap-2">
           <span
             className={`h-1.5 w-1.5 shrink-0 rounded-full ${
-              seed.role === 'starter' ? 'bg-pulse' : 'bg-violet'
+              row.role === 'starter' ? 'bg-pulse' : row.role === 'seed' ? 'bg-violet' : 'bg-muted'
             }`}
           />
           <span className="truncate font-mono text-[12.5px] font-semibold text-cream">
-            {seed.entity}
+            {row.entity}
           </span>
         </span>
         <span className="shrink-0 rounded-full border border-line px-1.5 py-px text-[9px] tracking-[0.12em] text-muted uppercase">
-          {seed.role}
+          {row.role}
         </span>
       </header>
 
       <div className="divide-y divide-line-soft/70">
-        <Row k="PK id" v={seed.id} />
-        <Row k="rung" v={`${seed.rung} · ${rungLabel(seed.rung)}`} />
-        <Row k="front" v={seed.front} />
-        <Row k="FK" v={seed.inherits ?? '—'} title={seed.inherits ? `inherits ${seed.inherits}` : 'the starter: no parent'} />
-        <Row k="ships" v={seed.ships.length ? seed.ships.join(', ') : 'none'} />
-        <Row k="rules" v={rules} />
+        <Row k="PK id" v={row.id} />
+        {isPart ? (
+          <>
+            <Row k="kind" v={KIND_LABEL[row.kind]} />
+            <Row k="built" v={row.language} />
+            <Row
+              k="depends"
+              v={row.depends.length ? row.depends.map((dependency) => dependency.id).join(', ') : 'none'}
+              title={
+                row.depends.length
+                  ? row.depends.map((dependency) => `${dependency.verb} ${dependency.id}`).join(' · ')
+                  : 'no dependency on another row'
+              }
+            />
+          </>
+        ) : (
+          <>
+            <Row k="rung" v={`${row.rung} · ${rungLabel(row.rung)}`} />
+            <Row k="front" v={row.front} />
+            <Row k="FK" v={row.inherits ?? '—'} title={row.inherits ? `inherits ${row.inherits}` : 'the starter: no parent'} />
+          </>
+        )}
       </div>
 
       <footer className="flex items-center justify-between gap-2 border-t border-line px-3 py-2">
         <Link
-          to={`/plot/${seed.id}`}
+          to={`/plot/${row.id}`}
           className="nodrag font-mono text-[10.5px] text-pulse underline decoration-pulse/30 underline-offset-2 hover:decoration-pulse"
         >
-          /plot/{seed.id}
+          /plot/{row.id}
         </Link>
-        {seed.live ? (
+        {row.live ? (
           <a
             className="nodrag font-mono text-[10.5px] text-muted underline decoration-line underline-offset-2 hover:text-cream"
-            href={`${seed.live}/`}
+            href={`${row.live}/`}
             target="_blank"
             rel="noreferrer noopener"
           >
             site ↗
           </a>
-        ) : null}
+        ) : row.repo ? (
+          <a
+            className="nodrag font-mono text-[10.5px] text-muted underline decoration-line underline-offset-2 hover:text-cream"
+            href={`https://github.com/${row.repo}`}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            source ↗
+          </a>
+        ) : (
+          <span className="font-mono text-[10.5px] text-muted">local only</span>
+        )}
       </footer>
     </article>
   )

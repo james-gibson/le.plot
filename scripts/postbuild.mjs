@@ -149,7 +149,7 @@ await writeFile(
 const catalog = {
   name: 'le.plot',
   url: `${SITE}/`,
-  description: 'The seed plot: every site grown from le.gume, drawn as entity tables on one page.',
+  description: 'The seed plot: the sites grown from le.gume, and the lab they describe, drawn as entity tables on one page.',
   entries: [
     { type: 'text/plain', url: `${SITE}/llms.txt`, name: 'llms.txt' },
     { type: 'application/xml', url: `${SITE}/sitemap.xml`, name: 'sitemap.xml' },
@@ -215,8 +215,8 @@ pages.sort((a, b) => a.section.localeCompare(b.section) || a.order - b.order || 
 const lines = [
   '# le.plot',
   '',
-  '> The seed plot: every site grown from le.gume, drawn as entity tables on one page.',
-  '> Five tables, six relationships, one page. The record is src/lib/plot.ts.',
+  '> The seed plot: the sites grown from le.gume, and the lab they describe, one page.',
+  '> Thirteen tables, twelve lines, one page. The record is src/lib/plot.ts.',
   '',
   `Live: ${SITE}/`,
   'Repo: https://github.com/james-gibson/le.plot',
@@ -283,7 +283,7 @@ lines.push('')
 lines.push(
   '## For agents',
   '',
-  `- [The map](${SITE}/): five entity tables, one page.`,
+  `- [The map](${SITE}/): thirteen entity tables, one page.`,
   `- [The record](${SITE}/docs/data-model/): the only input the map has.`,
   `- [What this seed inherited](${SITE}/docs/inherited/): the audit, with the deletions and their reasons.`,
   `- [Build and deploy](${SITE}/docs/deploy/): the chain and the checks it runs.`,
@@ -318,7 +318,7 @@ const feed = [
   '  <channel>',
   '    <title>le.plot</title>',
   `    <link>${SITE}/</link>`,
-  '    <description>The seed plot: every site grown from le.gume.</description>',
+  '    <description>The seed plot: the sites grown from le.gume, and the lab they describe.</description>',
   '    <language>en</language>',
   ...newest.flatMap((page) => [
     '    <item>',

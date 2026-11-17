@@ -1,6 +1,6 @@
 ---
 title: The record
-description: One TypeScript file is the map's only input, and the pages are prose beside it.
+description: One TypeScript file is the map's only input, the pages are prose beside it, and the lines are derived.
 order: 1
 updated: 2026-11-16
 tags: build, model
@@ -9,52 +9,72 @@ seeds: grower, packager
 
 # The record
 
-The diagram and the table are the same five objects. So are the five pages under `/plot`.
+The diagram and the tables are the same thirteen objects. So are the thirteen pages under `/plot`.
 
-`src/lib/plot.ts` holds one record per seed: its name, role, readiness, front door, parent, the
-sections it keeps, what it added, the isotopes it publishes, the rules copy it vendors, the day its
-own history starts, and where its table sits on the map. The canvas maps those records to nodes;
-`PlotTable` maps them to rows; `PlotPanel` maps one of them to the fields above a plot page.
+`src/lib/plot.ts` holds one record per row, in two shapes:
+
+- **a seed row** — a site grown from the starter: name, role, readiness, front door, parent, the
+  sections it keeps, what it added, the isotopes it publishes, the rules copy it vendors, the day
+  its own history starts, and where its table sits on the map;
+- **a part row** — a library, tool, app or upstream: name, kind, language, what it provides, what it
+  depends on, and the same position and history.
+
+One file, two shapes, because they answer different questions. A seed row answers "who is this
+for"; a part row answers "what does this do". Forcing one shape would have meant a `rung` of
+`undefined` on seven rows, or a `kind` on six rows that does not apply.
 
 ## Why the fields are code
 
 Frontmatter would have been the obvious place. It was rejected for two reasons.
 
-1. **The diagram needs types, not strings.** A rung is a number that indexes the shelf; an
-   `inherits` field is either a key on the map or null. In frontmatter both are text, and the first
-   typo becomes a wrong picture rather than a failed build.
+1. **The diagram needs types, not strings.** A rung is a number that indexes the shelf; `inherits`
+   is either a key on the map or null. In frontmatter both are text, and the first typo becomes a
+   wrong picture rather than a failed build.
 2. **Two sources drift at different speeds.** A page is edited for prose; a field is edited when
-   the fact changes. Keeping them in one file means a page edit cannot silently change a row,
-   and a row edit is a code review.
+   the fact changes. Keeping them in one file means a page edit cannot silently change a row, and
+   a row edit is a code review.
 
-The cost is real: adding a seed is a code change, and a TypeScript error is now between you and a
-new row. That is the trade this site makes, and it is the same trade the starter makes with its
-navigation.
+## The lines are derived
 
-## The check, in both directions
+Nothing about an edge is hand-written in the drawing code.
 
-The module throws at import time — which is build time, before the guard runs — when:
+| Line | Comes from |
+| --- | --- |
+| solid, bar and crow's foot | every row with `role: 'seed'` gets one `inherits` edge to its parent |
+| dashed | a seed whose `vendors` is not null gets a second edge, carrying the version |
+| thin | `RELATIONS`, a short list of cross claims with a verb each |
 
-- a record has no page at `src/content/plot/<id>.md`, or
-- a page in that folder has no record.
+The lab's internal dependencies — isotope under three tools, `lezz.go` installing them — are in
+each part's `depends` field and **not** drawn. That was a decision made after trying it: ten more
+lines between seven nodes produced a diagram you could not read at any zoom that also let you read
+the tables. A row is a better place for a dependency list than a line is.
 
-One direction catches a node with nowhere to check it. The other catches a page the map cannot
-draw. A single loop would have reported whichever mistake it met first and called it done.
+## The checks, in both directions
+
+The module throws at import time — build time, before the guard runs — when:
+
+- a record has no page at `src/content/plot/<id>.md`;
+- a page in that folder has no record;
+- a relation names a row the map does not hold.
+
+The first direction catches a node with nowhere to check it; the second catches a page the map
+cannot draw; the third catches a line to nowhere. A single loop would have reported whichever
+mistake it met first and called it done.
 
 ## What the record refuses to hold
 
 - **No fetched data.** The plot is not a live GitHub query. A build that needs the network to draw
   a diagram is a build that fails in a train.
-- **No layout engine.** Positions are declared in the record. Five nodes do not need a force
+- **No layout engine.** Positions are declared in the record. Thirteen nodes do not need a force
   simulation, and a diagram that re-arranges itself is harder to return to than one that does not.
 - **No prose.** The record says `rung: 0`; the page says what that costs a homeowner. Mixing them
   would make the map a summary and the page a duplicate.
 
-## Adding a seed
+## Adding a row
 
-1. Add the record, with a position that does not overlap.
+1. Add the record, with a position that does not overlap an existing table.
 2. Add `src/content/plot/<id>.md` with `title`, `description`, `order` and a body.
-3. Say what it kept, what it added, and what it costs in the body. The fields cannot carry the
+3. Say what it kept, what it added and what it costs in the body. The fields cannot carry the
    argument, and the map should not pretend to.
 
 Then `npm run build`. If either half is missing, the build says which.

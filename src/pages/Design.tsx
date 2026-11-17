@@ -127,7 +127,7 @@ export function Design() {
           props="none — rows come from src/lib/plot.ts"
           note={
             <>
-              The same five rows as a table, rendered on the server. It is the accessible and
+              The same rows as two tables, rendered on the server. It is the accessible and
               printable version, and the one an agent gets from{' '}
               <span className="font-mono">dist/index.html</span> without running JavaScript.
             </>

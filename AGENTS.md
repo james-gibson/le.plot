@@ -2,7 +2,8 @@
 
 ## This repository
 
-`le.plot` is the seed plot: every site grown from `le.gume`, drawn as entity tables on one page.
+`le.plot` is the seed plot: the sites grown from `le.gume`, and the lab they describe, drawn as
+entity tables on one page.
 React 19 + Vite + Tailwind v4 + React Flow 13, Markdown content, derived navigation, a publish
 guard, GitHub Pages on push.
 
@@ -38,13 +39,16 @@ If a rule's subject was deleted, delete the rule and record why on `/docs/inheri
 
 ## The map
 
-`src/lib/plot.ts` holds one record per seed and is the map's only input: the canvas maps records to
-nodes, `PlotTable` maps them to rows, `PlotPanel` maps one to the fields above a plot page.
+`src/lib/plot.ts` holds one record per row and is the map's only input: the canvas maps records to
+nodes, `PlotTable` maps them to two tables, `PlotPanel` maps one to the fields above a plot page.
+There are two shapes — a seed (a site, with a rung and a parent) and a part (a library/tool/app/
+upstream, with a kind and dependencies).
 
-- Adding a seed means a record **and** `src/content/plot/<id>.md`. The module checks both
-  directions at import time, so a missing half fails the build.
+- Adding a row means a record **and** `src/content/plot/<id>.md`. The module checks both
+  directions at import time, and refuses a relation that names a row it does not hold.
 - Edges are derived: every child gets an `inherits` line; a child with `vendors` gets a second,
-  dashed line carrying its `version`. Never hand-write an edge.
+  dashed line carrying its `version`; `RELATIONS` draws the cross claims. Never hand-write an edge.
+  The lab's internal DAG is in each part's `depends` field, not drawn — that is a deliberate call.
 - The canvas is client-only. The prerendered shell carries the table — keep it that way.
 - `src/lib/site.ts` is the only place the origin, repo and handoff payload are written. The guard
   fails if a second `Read https://` payload appears in `src/`.

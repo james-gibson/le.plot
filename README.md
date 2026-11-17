@@ -1,8 +1,8 @@
 # le.plot
 
-The seed plot: every site grown from [`le.gume`](https://james-gibson.github.io/le.gume/), drawn as
-entity tables on one page. Five tables, six relationships, and a page you can check behind every
-row.
+The seed plot: the sites grown from [`le.gume`](https://james-gibson.github.io/le.gume/), and the lab
+they describe, drawn as entity tables on one page. Thirteen tables, twelve lines, and a page you can
+check behind every row.
 
 <p align="center">
   <a href="https://github.com/james-gibson/le.plot/actions/workflows/deploy.yml"><img src="https://shieldcn.dev/github/ci/james-gibson/le.plot.svg?workflow=deploy.yml&branch=main&variant=secondary" alt="deploy" /></a>
@@ -15,13 +15,15 @@ row.
 ## What this is
 
 A seed grown from a seed. The starter argues that a documentation site is a file tree with a guard;
-this repository tests the claim by being the fifth one. It keeps the content model, the guard and
-the deploy, adds [React Flow](https://reactflow.dev), and changes the subject to the family itself.
+this repository tests the claim by being one of six. It keeps the content model, the guard and the
+deploy, adds [React Flow](https://reactflow.dev), and changes the subject to the family itself —
+plus the seven libraries, tools and sandbox the family describes.
 
-- **One page.** The map is five entity tables and six lines: solid for inheritance, dashed for a
-  vendored copy of the parent's `rules.md`, carrying the version it was taken at.
-- **One record.** `src/lib/plot.ts` is the map's only input. The canvas, the table and the five
-  pages under `/plot` are three renderings of the same objects.
+- **One page.** The map is thirteen entity tables and twelve lines: solid for inheritance, dashed
+  for a vendored copy of the parent's `rules.md`, thin for a cross claim. The lab's internal
+  dependencies stay in each row's `depends` field — drawn, they were a hairball.
+- **One record.** `src/lib/plot.ts` is the map's only input. The canvas, the tables and the
+  thirteen pages under `/plot` are three renderings of the same objects.
 - **A check in both directions.** A record with no page, or a page with no record, throws at import
   time — so the build fails before the guard runs.
 - **A table for every reader.** The prerender ships the table, not a canvas; without JavaScript
@@ -45,10 +47,10 @@ Node 22+. Nothing else is required.
 ```text
 src/content/<section>/<slug>.md   pages (frontmatter: title, description, order, updated, tags, seeds)
 src/lib/content.ts                the content model: glob, ordering, headings, neighbours
-src/lib/plot.ts                   the five records; the map's only input, checked two ways
+src/lib/plot.ts                   the records; the map's only input, checked two ways
 src/components/PlotCanvas.tsx     React Flow: nodes, edges, crow's-foot markers, the inspector
 src/components/PlotNode.tsx       one seed as a table node
-src/components/PlotTable.tsx      the same five rows, server-rendered
+src/components/PlotTable.tsx      the same rows as two tables, server-rendered
 src/pages/Design.tsx              the live design system
 scripts/postbuild.mjs             per-route shells, 404.html, sitemap, llms.txt, feed.xml
 scripts/verify-publish.mjs        the publish guard

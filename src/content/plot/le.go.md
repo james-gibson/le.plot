@@ -9,7 +9,7 @@ seeds: reader
 
 # le.go
 
-Of the four children, this one looks least like its parent — and that is the point it makes.
+Of the five children, this one looks least like its parent — and that is the point it makes.
 
 `le.go` takes the content model, keeps three sections (`docs`, `isotopes`, `seeds`), and throws
 out the rest of the visual layer. In its place: a brick-set manual. Four colours, a numbered

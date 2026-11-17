@@ -14,15 +14,18 @@ answers it without asking you to clone anything.
 
 ## Start here
 
-Open [the map](/#map). Five rows: one starter and four sites grown from it. Each row names a
-readiness, a front door, a parent and the isotopes it publishes. Select a table for its record, or
-follow the row to its page.
+Open [the map](/#map). Thirteen rows: one starter, five sites grown from it, and seven systems
+those sites describe. Each row names a readiness (or a kind), a front door (or what it provides)
+and its parents or dependencies. Select a table for its record, or follow the row to its page.
 
 ## What the readiness column is for
 
 Readiness, not seniority. A rung-0 reader wants a website and a bill and will not open a terminal;
 a rung-3 reader delegates the running. The plot has both, and the column exists so nobody is
 handed a shell prompt when they asked what a thing is.
+
+The lab rows use a different column — `kind`, one of library, tool, app, upstream — because
+"which language is it" is a different question from "how much of the machine does it assume". 
 
 ## What this seed refuses
 
