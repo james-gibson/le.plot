@@ -94,7 +94,8 @@ export function PlotTable() {
           <table className="w-full border-collapse text-left text-sm">
             <caption className="sr-only">
               The libraries, tools, apps and upstream the seed sites describe: what each provides,
-              what it depends on, and where its source is.
+              what it depends on, the default ports it binds, and where its source is. Ports are
+              defaults from the repository; a config file or flag can move every one.
             </caption>
             <thead className="bg-surface-2 text-cream">
               <tr>
@@ -103,6 +104,7 @@ export function PlotTable() {
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Built</th>
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Provides</th>
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Depends on</th>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Ports</th>
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Since</th>
               </tr>
             </thead>
@@ -140,6 +142,18 @@ export function PlotTable() {
                   </td>
                   <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
                     {part.depends.length ? part.depends.map((dependency) => dependency.id).join(', ') : 'none'}
+                  </td>
+                  <td className="border-b border-line-soft px-4 py-3 font-mono text-xs">
+                    {part.ports?.length ? (
+                      <span
+                        className="text-cream"
+                        title={part.ports.map((entry) => `${entry.port} — ${entry.purpose}`).join('\n')}
+                      >
+                        {part.ports.map((entry) => entry.port).join(', ')}
+                      </span>
+                    ) : (
+                      <span className="text-muted">—</span>
+                    )}
                   </td>
                   <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
                     {part.since}

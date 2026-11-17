@@ -153,6 +153,24 @@ export function PlotPanel({ rowId }: { rowId: string }) {
         </div>
       )}
 
+      {row.ports?.length ? (
+        <div className="rounded-2xl border border-line bg-surface p-5">
+          <p className="text-xs tracking-[0.14em] text-muted uppercase">Default ports</p>
+          <ul className="mt-2 divide-y divide-line-soft">
+            {row.ports.map((entry) => (
+              <li key={entry.port} className="flex flex-wrap items-baseline gap-x-4 gap-y-1 py-2">
+                <span className="w-16 font-mono text-sm text-cream">{entry.port}</span>
+                <span className="text-sm text-muted">{entry.purpose}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-xs text-muted">
+            These are defaults read from the repository, not a reservation: a config file or a flag
+            can move every one, and a cluster that runs twice has to.
+          </p>
+        </div>
+      ) : null}
+
       {relations.length ? (
         <div className="rounded-2xl border border-line bg-surface p-5">
           <p className="text-xs tracking-[0.14em] text-muted uppercase">On the map</p>

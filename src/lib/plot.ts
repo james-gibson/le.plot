@@ -40,6 +40,12 @@ import { PARENT } from './site'
 export type Role = 'starter' | 'seed' | 'part'
 export type PartKind = 'library' | 'tool' | 'app' | 'upstream'
 
+/** A default port the service binds, and what answers on it. */
+export type Port = {
+  port: number
+  purpose: string
+}
+
 /** A child's vendored copy of the parent's rules, with the version it was taken at. */
 export type Vendors = {
   /** the `le.gume` commit the copy names in its `version:` line */
@@ -63,6 +69,8 @@ type Common = {
   since: string
   /** the one-line reason it exists */
   note: string
+  /** default ports the record binds, when it binds any. Omitted is not zero. */
+  ports?: Port[]
   /** where its table sits on the map, in flow coordinates */
   at: { x: number; y: number }
 }
@@ -261,6 +269,11 @@ export const PLOT: PlotRow[] = [
     language: 'Go',
     provides: 'polling, state transitions, regression detection and structured alerts',
     depends: [{ id: 'isotope', verb: 'imports' }],
+    ports: [
+      { port: 8088, purpose: 'health, /status and the SSE stream' },
+      { port: 19100, purpose: 'federation base port, slots 19100–19103' },
+      { port: 8877, purpose: 'OAuth mock redirect, when that auth mode is on' },
+    ],
     live: null,
     repo: 'james-gibson/smoke-alarm',
     since: '2026-04-03',
@@ -278,6 +291,9 @@ export const PLOT: PlotRow[] = [
     depends: [
       { id: 'isotope', verb: 'imports' },
       { id: 'ocd-smoke-alarm', verb: 'polls over HTTP and SSE' },
+    ],
+    ports: [
+      { port: 9090, purpose: 'MCP and HTTP surface in the shipped example config; unset binds an OS-assigned port' },
     ],
     live: null,
     repo: 'james-gibson/adhd',
@@ -313,6 +329,11 @@ export const PLOT: PlotRow[] = [
       { id: 'ocd-smoke-alarm', verb: 'starts and manages' },
       { id: 'adhd', verb: 'launches as a child process' },
     ],
+    ports: [
+      { port: 19100, purpose: 'discovery registry at /cluster' },
+      { port: 19200, purpose: 'prod alarm block start; alarms run 19200–19202' },
+      { port: 19210, purpose: 'prod adhd block start; MCP servers on 19210–19212' },
+    ],
     live: null,
     repo: 'james-gibson/lezz.go',
     since: '2026-04-02',
@@ -343,6 +364,7 @@ export const PLOT: PlotRow[] = [
     language: 'C++',
     provides: 'an OpenTTD fork specified as an economic regulatory sandbox, with a shell-facing API',
     depends: [],
+    ports: [{ port: 3000, purpose: 'platform API and UI (NestJS; the container EXPOSEs it)' }],
     live: null,
     repo: 'gibsunas/openttd',
     since: '2025-10-01',

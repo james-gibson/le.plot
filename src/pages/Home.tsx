@@ -129,7 +129,9 @@ export function Home() {
         <p className="mt-2 max-w-2xl text-muted">
           Printed in the static page, so a reader without JavaScript — or an agent reading the
           build — gets the values rather than an empty canvas. Two tables, because the plot has two
-          kinds of row: the sites, and the systems they describe.
+          kinds of row: the sites, and the systems they describe. The lab table's{' '}
+          <span className="font-mono">ports</span> column is the default each one binds when nothing
+          overrides it.
         </p>
         <div className="mt-6">
           <PlotTable />
@@ -154,8 +156,9 @@ export function Home() {
             <p className="mt-2 text-sm leading-6 text-muted">
               A seed row carries a <span className="text-cream">rung</span>: how much of the
               machine its front door assumes. A part row carries a{' '}
-              <span className="text-cream">kind</span>: library, tool, app or upstream. Readiness
-              and category are different questions and get different columns.
+              <span className="text-cream">kind</span>: library, tool, app or upstream, plus the
+              default <span className="text-cream">ports</span> it binds. Readiness, category and a
+              socket are different questions and get different columns.
             </p>
           </div>
           <div className="rounded-2xl border border-line bg-surface p-5">

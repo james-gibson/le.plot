@@ -120,6 +120,18 @@ export function PlotNode({ data, selected }: NodeProps<PlotFlowNode>) {
                   : 'no dependency on another row'
               }
             />
+            {/* Always present on a part row, even when empty: a ragged row of
+                cards makes a comparison between neighbours harder, and "—" is
+                information about a service that opens no socket. */}
+            <Row
+              k="ports"
+              v={row.ports?.length ? row.ports.map((entry) => entry.port).join(', ') : '—'}
+              title={
+                row.ports?.length
+                  ? row.ports.map((entry) => `${entry.port} — ${entry.purpose}`).join('\n')
+                  : 'no network port: it does not open a socket'
+              }
+            />
           </>
         ) : (
           <>

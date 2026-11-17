@@ -17,7 +17,7 @@ The diagram and the tables are the same thirteen objects. So are the thirteen pa
   sections it keeps, what it added, the isotopes it publishes, the rules copy it vendors, the day
   its own history starts, and where its table sits on the map;
 - **a part row** — a library, tool, app or upstream: name, kind, language, what it provides, what it
-  depends on, and the same position and history.
+  depends on, the default ports it binds when it binds any, and the same position and history.
 
 One file, two shapes, because they answer different questions. A seed row answers "who is this
 for"; a part row answers "what does this do". Forcing one shape would have meant a `rung` of
@@ -33,6 +33,19 @@ Frontmatter would have been the obvious place. It was rejected for two reasons.
 2. **Two sources drift at different speeds.** A page is edited for prose; a field is edited when
    the fact changes. Keeping them in one file means a page edit cannot silently change a row, and
    a row edit is a code review.
+
+## Ports are defaults, not reservations
+
+A part row may carry `ports`: the port it binds when nothing overrides it, and what answers there.
+The panel prints the purpose beside each number, because `8088` on its own is a rumour.
+
+It is an optional field on purpose. A library, an app with no network surface and a static site
+have no ports, and "0" would be a lie about a service that never opens a socket. Omitted means
+omitted.
+
+The field is also not a reservation. Every default below is read from the repository — a config
+file, a flag or a second cluster can move it — and the page says so rather than implying a
+guarantee.
 
 ## The lines are derived
 
