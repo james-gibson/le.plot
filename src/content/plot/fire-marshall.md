@@ -29,7 +29,11 @@ probe**: the certification is a claim with a timestamp, not a guarantee.
 
 - **A certificate is not a monitor.** The board can be right about the catalogue and wrong about the
   running lab, because it reads a snapshot. The delta overlay narrows the gap; it does not close it.
-- **One process, one machine.** `fire-marshall-serve` owns port `19120` on the loopback interface as a lezz service, so
-  the board is exactly as available as the machine it runs on.
+- **One process, one machine.** `fire-marshall-serve` owns port `19120` on the loopback interface
+  as a lezz service, so the board is exactly as available as the machine it runs on.
+- **The address is not published.** The dashboard answers on loopback, which is useful to the person
+  at that machine and to nobody else. This page names the port and deliberately does not link the
+  address: the publish guard refuses to ship a loopback URL, and a dead link that only resolves on
+  the author's laptop is worse than the sentence you are reading.
 - **No published source.** The dashboard is held locally. The row says so rather than linking to a
   repository that does not exist.

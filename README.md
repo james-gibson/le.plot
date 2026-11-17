@@ -1,7 +1,7 @@
 # le.plot
 
 The seed plot: the sites grown from [`le.gume`](https://james-gibson.github.io/le.gume/), and the lab
-they describe, drawn as entity tables on one page. Twenty-six tables, eighteen lines, and a page you can
+they describe, drawn as entity tables on one page. Twenty-seven tables, twenty lines, and a page you can
 check behind every row.
 
 <p align="center">
@@ -17,13 +17,13 @@ check behind every row.
 A seed grown from a seed. The starter argues that a documentation site is a file tree with a guard;
 this repository tests the claim by being one of six. It keeps the content model, the guard and the
 deploy, adds [React Flow](https://reactflow.dev), and changes the subject to the family itself —
-plus the nineteen libraries, tools, packages, apps and sandbox the systems describe.
+plus the twenty libraries, tools, packages, apps and sandbox the systems describe.
 
-- **One page, three layers.** The map is twenty-six entity tables and eighteen lines: solid for inheritance, dashed
+- **One page, three layers.** The map is twenty-seven entity tables and twenty lines: solid for inheritance, dashed
   for a vendored copy of the parent's `rules.md`, thin for a cross claim. The lab's internal
   dependencies stay in each row's `depends` field — drawn, they were a hairball.
 - **One record.** `src/lib/plot.ts` is the map's only input. The canvas, the tables and the
-  twenty-six pages under `/plot` are three renderings of the same objects.
+  twenty-seven pages under `/plot` are three renderings of the same objects.
 - **A check in both directions.** A record with no page, or a page with no record, throws at import
   time — so the build fails before the guard runs.
 - **A table for every reader.** The prerender ships the table, not a canvas; without JavaScript

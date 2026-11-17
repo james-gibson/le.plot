@@ -9,11 +9,11 @@ seeds: reader
 
 # The plot, offline
 
-Twenty-six systems, one plot, drawn as tables. This file is the same argument as the map, cut into
+Twenty-seven systems, one plot, drawn as tables. This file is the same argument as the map, cut into
 slides and rendered to a single HTML file by the build.
 ---
 
-## One page, twenty-six tables
+## One page, twenty-seven tables
 
 Every site grown from `le.gume` — and the libraries, tools and sandbox those sites describe — is on
 one page, as an entity table with keys and fields. The lines are relationships, not decoration:
@@ -61,7 +61,7 @@ silently is not.
 
 ## The lab
 
-Nineteen rows are not sites: the lab's libraries, tools and packages, and the six tools that read
+Twenty rows are not sites: the lab's libraries, tools, apps and packages, and the six tools that read
 and write the documents. Their internal dependencies stay in each row's `depends` field — drawn,
 they were a hairball.
 

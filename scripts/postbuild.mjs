@@ -216,7 +216,7 @@ const lines = [
   '# le.plot',
   '',
   '> The seed plot: the sites grown from le.gume, and the lab they describe, one page.',
-  '> Twenty-six tables, eighteen lines, three layers, one page. The record is src/lib/plot.ts.',
+  '> Twenty-seven tables, twenty lines, three layers, one page. The record is src/lib/plot.ts.',
   '',
   `Live: ${SITE}/`,
   'Repo: https://github.com/james-gibson/le.plot',
@@ -283,7 +283,7 @@ lines.push('')
 lines.push(
   '## For agents',
   '',
-  `- [The map](${SITE}/): twenty-six entity tables in three layers, one page.`,
+  `- [The map](${SITE}/): twenty-seven entity tables in three layers, one page.`,
   `- [The record](${SITE}/docs/data-model/): the only input the map has.`,
   `- [What this seed inherited](${SITE}/docs/inherited/): the audit, with the deletions and their reasons.`,
   `- [Build and deploy](${SITE}/docs/deploy/): the chain and the checks it runs.`,

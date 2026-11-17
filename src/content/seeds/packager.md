@@ -9,7 +9,7 @@ seeds: packager
 
 # The packager
 
-You are about to make the twenty-seventh row. Two things decide whether it is worth adding: whether the
+You are about to make the twenty-eighth row. Two things decide whether it is worth adding: whether the
 record can hold it, and whether the thing it invents belongs to everyone.
 
 ## Start here
