@@ -45,15 +45,30 @@ Deleting a page is not the same as deleting a check. The guard's `examples` and 
 removed **because the artifacts they guarded were deleted**; every check that still has a subject
 still runs. A guard rule with nothing left to check is a green light with no wire.
 
-## `rules.md` is not republished
+## `rules.md` is not published, and the rule is not the parent's
 
 The parent publishes nine rules at `/rules.md`, generated from its own guard. Two children vendor
-that file with a version and a hash. This site does neither: it points at the parent's copy and
-says so.
+that file with a version and a hash, and pay for it with a CI catch-up step. This site does
+neither: it links the parent's copy and publishes no rules file at all — a leaf has no child to
+defer to one, and the guard refuses the file rather than let the role be invented.
 
-The reasoning is that a republished copy has no version check of its own. `le.railhead` pays for
-its copy with a CI catch-up step; without that step, a copy is a claim that quietly ages. A link
-ages in public.
+The plot does have a rule of its own, and it lives where a leaf can keep one: the page
+[When a row is added](/docs/admission). `PLOT-01` is the admission test, `PLOT-02..04` are the
+properties the build checks at import time, and the guard refuses a build where the rule's
+sentence has gone missing. The parent's nine still apply by reference; the plot's one is its own.
+
+## What the plot does not depend on
+
+`inherits` on a row records where the deploy was cloned from, once. It is not a dependency, and
+the build enforces the reading:
+
+- nothing here reads `le.gume` at build time or at run time;
+- the parent's rules are linked, not vendored, so there is no version to drift out of date;
+- deleting the solid edge would change the picture, not break the build.
+
+That is why "grown from the seed" is not on its own a reason for a row. The admission rule is
+[PLOT-01](/docs/admission), and it asks what the plot can *observe* — a peer lab-safety names, a
+published deployment, or a tool that reads and writes the documentation.
 
 ## What the audit cost
 

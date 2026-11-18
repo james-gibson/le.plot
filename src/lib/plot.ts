@@ -782,6 +782,46 @@ for (const page of plotPages) {
   }
 }
 
+// PLOT-03: one cell per row. A shared coordinate is two tables on top of each
+// other — invisible in the record, unreadable on the map, and exactly the kind
+// of mistake a new row invites when it is appended to a full column.
+const cells = new Map<string, string>()
+for (const entry of PLOT) {
+  const key = `${entry.at.x}:${entry.at.y}`
+  const taken = cells.get(key)
+  if (taken) {
+    throw new Error(
+      `plot: "${entry.id}" and "${taken}" are both at ${key} — one cell per row (PLOT-03)`,
+    )
+  }
+  cells.set(key, entry.id)
+}
+
+// PLOT-04: a row carries the evidence its layer promises. The layer is a claim
+// about what the row can prove, so a missing field is a table that argues
+// nothing.
+for (const entry of PLOT) {
+  // Narrow on `part` first: `starter` is a SeedRow, so an `else` after a
+  // `seed` test would still be a union and the part fields would not exist.
+  if (entry.role === 'part') {
+    if (!entry.provides.trim()) {
+      throw new Error(`plot: part "${entry.id}" does not say what it provides`)
+    }
+    if (!entry.kind) {
+      throw new Error(`plot: part "${entry.id}" has no kind`)
+    }
+    continue
+  }
+  if (!entry.front.startsWith('/')) {
+    throw new Error(`plot: seed "${entry.id}" has front "${entry.front}", which is not a route`)
+  }
+  if (!entry.live || !entry.live.startsWith('https://')) {
+    throw new Error(
+      `plot: seed "${entry.id}" is not published on https — a deployment with no origin is a repository (PLOT-01)`,
+    )
+  }
+}
+
 // A relation that points at a row the map does not hold is a line to nowhere.
 for (const relation of RELATIONS) {
   for (const id of [relation.from, relation.to]) {

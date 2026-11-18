@@ -212,15 +212,28 @@ for (const file of await walk(CONTENT)) {
 }
 pages.sort((a, b) => a.section.localeCompare(b.section) || a.order - b.order || a.title.localeCompare(b.title))
 
+// The record is TypeScript; this reads it the way the guard reads the seed
+// register — by the shape the file actually keeps — so the machine entry cannot
+// state a count the map does not have.
+const plotSource = await readFile('src/lib/plot.ts', 'utf8')
+const rowCount = (plotSource.match(/^    id: '/gm) ?? []).length
+const lineCount =
+  (plotSource.match(/^    inherits: '/gm) ?? []).length +
+  (plotSource.match(/^    vendors: \{/gm) ?? []).length +
+  (plotSource.match(/^    from: '/gm) ?? []).length
+
 const lines = [
   '# le.plot',
   '',
-  '> The seed plot: the sites grown from le.gume, and the lab they describe, one page.',
-  '> Twenty-seven tables, twenty lines, three layers, one page. The record is src/lib/plot.ts.',
+  '> The seed plot: the lab as lab-safety declares it, and the sites grown from le.gume.',
+  `> ${rowCount} tables, ${lineCount} lines, three layers, one page. The record is src/lib/plot.ts.`,
   '',
   `Live: ${SITE}/`,
   'Repo: https://github.com/james-gibson/le.plot',
-  'Parent: https://james-gibson.github.io/le.gume/ (rules: /rules.md)',
+  'Parent: https://james-gibson.github.io/le.gume/ — cloned from it once, not read by this build.',
+  `Rules: ${SITE}/docs/admission (PLOT-01..04, recorded here; the parent's RULES-01..09 apply by reference)`,
+  'Admission: PLOT-01. A row is added when the plot can observe the system, not when it exists.',
+  '  Provenance is not an admission test: `inherits` records where a deploy was cloned from.',
   'Stack: React 19, Vite, Tailwind CSS v4, React Flow 13, fancy-ui. Static output, no runtime services.',
   'Source of truth: src/content/<section>/<slug>.md — the file path is the URL.',
   '',

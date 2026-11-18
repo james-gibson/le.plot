@@ -334,7 +334,7 @@ export function PlotCanvas({ groups, onToggle, onAll, picked, onPick }: Props) {
           <svg width="34" height="8" aria-hidden="true">
             <line x1="1" y1="4" x2="33" y2="4" stroke="#ff2d95" strokeWidth="1.4" />
           </svg>
-          inherits the starter (one parent, many children)
+          grown from the starter — provenance, not a dependency
         </span>
         <span className="flex items-center gap-2">
           <svg width="34" height="8" aria-hidden="true">

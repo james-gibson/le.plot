@@ -48,7 +48,15 @@ try {
 }
 
 const rel = files.map((f) => relative(DIST, f))
-for (const required of ['index.html', '404.html', '.nojekyll', 'favicon.svg', 'robots.txt', 'llms.txt']) {
+for (const required of [
+  'index.html',
+  '404.html',
+  '.nojekyll',
+  'favicon.svg',
+  'robots.txt',
+  'sitemap.xml',
+  'llms.txt',
+]) {
   if (!rel.includes(required)) {
     fail('required-file', `${required} is missing from dist/ (see scripts/postbuild.mjs)`)
   }
@@ -429,6 +437,29 @@ if (total > budgetMb * 1024 * 1024) {
   fail('size', `dist/ is ${(total / 1024 / 1024).toFixed(1)}MB, over the ${budgetMb}MB budget`)
 }
 notes.push(`${rel.length} files, ${(total / 1024).toFixed(0)}KB total`)
+
+// --- the plot's own rule --------------------------------------------------
+// PLOT-01 is the plot's rule and it is the plot's to publish — but this seed is
+// a leaf: it publishes no rules.md, because there is no child to defer to one.
+// The rule is a page instead, and this check is what stops a refactor deleting
+// the paragraph while every other check stays green.
+const admission = await readText(join(DIST, 'docs/admission/index.html')).catch(() => '')
+if (!admission) {
+  fail('rules', 'dist/docs/admission/index.html is missing — PLOT-01 lives there')
+} else {
+  if (!/A row is added when the plot can observe the system/.test(admission)) {
+    fail('rules', 'the admission page no longer states PLOT-01')
+  }
+  if (!/Provenance is not an admission test/.test(admission)) {
+    fail('rules', 'the admission page no longer separates provenance from admission')
+  }
+}
+const plotSource = await readText('src/lib/plot.ts').catch(() => '')
+for (const marker of ['PLOT-03: one cell per row', 'PLOT-04: a row carries the evidence']) {
+  if (!plotSource.includes(marker)) {
+    fail('rules', `src/lib/plot.ts no longer carries "${marker}" — the rule's arithmetic half is gone`)
+  }
+}
 
 // --- report ---------------------------------------------------------------
 if (failures.length) {

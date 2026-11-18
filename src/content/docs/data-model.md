@@ -68,7 +68,7 @@ Nothing about an edge is hand-written in the drawing code.
 
 | Line | Comes from |
 | --- | --- |
-| solid, bar and crow's foot | every row with `role: 'seed'` gets one `inherits` edge to its parent |
+| solid, bar and crow's foot | every row with `role: 'seed'` gets one `inherits` edge to its parent — provenance from a clone, not a dependency: nothing here reads the parent at build or run time |
 | dashed | a seed whose `vendors` is not null gets a second edge, carrying the version |
 | thin | `RELATIONS`, a short list of cross claims with a verb each |
 
