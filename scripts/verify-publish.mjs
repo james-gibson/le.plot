@@ -493,8 +493,15 @@ if (!ruleSet) {
         'the seven ceilings are the arithmetic, and they are pinned here',
     )
   }
-  if (!/a cutting taken from the stock|cutting/i.test(ruleSet)) {
-    fail('rules', 'the rule-set page no longer uses the propagation vocabulary (stock, cutting, sprout)')
+  // The words are not the contract; the mechanism is. An isotope is the shared
+  // Gherkin, and the page has to say so — a word list would pass a page that had
+  // stopped meaning it.
+  if (!/the isotope is the shared gherkin/i.test(ruleSet)) {
+    fail('rules', 'the rule-set page no longer states that the isotope is the shared Gherkin')
+  }
+  const home = await readText(join(DIST, 'index.html')).catch(() => '')
+  if (!/The shared Gherkin/.test(home)) {
+    fail('rules', 'the home page no longer renders the shared-Gherkin section')
   }
 }
 

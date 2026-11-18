@@ -22,6 +22,10 @@ plus the twenty-one libraries, tools, packages, apps and sandbox the systems des
 - **One page, three layers.** The map is twenty-eight entity tables and twenty-two lines: solid for provenance, dashed
   for a vendored copy of the starter's `rules.md`, thin for a cross claim. The lab's internal
   dependencies stay in each row's `depends` field — drawn, they were a hairball.
+- **The shared Gherkin.** An isotope is what travels between seeds: a named procedure, a written
+  spec, and the slots it cannot guess. `ISOTOPES` is a record, `ships` must resolve to it, and the
+  home page prints each pickle with the seeds that carry it — proliferation as a table rather than
+  a claim.
 - **One record.** `src/lib/plot.ts` is the map's only input. The canvas, the tables and the
   twenty-eight pages under `/plot` are three renderings of the same objects.
 - **A check in both directions.** A record with no page, or a page with no record, throws at import

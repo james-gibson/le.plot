@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { KIND_LABEL, cuttings, parts, rungLabel, seeds, type GroupId } from '../lib/plot'
+import { KIND_LABEL, cuttings, isotope, parts, rungLabel, seeds, type GroupId } from '../lib/plot'
 
 /**
  * The map as tables.
@@ -75,7 +75,26 @@ export function PlotTable({ groups }: { groups: GroupId[] }) {
                     {seed.cuttingFrom ?? '—'}
                   </td>
                   <td className="border-b border-line-soft px-4 py-3 text-xs text-muted">
-                    {seed.ships.length ? seed.ships.join(', ') : 'none'}
+                    {seed.ships.length
+                      ? seed.ships.map((name, index) => {
+                          const entry = isotope(name)
+                          return (
+                            <span key={name}>
+                              {index ? ', ' : ''}
+                              {entry ? (
+                                <a
+                                  href={entry.gherkin}
+                                  className="underline decoration-line underline-offset-2 hover:text-cream"
+                                >
+                                  {name}
+                                </a>
+                              ) : (
+                                name
+                              )}
+                            </span>
+                          )
+                        })
+                      : 'none'}
                   </td>
                   <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
                     {seed.vendors

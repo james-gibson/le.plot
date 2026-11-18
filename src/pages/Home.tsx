@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Button, CopyButton } from 'fancy-ui-react'
 import { PAGES } from '../lib/content'
-import { ALL_GROUPS, GROUPS, PLOT, RELATIONS, cuttings, parts, seeds, type GroupId } from '../lib/plot'
+import { ALL_GROUPS, GROUPS, ISOTOPES, PLOT, RELATIONS, carriers, cuttings, parts, seeds, type GroupId } from '../lib/plot'
 import { PARENT } from '../lib/site'
 import { MotionReveal } from '../lib/motion'
 import { PlotCanvas } from '../components/PlotCanvas'
@@ -190,6 +190,58 @@ export function Home() {
         <div className="mt-6">
           <PlotTable groups={groups} />
         </div>
+      </section>
+
+      <section id="shared-gherkin" className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8 sm:py-18">
+        <h2 className="text-2xl font-semibold tracking-tight text-cream sm:text-3xl">
+          The shared Gherkin
+        </h2>
+        <p className="mt-2 max-w-2xl text-muted">
+          A seed sprouts a site. An isotope sprouts <em>across</em> seeds: a named procedure with a
+          written spec and the slots it cannot guess. {ISOTOPES.length} pickles travel between the{' '}
+          {cuttings().length} cuttings here, and every name is a page that publishes the Gherkin
+          rather than describing it.
+        </p>
+        <ul className="mt-8 border-t border-line-soft">
+          {ISOTOPES.map((entry) => {
+            const shippedBy = carriers(entry.name)
+            return (
+              <li
+                key={entry.name}
+                className="grid gap-2 border-b border-line-soft py-4 sm:grid-cols-[12rem_1fr_auto] sm:items-baseline sm:gap-6"
+              >
+                <a
+                  href={entry.gherkin}
+                  className="font-mono text-sm text-cream underline decoration-line underline-offset-4 hover:text-pulse"
+                >
+                  {entry.name} ↗
+                </a>
+                <span className="text-sm text-muted">
+                  {entry.problem}
+                  {entry.slots.length ? (
+                    <span className="ml-2 font-mono text-[11px] text-muted">
+                      slots: {entry.slots.join(', ')}
+                    </span>
+                  ) : null}
+                </span>
+                <span className="text-xs text-muted">
+                  {shippedBy.length} {shippedBy.length === 1 ? 'carrier' : 'carriers'} ·{' '}
+                  {shippedBy.map((row, index) => (
+                    <span key={row.id}>
+                      {index ? ', ' : ''}
+                      <Link
+                        to={`/plot/${row.id}`}
+                        className="underline decoration-line underline-offset-4 hover:text-cream"
+                      >
+                        {row.id}
+                      </Link>
+                    </span>
+                  ))}
+                </span>
+              </li>
+            )
+          })}
+        </ul>
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8 sm:py-18">

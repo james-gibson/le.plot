@@ -11,28 +11,28 @@ seeds: maintainer, packager
 
 `le.gume` did not set out to be a documentation framework. It set out to **document the internals of
 the lab-safety ecosystem** — the peers, the trust protocol, the alarm paths — and the framework is
-what that job turned out to need. Every site in this family is a **sprout** of that job.
+what that job turned out to need. Every site in this family is a sprout of that job, and the thing
+that makes them a family rather than seven copies is that they share their written behaviour.
 
 The claim that makes it more than a family resemblance is narrow and testable: **the rules a page
 states are the rules the Go programs enforce, and the math is the same math.** A page that
 disagrees with a binary is a failing test, not a stale sentence — that is the whole reason
 lab-safety writes its safety data sheets as Gherkin and has them canonicalized into isotope ids.
 
-## Propagation, not lineage
+## What grows, and what propagates
 
-The vocabulary is horticultural because the operation is:
+The words are not the point; the growth is. A **seed** sprouts a site: one repository becomes one
+origin a reader can open. An **isotope** sprouts across seeds: a named procedure, a written
+specification, and the slots it cannot guess, carried by any seed that wants the behaviour. The
+first kind of growth is a deploy. The second is how the family proliferates without anyone
+re-inventing a spell check, a rotation handshake or a blast-radius measurement.
 
-| word | what it is here |
-| --- | --- |
-| **stock** | `le.gume` — the plant the cuttings come from. Not a parent; nothing is inherited at run time. |
-| **cutting** | a site repository, taken from the stock once. `cuttingFrom` on a row records it. |
-| **sprout** | the deployed origin that grew from the cutting. This is what a reader opens. |
-| **seed** | the family noun for a cutting and its sprout together, because that is what one repository becomes. |
-
-Stock, cutting, sprout. The first is not above the second, and the second is not owned by the
-first: a cutting carries the stock's *claims* — the guard, the rule ids, the arithmetic — and it
-carries them as code it can run, which is why deleting the edge from the map changes the picture
-and not the build.
+**The isotope is the shared Gherkin.** That is the mechanism, and it is why the same behaviour
+turns up in several sites without being copied: `silverskin` and `cornichon` travel from the
+starter, `dill`, `gherkin` and `piccalilli` from the shell, and each name resolves to a page whose
+spec is the artifact. A map that showed only repositories would miss the thing that actually
+moves between them — which is why [the shared Gherkin](/#shared-gherkin) is a section of its own
+and why an unknown pickle fails the build.
 
 ## The ledger
 

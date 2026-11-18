@@ -110,6 +110,72 @@ export type SeedRow = Common & {
   vendors: Vendors | null
 }
 
+/**
+ * The shared Gherkin.
+ *
+ * An isotope is the thing that travels between seeds: a named procedure whose
+ * identity is a pickle, and whose specification is a Gherkin file the seed
+ * publishes. `ships` says which seeds carry one, and the two are checked
+ * against each other at import — a misspelt pickle would otherwise ship a name
+ * nobody can resolve, which is exactly the kind of claim this plot exists to
+ * make impossible.
+ *
+ * `problem` is the isotope's own one-line description, copied from the page
+ * that publishes it. `gherkin` is where that page is.
+ */
+export type Isotope = {
+  /** the pickle. Permanent once published: it is the slug and the URL segment. */
+  name: string
+  /** the problem it solves, in one clause — its page's own description */
+  problem: string
+  /** the slots it asks for, empty when it needs nothing from the caller */
+  slots: string[]
+  /** the deployed page that publishes the Gherkin, with a trailing slash */
+  gherkin: string
+}
+
+export const ISOTOPES: Isotope[] = [
+  {
+    name: 'silverskin',
+    problem: 'a documentation site that ships itself',
+    slots: [],
+    gherkin: 'https://james-gibson.github.io/le.gume/isotopes/silverskin/',
+  },
+  {
+    name: 'cornichon',
+    problem: 'spell-check a repository on a schedule',
+    slots: ['repo', 'dict', 'every'],
+    gherkin: 'https://james-gibson.github.io/le.gume/isotopes/cornichon/',
+  },
+  {
+    name: 'dill',
+    problem: 'agree on a rotation without logging it',
+    slots: ['tick'],
+    gherkin: 'https://james-gibson.github.io/le.gume-shell/isotopes/dill/',
+  },
+  {
+    name: 'gherkin',
+    problem: 'read a rate limit before you spend it',
+    slots: ['floor', 'every'],
+    gherkin: 'https://james-gibson.github.io/le.gume-shell/isotopes/gherkin/',
+  },
+  {
+    name: 'piccalilli',
+    problem: 'measure a blast radius with a flag',
+    slots: ['surface', 'model'],
+    gherkin: 'https://james-gibson.github.io/le.gume-shell/isotopes/piccalilli/',
+  },
+]
+
+export function isotope(name: string): Isotope | undefined {
+  return ISOTOPES.find((entry) => entry.name === name)
+}
+
+/** Which cuttings carry an isotope. Proliferation, in one function. */
+export function carriers(name: string): SeedRow[] {
+  return PLOT.filter((row): row is SeedRow => row.role !== 'part' && row.ships.includes(name))
+}
+
 export type Dependency = { id: string; verb: string }
 
 export type PartRow = Common & {
@@ -820,6 +886,28 @@ for (const entry of PLOT) {
   if (!entry.live || !entry.live.startsWith('https://')) {
     throw new Error(
       `plot: seed "${entry.id}" is not published on https — a deployment with no origin is a repository (PLOT-01)`,
+    )
+  }
+}
+
+// The isotopes are the shared Gherkin, so both directions are checked: a seed
+// cannot ship a pickle nobody publishes, and an isotope cannot sit in the
+// registry that no seed carries. A name is an address; an address with nothing
+// behind it is the failure this family writes tests against.
+for (const row of PLOT) {
+  if (row.role === 'part') continue
+  for (const name of row.ships) {
+    if (!isotope(name)) {
+      throw new Error(
+        `plot: "${row.id}" ships "${name}", which is not in ISOTOPES — a pickle is an address, and this one resolves to nothing`,
+      )
+    }
+  }
+}
+for (const entry of ISOTOPES) {
+  if (!carriers(entry.name).length) {
+    throw new Error(
+      `plot: isotope "${entry.name}" is in the registry but no seed carries it — either a seed lost it, or the entry is a stranger`,
     )
   }
 }
