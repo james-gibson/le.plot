@@ -18,7 +18,7 @@ export function SiteFooter() {
             ))}
           </p>
           <p className="mt-2 max-w-xs text-sm leading-6 text-muted">
-            Twenty-eight systems, one plot, drawn as tables. Cuttings from{' '}
+            Twenty-nine systems, one plot, drawn as tables. Cuttings from{' '}
             <a
               href={`${PARENT.origin}/`}
               className="text-muted underline decoration-line underline-offset-4 hover:text-cream"

@@ -198,6 +198,13 @@ export const ISOTOPES: Isotope[] = [
     gherkin: 'https://james-gibson.github.io/le.gume-shell/isotopes/gherkin/',
   },
   {
+    name: 'giardiniera',
+    problem: 'serve an assortment to one voice and one goal',
+    slots: ['voice', 'goal'],
+    gherkin: 'https://james-gibson.github.io/le.seo/isotope/giardiniera/',
+    shelf: { status: 'on-shelf', why: 'mixed vegetables, arranged — a composite of several parts' },
+  },
+  {
     name: 'piccalilli',
     shelf: { status: 'on-shelf', why: 'mixed, chopped, brined — a composite of several parts' },
     problem: 'measure a blast radius with a flag',
@@ -431,6 +438,32 @@ export const PLOT: PlotRow[] = [
     vendors: null,
     note: 'The seed that holds no content. It is a connection point: a seed takes a desk, leaves a link, and silence returns the desk to the row.',
     at: row(1572, 280),
+  },
+
+  {
+    id: 'le.seo',
+    group: 'examples',
+    entity: 'le.seo',
+    title: 'A link tree: marketing optimisation for a collection of seeds',
+    demonstrates:
+      'marketing as a choice — one voice and one goal choose an ordered set of destinations, and the address is the pitch',
+    role: 'seed',
+    rung: 1,
+    front: '/',
+    live: 'https://james-gibson.github.io/le.seo',
+    repo: 'james-gibson/le.seo',
+    since: '2026-11-18',
+    cuttingFrom: 'le.gume',
+    keeps: ['tree', 'isotope', 'docs'],
+    adds: [
+      'a register of destinations, each with a voice, a goal and a kind',
+      'sixteen trees, each prerendered as its own address',
+      'the giardiniera isotope: an assortment served in one order',
+    ],
+    ships: ['silverskin', 'cornichon', 'giardiniera'],
+    vendors: null,
+    note: 'The seed that pitches the others. It invents no destination: it chooses among them, orders them by readiness, and makes the choice an address.',
+    at: row(1834, 280),
   },
 
   // --- the lab the sites describe and run in -------------------------------

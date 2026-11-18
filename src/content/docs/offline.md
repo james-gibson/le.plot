@@ -9,11 +9,11 @@ seeds: reader
 
 # The plot, offline
 
-Twenty-eight systems, one plot, drawn as tables. This file is the same argument as the map, cut into
+Twenty-nine systems, one plot, drawn as tables. This file is the same argument as the map, cut into
 slides and rendered to a single HTML file by the build.
 ---
 
-## One page, twenty-eight tables
+## One page, twenty-nine tables
 
 Every site cut from `le.gume` — and the libraries, tools and sandbox those sites describe — is on
 one page, as an entity table with keys and fields. The lines are relationships, not decoration:

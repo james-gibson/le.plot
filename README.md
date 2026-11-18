@@ -1,7 +1,7 @@
 # le.plot
 
 The seed plot: the cuttings taken from [`le.gume`](https://james-gibson.github.io/le.gume/), and the lab
-they describe, drawn as entity tables on one page. Twenty-eight tables, twenty-two lines, and a page you can
+they describe, drawn as entity tables on one page. Twenty-nine tables, twenty-three lines, and a page you can
 check behind every row.
 
 <p align="center">
@@ -15,11 +15,11 @@ check behind every row.
 ## What this is
 
 A seed grown from a seed. The starter argues that a documentation site is a file tree with a guard;
-this repository tests the claim by being one of seven cuttings. It keeps the content model, the guard and the
+this repository tests the claim by being one of eight cuttings. It keeps the content model, the guard and the
 deploy, adds [React Flow](https://reactflow.dev), and changes the subject to the family itself —
 plus the twenty-one libraries, tools, packages, apps and sandbox the systems describe.
 
-- **One page, three layers.** The map is twenty-eight entity tables and twenty-two lines: solid for provenance, dashed
+- **One page, three layers.** The map is twenty-nine entity tables and twenty-three lines: solid for provenance, dashed
   for a vendored copy of the starter's `rules.md`, thin for a cross claim. The lab's internal
   dependencies stay in each row's `depends` field — drawn, they were a hairball.
 - **The shared Gherkin.** An isotope is what travels between seeds: a named procedure, a written
@@ -27,7 +27,7 @@ plus the twenty-one libraries, tools, packages, apps and sandbox the systems des
   home page prints each pickle with the seeds that carry it — proliferation as a table rather than
   a claim.
 - **One record.** `src/lib/plot.ts` is the map's only input. The canvas, the tables and the
-  twenty-eight pages under `/plot` are three renderings of the same objects.
+  twenty-nine pages under `/plot` are three renderings of the same objects.
 - **A check in both directions.** A record with no page, or a page with no record, throws at import
   time — so the build fails before the guard runs.
 - **A table for every reader.** The prerender ships the table, not a canvas; without JavaScript

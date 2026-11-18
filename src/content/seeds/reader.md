@@ -14,7 +14,7 @@ answers it without asking you to clone anything.
 
 ## Start here
 
-Open [the map](/#map). Twenty-eight rows in three layers: nine deployments, thirteen lab systems and six
+Open [the map](/#map). Twenty-nine rows in three layers: ten deployments, thirteen lab systems and six
 reading tools. Each row names a readiness (or a kind), a front door (or what it provides)
 and its parents or dependencies. Select a table for its record, or follow the row to its page.
 
