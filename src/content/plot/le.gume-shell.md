@@ -1,6 +1,6 @@
 ---
 title: le.gume-shell
-description: The same seed with a different front door — what runs, where to start, what each part costs.
+description: The cluster, made visual — the same seed with a different front door: what runs, where to start, what each part costs.
 order: 4
 updated: 2026-11-16
 tags: fork, operations
