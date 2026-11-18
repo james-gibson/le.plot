@@ -308,7 +308,7 @@ export const PLOT: PlotRow[] = [
     ],
     ships: ['cornichon', 'dill', 'gherkin', 'piccalilli', 'silverskin'],
     vendors: null,
-    note: 'The same seed, a different question: not "what is this" but "what is running, and what happens if I stop it".',
+    note: 'The cluster, made visual: not "what is this" but "what is running, and what happens if I stop it".',
     at: row(524, 280),
   },
   {
@@ -531,7 +531,7 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/lezz.go',
     repo: 'james-gibson/lezz.go',
     since: '2026-10-26',
-    note: 'A proposal, not a binary: it accepts a rotation challenge and refuses everything else. The page says which parts exist today.',
+    note: 'Mostly an internal tool, the way a cowhub would be: it accepts a rotation challenge and refuses everything else. A proposal, not a binary — the page says which parts exist today.',
     at: row(1048, 840),
   },
   {
@@ -547,7 +547,7 @@ export const PLOT: PlotRow[] = [
     live: null,
     repo: 'gibsunas/lemon-x-files',
     since: '2025-04-01',
-    note: 'A template checkout, used read-only: the generator clones it, and nothing here pushes back.',
+    note: 'The start agents and CI install instead of writing a workspace. Read-only by construction, and the home of spawn.json — the slots and the parallel plan.',
     at: row(1310, 840),
   },
   {
@@ -618,7 +618,7 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/hweat-penny',
     repo: 'james-gibson/hweat-penny',
     since: '2026-11-14',
-    note: 'The lab calls it le.hweat-penny; the repository does not. A site, not a seed: no content tree, no guard.',
+    note: 'A sales pitch for the cost of the lab\'s rotations — the same numbers, written as a bill. The lab calls it le.hweat-penny; the repository does not.',
     at: row(0, 560),
   },
   {
