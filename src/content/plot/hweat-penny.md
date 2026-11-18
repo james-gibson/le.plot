@@ -1,6 +1,6 @@
 ---
 title: hweat-penny
-description: One penny, one rotation, counted — the single-page explainer the lab calls le.hweat-penny.
+description: A sales pitch for what the lab’s rotations cost — one penny, one rotation, counted. The lab calls it le.hweat-penny.
 order: 19
 updated: 2026-11-17
 tags: app, explainer

@@ -1,6 +1,6 @@
 ---
 title: le.roy jenkins
-description: Rotate or yield — a proposal for the claim tool, with jenkins as the escape hatch it announces.
+description: Mostly an internal tool, the way a cowhub would be — rotate or yield, with jenkins as the escape hatch it announces.
 order: 14
 updated: 2026-11-17
 tags: proposal, claims, mdns

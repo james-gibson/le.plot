@@ -1,6 +1,6 @@
 ---
 title: lemon-x-files
-description: The Nx workspace template the ade-stand clones — packages, tools and the two scripts that build a workspace.
+description: The start agents and CI install instead of writing a workspace — the Nx template, its scripts, and spawn.json.
 order: 15
 updated: 2026-11-17
 tags: template, nx
@@ -22,6 +22,18 @@ generator definitions and the package families that a generated lemon workspace 
 `@lemon/create-ade-stand` clones this repository into `<workspace>/lemon-x-files`, runs the two
 scripts against it and overlays the result. The clone is read-only: the generator never pushes,
 and the template never learns what was generated.
+
+## The start, and the slots
+
+Waiting agents do not have to write a workspace: they clone this repository, run the two scripts and
+overlay. What they do need is the small set of facts nobody can infer, and since 2026-11-17 that is
+`spawn.json` — seven slots with defaults, written once to `seed.json`, and a plan with three parallel
+branches (start, content, publish) that converge. Each branch ends in a check and a failure the agent
+provokes on purpose, because a check that has never gone red is a sentence.
+
+The slot that carries the most weight is `checks`: a workspace claims only what it will run, and
+records what it did not claim. Forcing every rule into a small space would remove the one thing this
+repository is actually good for — showing a builder what breaking a rule looks like.
 
 ## What it costs
 
