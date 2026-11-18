@@ -23,4 +23,4 @@ export const PARENT = {
 
 /** The shortest payload that still tells an agent where the contract is. */
 export const HANDOFF =
-  'Read https://james-gibson.github.io/le.plot/llms.txt then npm ci && npm run build. Repo: https://github.com/james-gibson/le.plot'
+  'Read https://james-gibson.github.io/le.plot/llms.txt — publish by pushing to main; the deploy workflow builds. Repo: https://github.com/james-gibson/le.plot'
