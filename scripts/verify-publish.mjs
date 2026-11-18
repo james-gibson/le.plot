@@ -505,6 +505,34 @@ if (!ruleSet) {
   }
 }
 
+// --- the vocabulary register ---------------------------------------------
+// The register is the only place the family's shared words are defined, so the
+// build checks that it exists, that it still distinguishes the four senses of
+// "isotope", and that every off-shelf pickle is named on it. A debt that is
+// recorded in the record but missing from the page is a rule nobody can read.
+const vocabulary = await readText(join(DIST, 'docs/vocabulary/index.html')).catch(() => '')
+if (!vocabulary) {
+  fail('vocabulary', 'dist/docs/vocabulary/index.html is missing — the word register lives there')
+} else {
+  for (const phrase of ['the measure', 'the spec identity', 'the probe result', 'the procedure page']) {
+    if (!vocabulary.includes(phrase)) {
+      fail('vocabulary', `the register no longer defines "${phrase}" as a sense of isotope`)
+    }
+  }
+  if (!/pick the shape, not the flavour/i.test(vocabulary)) {
+    fail('vocabulary', 'the register no longer cites the shelf rule that names shape rather than flavour')
+  }
+  const plotSourceForShelf = await readText('src/lib/plot.ts').catch(() => '')
+  const offShelf = [...plotSourceForShelf.matchAll(/OFF_SHELF = \[([^\]]*)\]/g)]
+    .flatMap((match) => [...match[1].matchAll(/'([^']+)'/g)].map((name) => name[1]))
+  if (!offShelf.length) fail('vocabulary', 'OFF_SHELF is empty or unreadable')
+  for (const name of offShelf) {
+    if (!vocabulary.includes(name)) {
+      fail('vocabulary', `"${name}" is carried as off-shelf debt but the register does not mention it`)
+    }
+  }
+}
+
 // --- report ---------------------------------------------------------------
 if (failures.length) {
   console.error('guard: refused to publish\n')

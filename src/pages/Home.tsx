@@ -200,7 +200,15 @@ export function Home() {
           A seed sprouts a site. An isotope sprouts <em>across</em> seeds: a named procedure with a
           written spec and the slots it cannot guess. {ISOTOPES.length} pickles travel between the{' '}
           {cuttings().length} cuttings here, and every name is a page that publishes the Gherkin
-          rather than describing it.
+          rather than describing it. A <span className="font-mono">*</span> marks a name that is off
+          the pickle shelf — still an address, recorded as debt in{' '}
+          <Link
+            to="/docs/vocabulary"
+            className="text-pulse underline decoration-pulse/30 underline-offset-4 hover:decoration-pulse"
+          >
+            the word register
+          </Link>
+          .
         </p>
         <ul className="mt-8 border-t border-line-soft">
           {ISOTOPES.map((entry) => {
@@ -213,8 +221,15 @@ export function Home() {
                 <a
                   href={entry.gherkin}
                   className="font-mono text-sm text-cream underline decoration-line underline-offset-4 hover:text-pulse"
+                  title={entry.shelf.status === 'off-shelf' ? `off the pickle shelf: ${entry.shelf.why}` : undefined}
                 >
-                  {entry.name} ↗
+                  {entry.name}
+                  {entry.shelf.status === 'off-shelf' ? (
+                    <span className="ml-0.5 align-super text-[10px] text-pulse" aria-label="off the pickle shelf">
+                      *
+                    </span>
+                  ) : null}{' '}
+                  ↗
                 </a>
                 <span className="text-sm text-muted">
                   {entry.problem}

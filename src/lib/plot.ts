@@ -126,6 +126,16 @@ export type SeedRow = Common & {
 export type Isotope = {
   /** the pickle. Permanent once published: it is the slug and the URL segment. */
   name: string
+  /**
+   * Whether the name is on the pickle shelf, and if not, why not.
+   *
+   * The shelf (le.gume, /isotopes/what-is-an-isotope) names the *shape* of a
+   * system — whole, small, nested, mixed — and never a flavour, a tool or the
+   * language the spec is written in. A name that breaks that is still an
+   * address, so it cannot be renamed quietly; it is recorded here with its
+   * reason and carried as debt.
+   */
+  shelf: { status: 'on-shelf' | 'off-shelf'; why: string }
   /** the problem it solves, in one clause — its page's own description */
   problem: string
   /** the slots it asks for, empty when it needs nothing from the caller */
@@ -137,35 +147,50 @@ export type Isotope = {
 export const ISOTOPES: Isotope[] = [
   {
     name: 'silverskin',
+    shelf: { status: 'on-shelf', why: 'a whole small onion, pickled in one piece — self-contained systems' },
     problem: 'a documentation site that ships itself',
     slots: [],
     gherkin: 'https://james-gibson.github.io/le.gume/isotopes/silverskin/',
   },
   {
     name: 'cornichon',
+    shelf: { status: 'on-shelf', why: 'a small gherkin, picked often — small recurring checks' },
     problem: 'spell-check a repository on a schedule',
     slots: ['repo', 'dict', 'every'],
     gherkin: 'https://james-gibson.github.io/le.gume/isotopes/cornichon/',
   },
   {
     name: 'dill',
+    shelf: { status: 'off-shelf', why: 'dill is a flavour and a herb, not a shape: the shelf names what the system is, not what it tastes of' },
     problem: 'agree on a rotation without logging it',
     slots: ['tick'],
     gherkin: 'https://james-gibson.github.io/le.gume-shell/isotopes/dill/',
   },
   {
     name: 'gherkin',
+    shelf: { status: 'off-shelf', why: 'the spec language, not a pickle name — and the shelf already has `cornichon` for a small gherkin' },
     problem: 'read a rate limit before you spend it',
     slots: ['floor', 'every'],
     gherkin: 'https://james-gibson.github.io/le.gume-shell/isotopes/gherkin/',
   },
   {
     name: 'piccalilli',
+    shelf: { status: 'on-shelf', why: 'mixed, chopped, brined — a composite of several parts' },
     problem: 'measure a blast radius with a flag',
     slots: ['surface', 'model'],
     gherkin: 'https://james-gibson.github.io/le.gume-shell/isotopes/piccalilli/',
   },
 ]
+
+/**
+ * Off the shelf, on the record.
+ *
+ * Two names in this registry do not follow the starter's shelf rule, and they
+ * are here rather than renamed because a published name is an address: a QR
+ * code in a slide deck still points at `/isotopes/gherkin/`. The list is a
+ * constant so a *third* deviation cannot arrive by copy-paste.
+ */
+export const OFF_SHELF = ['dill', 'gherkin'] as const
 
 export function isotope(name: string): Isotope | undefined {
   return ISOTOPES.find((entry) => entry.name === name)
@@ -887,6 +912,25 @@ for (const entry of PLOT) {
     throw new Error(
       `plot: seed "${entry.id}" is not published on https — a deployment with no origin is a repository (PLOT-01)`,
     )
+  }
+}
+
+// The shelf is a naming rule with two published exceptions. A third one is not
+// a style choice, it is a build error — which is the only way a guideline this
+// soft survives contact with a hurried afternoon.
+for (const entry of ISOTOPES) {
+  const off = entry.shelf.status === 'off-shelf'
+  if (off && !entry.shelf.why.trim()) {
+    throw new Error(`plot: isotope "${entry.name}" is off the shelf and does not say why`)
+  }
+  if (off && !(OFF_SHELF as readonly string[]).includes(entry.name)) {
+    throw new Error(
+      `plot: isotope "${entry.name}" is labelled off-shelf but is not in OFF_SHELF — ` +
+        'either fix the name or record the debt, with a reason',
+    )
+  }
+  if (!off && (OFF_SHELF as readonly string[]).includes(entry.name)) {
+    throw new Error(`plot: isotope "${entry.name}" is on the shelf but listed as debt`)
   }
 }
 
