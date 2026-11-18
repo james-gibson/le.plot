@@ -13,9 +13,9 @@ The diagram and the tables are the same twenty-eight objects. So are the twenty-
 
 `src/lib/plot.ts` holds one record per row, in two shapes:
 
-- **a seed row** — a site grown from the starter: name, role, readiness, front door, the starter
-  sections it keeps, what it added, the isotopes it publishes, the rules copy it vendors, the day
-  its own history starts, and where its table sits on the map;
+- **a seed row** — a site cloned from the starter: name, role, readiness, front door, the sections
+  it kept from the starter, what it added, the isotopes it publishes, the rules copy it vendors,
+  the day its own history starts, and where its table sits on the map;
 - **a part row** — a library, tool, app or upstream: name, kind, language, what it provides, what it
   depends on, the default ports it binds when it binds any, and the same position and history.
   Its kind is one of library, tool, app, upstream, package or workspace.
