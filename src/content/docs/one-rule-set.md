@@ -34,6 +34,31 @@ spec is the artifact. A map that showed only repositories would miss the thing t
 moves between them — which is why [the shared Gherkin](/#shared-gherkin) is a section of its own
 and why an unknown pickle fails the build.
 
+## The shape is not the core
+
+`le.gume` is the **shape** of the system: a Markdown content model, a derived navigation, a guard,
+and a deploy on push, realised in React and Vite. It is one shape. It is replaceable.
+
+The **core** is the isotope: a named procedure, its slots, and a Gherkin spec that canonicalizes to
+an id. Nothing in that definition names a language, a framework or a host. If somebody implemented
+`cornichon` in Visual Basic and it produced the same canonical id, it would be the same isotope —
+not a fork, not a port with a compatibility table.
+
+The lab already has the proof. The canon exists twice: in Go (`isotope`), and transcribed into
+`brine.py` in the vault with no dependencies beyond the standard library. Two implementations, one
+identity. A third in any language would be the same test of the same claim, and that is the point
+of canonicalizing: the artifact that travels is the spec, not the runtime around it.
+
+This is also why a seed row has no `language` field and a part row does. A shape is a way of
+publishing; a part is a program. Asking what language a seed is written in is asking about the
+shape, and the shape is the part you are allowed to throw away.
+
+There are already other ways to start that do not involve this shape at all:
+[lemon-x-files](/plot/lemon-x-files) is a template checkout that
+[create-ade-stand](/plot/create-ade-stand) clones and overlays, and a page can consume components
+from a CDN with no build step. Each is a start, and each still has to publish its Gherkin if it
+wants to claim an isotope.
+
 ## The ledger
 
 Every rule on these sites has a program behind it. The table is the contract; a row that cannot be

@@ -91,6 +91,8 @@ The register is not only about pickles. The family's growth vocabulary is:
 | **stock** | the starter, `le.gume` — where cuttings come from |
 | **cutting** | a repository taken from the stock once (`cuttingFrom` on a row) |
 | **sprout** | the deployed origin that grew from a cutting |
+| **shape** | a way of publishing — content model, guard, deploy. `le.gume` is one; it is replaceable |
+| **core** | the isotope: spec, slots, canonical id. Language-free, and the thing that travels |
 | **proliferate** | what an isotope does: the same Gherkin carried by several seeds |
 
 The words are descriptive, not load-bearing. What is load-bearing is that an isotope is the shared

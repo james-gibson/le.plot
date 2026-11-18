@@ -18,6 +18,9 @@ The diagram and the tables are the same twenty-eight objects. So are the twenty-
   the day its own history starts, and where its table sits on the map;
 - **a part row** — a library, tool, app or upstream: name, kind, language, what it provides, what it
   depends on, the default ports it binds when it binds any, and the same position and history.
+
+The asymmetry is deliberate: a seed has no `language`. A seed is a *shape* — a way of publishing —
+and the shape is the replaceable part. A part is a program, so its language is a fact about it.
   Its kind is one of library, tool, app, upstream, package or workspace.
 
 One file, two shapes, because they answer different questions. A seed row answers "who is this
