@@ -34,7 +34,7 @@ its basis is better than one that pretends the match was exact.
 ## The dispatch is the case for keeping the repos
 
 `le.seo` is the second seed that only makes sense because the family is a workspace of separate
-repositories. It cannot read their content: it holds a register of twelve names, their URLs, one
+repositories. It cannot read their content: it holds a register of thirteen names, their URLs, one
 line each, and the voice and goal each one serves. That is enough to pitch them, and it is the whole
 reason privacy improves when management consolidates — the pitch site holds the *claim*, and the
 sites keep the material.
@@ -57,7 +57,7 @@ artifact, which is the only way either one stays true.
 
 ## What it costs
 
-- **Twelve destinations to maintain by hand.** The register is not derived from the plot, and it
+- **Thirteen destinations to maintain by hand.** The register is not derived from the plot, and it
   cannot be: the pitch needs a line of copy per destination, and copy is not a field the map holds.
   A dead link is caught by the build; a stale sentence is not.
 - **Four voices and four goals is sixteen pages** with sometimes one destination each. That is the

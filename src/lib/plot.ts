@@ -198,6 +198,13 @@ export const ISOTOPES: Isotope[] = [
     gherkin: 'https://james-gibson.github.io/le.gume-shell/isotopes/gherkin/',
   },
   {
+    name: 'dilly-bean',
+    problem: "trace a seed's inheritance and its bill of materials",
+    slots: ['seed', 'traits', 'layers', 'graft'],
+    gherkin: 'https://james-gibson.github.io/le.stalk/isotope/dilly-bean/',
+    shelf: { status: 'on-shelf', why: "a green bean pickled whole and packed upright — the vine's fruit, preserved in the shape it grew" },
+  },
+  {
     name: 'pickled-egg',
     problem: 'name the installed app after the seed, from the seed\'s own card',
     slots: ['seed', 'wall', 'mark', 'doors'],
@@ -472,6 +479,35 @@ export const PLOT: PlotRow[] = [
     vendors: null,
     note: 'The seed that pitches the others. It invents no destination: it chooses among them, orders them by readiness, and makes the choice an address.',
     at: row(1834, 280),
+  },
+
+  {
+    id: 'le.stalk',
+    verb: 'trace a lineage',
+    group: 'examples',
+    entity: 'le.stalk',
+    title: 'A stalk: collections, bills of materials and lineage for a family of seeds',
+    role: 'seed',
+    rung: 1,
+    front: '/',
+    demonstrates:
+      'the family modelled so a build can disagree with it — collections as predicates, bills in three layers, and lineage as typed edges',
+    live: 'https://james-gibson.github.io/le.stalk',
+    repo: 'james-gibson/le.stalk',
+    since: '2026-11-18',
+    cuttingFrom: 'le.gume',
+    keeps: ['guard', 'isotope'],
+    adds: [
+      'five collections, each a predicate with an owner, a purpose and a snapshot, evaluated every build',
+      'a bill of materials in three layers, every entry tagged with the source it came from',
+      'six typed edges, with a graft required to carry a claim',
+      'Mendel tables: what each crossing kept, added and lost',
+      'the dilly-bean isotope: trace inheritance and bills, with five refusals',
+    ],
+    ships: ['dilly-bean'],
+    vendors: null,
+    note: 'The seed that asks what a collection is. It drops the starter\'s framework and keeps its discipline: one model, one generator, one guard — and an empty collection fails the build.',
+    at: row(2096, 280),
   },
 
   // --- the lab the sites describe and run in -------------------------------
