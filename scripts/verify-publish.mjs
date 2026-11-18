@@ -453,6 +453,9 @@ if (!admission) {
   if (!/Provenance is not an admission test/.test(admission)) {
     fail('rules', 'the admission page no longer separates provenance from admission')
   }
+  if (!/may not be the only route to a row/.test(admission)) {
+    fail('rules', 'PLOT-05 has gone: a scope must not become the only route to a row')
+  }
 }
 const plotSource = await readText('src/lib/plot.ts').catch(() => '')
 for (const marker of ['PLOT-03: one cell per row', 'PLOT-04: a row carries the evidence']) {
@@ -510,6 +513,15 @@ if (!ruleSet) {
 // build checks that it exists, that it still distinguishes the four senses of
 // "isotope", and that every off-shelf pickle is named on it. A debt that is
 // recorded in the record but missing from the page is a rule nobody can read.
+// PLOT-05 is a constraint recorded ahead of the management layer that will have to
+// honour it. If it leaves the page, the next implementation has no callout to read.
+const model = await readText(join(DIST, 'docs/data-model/index.html')).catch(() => '')
+if (!model.includes('Callout, recorded before it is built')) {
+  fail('rules', 'the scope callout has been removed from /docs/data-model')
+} else if (!/offline exports/i.test(model) || !/archivability/i.test(model)) {
+  fail('rules', 'the scope callout no longer names offline exports and archivability')
+}
+
 const vocabulary = await readText(join(DIST, 'docs/vocabulary/index.html')).catch(() => '')
 if (!vocabulary) {
   fail('vocabulary', 'dist/docs/vocabulary/index.html is missing — the word register lives there')

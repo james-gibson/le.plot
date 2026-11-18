@@ -77,6 +77,12 @@ type Common = {
   live: string | null
   /** owner/name on GitHub, or null when the work is held locally */
   repo: string | null
+  /**
+   * Held on the machine and nowhere else. A row may be local, but it may not be
+   * *unaddressable*: a scope that organises this plot must still leave every row
+   * a route of its own (PLOT-05).
+   */
+  localOnly?: true
   /** first commit in its own history, when it has one that can be read */
   since?: string
   /** which question this row answers */
@@ -527,6 +533,7 @@ export const PLOT: PlotRow[] = [
     depends: [],
     live: null,
     repo: null,
+    localOnly: true,
     since: '2026-10-27',
     note: 'The display exists before its source does; that is the claim, not an unfinished state.',
     at: row(1048, 560),
@@ -669,6 +676,7 @@ export const PLOT: PlotRow[] = [
     ports: [{ port: 19120, purpose: 'the dashboard, bound to the loopback interface as a lezz service' }],
     live: null,
     repo: null,
+    localOnly: true,
     since: '2026-10-08',
     note: 'A fire marshal board does not report the show: it counts occupancy, names the exits and shows the alarm.',
     at: row(786, 560),
@@ -708,6 +716,7 @@ export const PLOT: PlotRow[] = [
     ],
     live: null,
     repo: null,
+    localOnly: true,
     since: '2026-10-08',
     note: 'A local service with no published source: the index is on this machine, and so is the mirror that survives its restarts.',
     at: row(1572, 840),
@@ -963,6 +972,21 @@ for (const entry of ISOTOPES) {
   }
   if (!off && (OFF_SHELF as readonly string[]).includes(entry.name)) {
     throw new Error(`plot: isotope "${entry.name}" is on the shelf but listed as debt`)
+  }
+}
+
+// PLOT-05: a row is addressable on its own. A scope — a view, a branch, a
+// workspace filter — may organise the plot; it may not be the only route to a
+// system. Published, in a repository, or declared local: one of the three.
+for (const row of PLOT) {
+  if (!row.live && !row.repo && !row.localOnly) {
+    throw new Error(
+      `plot: "${row.id}" has no live origin, no repository and no localOnly mark — ` +
+        'a scope must not be the only way to reach a row',
+    )
+  }
+  if (row.localOnly && (row.live || row.repo)) {
+    throw new Error(`plot: "${row.id}" is localOnly but also claims a live origin or a repository`)
   }
 }
 

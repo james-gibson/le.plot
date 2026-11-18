@@ -78,6 +78,20 @@ The generator in [create-ade-stand](/plot/create-ade-stand) is the exception tha
 it *does* create a workspace with one repository inside it, and it takes the slots for that job from
 [lemon-x-files](/plot/lemon-x-files).
 
+The repositories stay separate. What consolidates is the **management**: one map, one set of slots,
+one place to see what runs. That is also why privacy improves rather than degrades — this plot holds
+the *record* of each system, never its content. A management layer that pulled the sites' material
+into itself would have moved the data, not described it.
+
+> **Callout, recorded before it is built.** Organising by scopes — a workspace selector, a branch
+> filter, a view that groups rows — must not reduce a site's **offline exports** or its
+> **archivability**. A scope is a lens on the record. It may not become the only route to a site:
+> every row keeps its own repository, its own history, its own origin and its own offline artefacts
+> (`/deck.html`, `/nojs/`, `/bare/` where a site has them, a service worker where it has one), and it
+> must still be readable when this plot is not running. The check in the build is the smallest form
+> of that promise: every row is published, in a repository, or declared local — never reachable only
+> through a scope.
+
 ## The lines are derived
 
 Nothing about an edge is hand-written in the drawing code.

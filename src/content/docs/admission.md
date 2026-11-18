@@ -10,7 +10,7 @@ seeds: maintainer
 # When a row is added
 
 The plot has one rule, and it is this repository's rule — not the starter's. It is recorded here
-as `PLOT-01` and enforced in the build, and this page is the reasoning behind it.
+as `PLOT-01..05` and enforced in the build, and this page is the reasoning behind it.
 
 It is **not** published as a `rules.md`. The starter publishes rules because seeds defer to them;
 this seed is a leaf, and a rule file here would be a second source of truth with no one to check it. A page that the guard refuses to let disappear is the leaf's equivalent, and it
@@ -88,6 +88,8 @@ Half the rule is a judgement and half is arithmetic, and the arithmetic runs in 
 - two rows on one coordinate is a map nobody can read, and it throws too;
 - a `seed` row must be `live` on https with a front door that starts at `/`;
 - a `part` row must say what it `provides`;
+- every row is addressable on its own: published, in a repository, or declared local (PLOT-05). A
+  scope may organise the plot, and may not be the only route to a row;
 - the rule itself must stay on the published page. The guard greps for the sentence and for the
   provenance clause, so deleting the rule fails the build instead of quietly freeing the map;
 - no `rules.md` may appear. A leaf that publishes rules has invented a role it does not have, and
