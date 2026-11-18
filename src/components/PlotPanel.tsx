@@ -68,6 +68,24 @@ export function PlotPanel({ rowId }: { rowId: string }) {
         )}
       </div>
 
+      {row.preferred || row.verb ? (
+        <div className="grid gap-4 rounded-2xl border border-line bg-surface p-5 sm:grid-cols-2">
+          {row.preferred ? (
+            <div>
+              <p className="text-xs tracking-[0.14em] text-muted uppercase">Called</p>
+              <p className="mt-1 font-mono text-sm text-cream">{row.preferred}</p>
+              <p className="mt-1 text-xs text-muted">published as {row.entity}</p>
+            </div>
+          ) : null}
+          {row.verb ? (
+            <div>
+              <p className="text-xs tracking-[0.14em] text-muted uppercase">Verb</p>
+              <p className="mt-1 font-mono text-sm text-cream">{row.verb}</p>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+
       {row.status ? (
         <div className="rounded-2xl border border-violet/40 bg-surface p-5">
           <p className="text-xs tracking-[0.14em] text-violet uppercase">Status</p>

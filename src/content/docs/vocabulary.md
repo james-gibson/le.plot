@@ -61,6 +61,19 @@ carried as debt rather than renamed, because a published name is an address:
 the shelf without being on it. The register and the record are checked against each other, so this
 table cannot quietly disagree with the map.
 
+## Names and verbs
+
+A seed has a **preferred name** and a **verb**, and the tooling sometimes forces a different
+spelling of the first. `@lemon/ade-stand` is the name anyone would say; npm only honours the
+`create` alias for a package called `create-…`, so the published name is
+`@lemon/create-ade-stand` and the verb is `npm create @lemon/ade-stand`. Both are recorded in the
+plot's row: the forced spelling is what the registry resolves, the preferred one is what a reader
+sees, and the verb is how you actually invoke it.
+
+The same shape holds across the family, which is why it is a field rather than a sentence: `le.ad`'s
+verb is *take a desk*, `le.gume`'s is *clone*, and a generator's is *create*. A row that names a
+thing and cannot say what you do with it is a catalogue entry.
+
 ## Four things called "isotope"
 
 The word is doing four jobs. They are related — the same canon gives three of them identity — but

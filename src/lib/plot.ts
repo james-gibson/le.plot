@@ -71,6 +71,18 @@ type Common = {
   id: string
   /** the entity name, as its own repository writes it */
   entity: string
+  /**
+   * The name people actually use, when the published one is forced.
+   *
+   * `@lemon/ade-stand` is the preferred name; npm only honours the `create`
+   * alias for a package called `create-…`, so the published name is
+   * `@lemon/create-ade-stand` and the verb is `npm create @lemon/ade-stand`.
+   * Both are recorded: the forced spelling is what the registry needs, the
+   * preferred one is what anyone will say out loud.
+   */
+  preferred?: string
+  /** what you do with it, in the tool's own syntax */
+  verb?: string
   /** one line: what the thing is */
   title: string
   /** deployed origin, without a trailing slash; null when it is not published */
@@ -396,6 +408,7 @@ export const PLOT: PlotRow[] = [
 
   {
     id: 'le.ad',
+    verb: 'take a desk',
     group: 'examples',
     entity: 'le.ad',
     title: 'An empty hot desk: six desks, one claim at a time, a lease that returns them',
@@ -606,6 +619,8 @@ export const PLOT: PlotRow[] = [
   },
   {
     id: 'create-ade-stand',
+    preferred: '@lemon/ade-stand',
+    verb: 'npm create @lemon/ade-stand',
     group: 'lab',
     entity: '@lemon/create-ade-stand',
     title: 'npm create @lemon/ade-stand: an Nx workspace from a template, in one command',
