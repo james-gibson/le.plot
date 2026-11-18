@@ -97,6 +97,12 @@ export type SeedRow = Common & {
   rung: number
   /** the route a newcomer is meant to open first, on that site */
   front: string
+  /**
+   * The thesis the site is a working example of. One line, in the seed's own
+   * terms: what a reader should be able to *see* having read it, rather than
+   * what it contains. A row without one is a site, not a demonstration.
+   */
+  demonstrates: string
   /** the starter this deploy was cloned from; null on the starter itself.
    *  Provenance, not a parent: nothing is built against it. */
   cuttingFrom: string | null
@@ -218,6 +224,24 @@ export type PlotRow = SeedRow | PartRow
 /** A claim between two rows. The verb is what the panel prints; the line is unlabelled. */
 export type Relation = { from: string; to: string; verb: string }
 
+/**
+ * The four bodies everything else orbits.
+ *
+ * The map used to read as a family tree with one root. It is not: the sites and
+ * the lab tools sit around four working bodies — the shape they are cut from,
+ * the monitor, the dashboard and the counter display — and each row is a
+ * separate repository in one workspace, not a branch of the one above it.
+ *
+ * The orbit is not drawn as an edge: 28 rows times four bodies is a hairball,
+ * and the claim is a single sentence that belongs in prose. It is marked, and
+ * the build checks that every name here is a row.
+ */
+export const CORE = ['le.gume', 'adhd', 'ocd-smoke-alarm', 'fire-marshall'] as const
+
+export function isCore(id: string): boolean {
+  return (CORE as readonly string[]).includes(id)
+}
+
 const NODE_W = 250
 const row = (x: number, y: number) => ({ x, y })
 
@@ -231,6 +255,7 @@ export const PLOT: PlotRow[] = [
     role: 'starter',
     rung: 2,
     front: '/docs/quickstart',
+    demonstrates: 'the shape itself: a content tree, a derived navigation, a guard, and a deploy on push',
     live: PARENT.origin,
     repo: 'james-gibson/le.gume',
     since: '2026-11-11',
@@ -250,6 +275,7 @@ export const PLOT: PlotRow[] = [
     role: 'seed',
     rung: 1,
     front: '/docs/01-parable',
+    demonstrates: 'the 42i system, using citations as the medium — an abstract distance made concrete',
     live: 'https://james-gibson.github.io/le.go',
     repo: 'james-gibson/le.go',
     since: '2026-11-15',
@@ -273,6 +299,7 @@ export const PLOT: PlotRow[] = [
     role: 'seed',
     rung: 0,
     front: '/docs/overview',
+    demonstrates: 'a solutions-based seed: a household record built from exports, charts and interventions',
     live: 'https://james-gibson.github.io/le.gume-energy',
     repo: 'james-gibson/le.gume-energy',
     since: '2026-11-13',
@@ -296,6 +323,7 @@ export const PLOT: PlotRow[] = [
     role: 'seed',
     rung: 3,
     front: '/',
+    demonstrates: 'the cluster, made visual: what runs, what it costs, and what happens if you stop it',
     live: 'https://james-gibson.github.io/le.gume-shell',
     repo: 'james-gibson/le.gume-shell',
     since: '2026-11-15',
@@ -319,6 +347,7 @@ export const PLOT: PlotRow[] = [
     role: 'seed',
     rung: 1,
     front: '/brief/what-railhead-is',
+    demonstrates: "tracking an upstream project on behalf of a team project — somebody else's environment, kept to the starter's rules",
     live: 'https://james-gibson.github.io/le.railhead',
     repo: 'james-gibson/le.railhead',
     since: '2026-11-14',
@@ -342,6 +371,7 @@ export const PLOT: PlotRow[] = [
     role: 'seed',
     rung: 1,
     front: '/brief/mission',
+    demonstrates: 'a team reading a simulation as a dashboard, with the studies register behind it',
     live: 'https://james-gibson.github.io/that-train-dashboard',
     repo: 'james-gibson/that-train-dashboard',
     since: '2026-11-12',
@@ -366,6 +396,7 @@ export const PLOT: PlotRow[] = [
     role: 'seed',
     rung: 1,
     front: '/',
+    demonstrates: 'isolation is silence: an empty desk says nothing, and a lease is what makes silence a state',
     live: 'https://james-gibson.github.io/le.ad',
     repo: 'james-gibson/le.ad',
     since: '2026-11-17',
@@ -590,6 +621,7 @@ export const PLOT: PlotRow[] = [
     group: 'examples',
     rung: 0,
     front: '/',
+    demonstrates: 'how much private data a public release carries when nobody stops it',
     live: 'https://james-gibson.github.io/zaphood',
     repo: 'james-gibson/zaphood',
     since: '2026-11-13',
@@ -931,6 +963,12 @@ for (const entry of ISOTOPES) {
   }
   if (!off && (OFF_SHELF as readonly string[]).includes(entry.name)) {
     throw new Error(`plot: isotope "${entry.name}" is on the shelf but listed as debt`)
+  }
+}
+
+for (const id of CORE) {
+  if (!PLOT.some((row) => row.id === id)) {
+    throw new Error(`plot: CORE names "${id}", which is not a row — a core nobody can point at`)
   }
 }
 

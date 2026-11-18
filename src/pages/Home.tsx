@@ -163,6 +163,19 @@ export function Home() {
           </Link>
         </div>
 
+        <p className="mt-4 max-w-3xl text-sm text-muted">
+          Everything here orbits four working bodies:{' '}
+          <Link to="/plot/le.gume" className="font-mono text-cream underline decoration-line underline-offset-4 hover:text-pulse">le.gume</Link>{' '}
+          (the shape),{' '}
+          <Link to="/plot/adhd" className="font-mono text-cream underline decoration-line underline-offset-4 hover:text-pulse">adhd</Link>{' '}
+          (the dashboard),{' '}
+          <Link to="/plot/ocd-smoke-alarm" className="font-mono text-cream underline decoration-line underline-offset-4 hover:text-pulse">ocd-smoke-alarm</Link>{' '}
+          (the monitor) and{' '}
+          <Link to="/plot/fire-marshall" className="font-mono text-cream underline decoration-line underline-offset-4 hover:text-pulse">fire-marshall</Link>{' '}
+          (the counter display). They are marked on the map; the orbit is stated rather than drawn,
+          because 28 rows times four bodies is a hairball and the claim is one sentence.
+        </p>
+
         <div className="mt-8">
           <PlotCanvas
             groups={groups}

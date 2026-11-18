@@ -65,6 +65,19 @@ in the same place today, which is the only property that makes return visits che
 A row belongs to exactly one group. If a future row answers two questions, give it a primary group
 and say the second in its page; a node in two layers is a row nobody can find twice.
 
+## One workspace, many repositories
+
+Every row is a repository, and no row is a subdirectory of another. The family is a **monorepo of
+repositories**: one workspace that holds them side by side, each with its own history, its own
+guard and its own deploy. That is why the map draws provenance and claims rather than containment —
+a tree would say the sites live inside the starter, and they do not.
+
+The practical consequence: a change that touches several rows is several commits in several
+repositories, and a "monorepo" view has to be built from the outside — which is what this page is.
+The generator in [create-ade-stand](/plot/create-ade-stand) is the exception that proves the rule:
+it *does* create a workspace with one repository inside it, and it takes the slots for that job from
+[lemon-x-files](/plot/lemon-x-files).
+
 ## The lines are derived
 
 Nothing about an edge is hand-written in the drawing code.

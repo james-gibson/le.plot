@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import {
   KIND_LABEL,
+  isCore,
   getPlotRow,
   relationsOf,
   rungLabel,
@@ -21,6 +22,14 @@ export function PlotPanel({ rowId }: { rowId: string }) {
 
   return (
     <div className="mt-8 space-y-5">
+      {isCore(row.id) ? (
+        <p className="rounded-2xl border border-pulse/40 bg-surface px-5 py-3 text-sm text-muted">
+          <span className="font-mono text-[11px] tracking-[0.14em] text-pulse uppercase">core</span>{' '}
+          — one of the four bodies the rest of the plot orbits:
+          <span className="font-mono text-cream"> le.gume · adhd · ocd-smoke-alarm · fire-marshall</span>
+        </p>
+      ) : null}
+
       <div className="grid gap-4 rounded-2xl border border-line bg-surface p-5 sm:grid-cols-3">
         {row.role === 'part' ? (
           <>
@@ -103,6 +112,11 @@ export function PlotPanel({ rowId }: { rowId: string }) {
                 ))}
               </ul>
             </div>
+          </div>
+
+          <div className="rounded-2xl border border-line bg-surface p-5">
+            <p className="text-xs tracking-[0.14em] text-muted uppercase">Demonstrates</p>
+            <p className="mt-1 text-sm text-cream">{row.demonstrates}</p>
           </div>
 
           <div className="grid gap-4 rounded-2xl border border-line bg-surface p-5 sm:grid-cols-3">

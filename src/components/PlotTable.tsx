@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { KIND_LABEL, cuttings, isotope, parts, rungLabel, seeds, type GroupId } from '../lib/plot'
+import { KIND_LABEL, cuttings, isCore, isotope, parts, rungLabel, seeds, type GroupId } from '../lib/plot'
 
 /**
  * The map as tables.
@@ -52,6 +52,11 @@ export function PlotTable({ groups }: { groups: GroupId[] }) {
                     >
                       {seed.entity}
                     </Link>
+                    {isCore(seed.id) ? (
+                      <span className="ml-2 rounded-full border border-pulse/50 px-1.5 py-0.5 align-middle font-mono text-[9px] tracking-[0.12em] text-pulse uppercase">
+                        core
+                      </span>
+                    ) : null}
                     {seed.live ? (
                       <a
                         href={`${seed.live}/`}
@@ -151,6 +156,11 @@ export function PlotTable({ groups }: { groups: GroupId[] }) {
                     >
                       {part.entity}
                     </Link>
+                    {isCore(part.id) ? (
+                      <span className="ml-2 rounded-full border border-pulse/50 px-1.5 py-0.5 align-middle font-mono text-[9px] tracking-[0.12em] text-pulse uppercase">
+                        core
+                      </span>
+                    ) : null}
                     {part.repo ? (
                       <a
                         href={`https://github.com/${part.repo}`}

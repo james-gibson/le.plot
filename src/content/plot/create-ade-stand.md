@@ -13,6 +13,12 @@ The published name is a trick on purpose: `npm create @lemon/ade-stand` resolves
 The repository is `gibsunas/lemon-ade-stand`, and the package inside it is called
 `@lemon/create-ade-stand`.
 
+Both spellings are the same command. The generator's job is to be the *start* an agent or a CI job
+runs instead of writing a workspace: it clones [lemon-x-files](/plot/lemon-x-files), runs the two
+scripts against it, and overlays the result. The slots that job needs — name, base, title, which
+checks the workspace will actually run — are recorded next to the template in `spawn.json`, because
+a template that cannot be asked a question gets written by hand instead.
+
 A run builds a working Nx workspace in one directory that every step agrees on:
 
 ```text
