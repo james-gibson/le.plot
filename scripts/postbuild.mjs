@@ -218,7 +218,7 @@ pages.sort((a, b) => a.section.localeCompare(b.section) || a.order - b.order || 
 const plotSource = await readFile('src/lib/plot.ts', 'utf8')
 const rowCount = (plotSource.match(/^    id: '/gm) ?? []).length
 const lineCount =
-  (plotSource.match(/^    inherits: '/gm) ?? []).length +
+  (plotSource.match(/^    grownFrom: '/gm) ?? []).length +
   (plotSource.match(/^    vendors: \{/gm) ?? []).length +
   (plotSource.match(/^    from: '/gm) ?? []).length
 

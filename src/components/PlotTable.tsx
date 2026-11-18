@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { KIND_LABEL, children, parts, rungLabel, seeds, type GroupId } from '../lib/plot'
+import { KIND_LABEL, clones, parts, rungLabel, seeds, type GroupId } from '../lib/plot'
 
 /**
  * The map as tables.
@@ -17,7 +17,7 @@ export function PlotTable({ groups }: { groups: GroupId[] }) {
     <div className="space-y-10">
       <div>
         <h3 className="text-xs tracking-[0.18em] text-muted uppercase">
-          Grown from the starter — {seedRows.length} of {children().length + 1} rows
+          Grown from the starter — {seedRows.length} of {clones().length + 1} rows
         </h3>
         {seedRows.length === 0 ? (
           <p className="mt-3 rounded-xl border border-line px-4 py-3 text-sm text-muted">
@@ -27,8 +27,8 @@ export function PlotTable({ groups }: { groups: GroupId[] }) {
         <div className="mt-3 overflow-x-auto rounded-2xl border border-line">
           <table className="w-full border-collapse text-left text-sm">
             <caption className="sr-only">
-              One starter and the {children().length} sites grown from it: readiness, front door,
-              parent, published isotopes and the rules copy each keeps.
+              One starter and the {clones().length} sites grown from it: readiness, front door,
+              the starter it was cloned from, the isotopes it publishes, and the rules copy each keeps.
             </caption>
             <thead className="bg-surface-2 text-cream">
               <tr>
@@ -36,7 +36,7 @@ export function PlotTable({ groups }: { groups: GroupId[] }) {
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Role</th>
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Readiness</th>
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Front door</th>
-                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Inherits</th>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Grown from</th>
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Ships</th>
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Rules</th>
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Since</th>
@@ -72,7 +72,7 @@ export function PlotTable({ groups }: { groups: GroupId[] }) {
                     {seed.front}
                   </td>
                   <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
-                    {seed.inherits ?? '—'}
+                    {seed.grownFrom ?? '—'}
                   </td>
                   <td className="border-b border-line-soft px-4 py-3 text-xs text-muted">
                     {seed.ships.length ? seed.ships.join(', ') : 'none'}

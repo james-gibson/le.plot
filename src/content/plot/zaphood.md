@@ -9,7 +9,7 @@ seeds: reader, maintainer
 
 # zaphood
 
-The Office of Z.B. is a child seed of `le.gume`, and it is a joke: a homepage built to break every
+The Office of Z.B. is a seed cloned from `le.gume`, and it is a joke: a homepage built to break every
 polite rule of the internet. A marquee. A blink. A tiled background. A visitor counter. A webring.
 An under-construction banner. An awards page the Office gave itself.
 

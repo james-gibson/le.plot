@@ -12,9 +12,8 @@ seeds: maintainer
 The plot has one rule, and it is this repository's rule — not the starter's. It is recorded here
 as `PLOT-01` and enforced in the build, and this page is the reasoning behind it.
 
-It is **not** published as a `rules.md`. The starter publishes rules because it has children that
-defer to them; this seed is a leaf, and a rule file here would be a second source of truth with no
-one to check it. A page that the guard refuses to let disappear is the leaf's equivalent, and it
+It is **not** published as a `rules.md`. The starter publishes rules because seeds defer to them;
+this seed is a leaf, and a rule file here would be a second source of truth with no one to check it. A page that the guard refuses to let disappear is the leaf's equivalent, and it
 costs one string in `scripts/verify-publish.mjs`.
 
 **A row is added when the plot can observe the system, not when the system exists.**
@@ -38,14 +37,14 @@ A row belongs to exactly one layer. A system that fits two is described by its s
 
 ## Provenance is not an admission test
 
-Each seed row carries `inherits`, and the map draws it as a solid line from the starter. That line
+Each seed row carries `grownFrom`, and the map draws it as a solid line from the starter. That line
 is **where the deploy was cloned from**, once. It is not a dependency:
 
 - nothing in this repository reads `le.gume` at build time or at run time;
-- the parent's rules are linked, not vendored, so the link cannot silently stale;
+- the starter's rules are linked, not vendored, so the link cannot silently stale;
 - deleting the solid edge would change the picture, not break the build.
 
-So "it is a child of the seed" is not a reason for a row. `le.ad` is on the plot because it is
+So "it was cloned from the starter" is not a reason for a row. `le.ad` is on the plot because it is
 published and checkable at an origin, which is the `examples` clause; being grown from the starter
 is how it got there, not why it is admitted. A clone with no published surface is a repository,
 and the plot does not hold repositories.

@@ -9,7 +9,7 @@ seeds: reader
 
 # le.go
 
-Of the five children, this one looks least like its parent — and that is the point it makes.
+Of the five seeds cloned from the starter, this one looks least like it — and that is the point it makes.
 
 `le.go` takes the content model, keeps three sections (`docs`, `isotopes`, `seeds`), and throws
 out the rest of the visual layer. In its place: a brick-set manual. Four colours, a numbered
@@ -30,18 +30,18 @@ the pages still satisfy the same content contract.
 ## What it proves
 
 A seed is not a theme. The parts that carry over are the ones with a reason to: the file-is-the-page
-model, the derived navigation, the guard. A child can replace every visual decision and still be
+model, the derived navigation, the guard. A seed can replace every visual decision and still be
 the same kind of object — which is the difference between a seed and a template pack.
 
 ## What it costs
 
 - **Two vocabularies.** The starter's design page and this one have almost nothing in common, so
   a change to the shared model has to be re-read in a language you did not write.
-- **No vendored rules copy.** `le.go` defers to the parent without pinning a version, so there is
-  no mechanical answer to "which rules was this built against". The other two children that vendor
+- **No vendored rules copy.** `le.go` points at the starter's rules without pinning a version, so
+  there is no mechanical answer to "which rules was this built against". The two seeds that vendor
   rules do answer it; this one answers with prose.
 - **Three live routes are three things the guard has to learn.** The content tree no longer lists
   every route, so `llms.txt` and the shells have to be taught about them by hand.
 
-The honest summary: it is the most expensive child to keep in step and the best evidence that the
-inheritance is structural rather than cosmetic.
+The honest summary: it is the most expensive seed to keep in step and the best evidence that the
+clone is structural rather than cosmetic.

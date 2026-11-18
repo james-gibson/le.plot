@@ -66,7 +66,7 @@ export const SEEDS: Seed[] = [
     assumes: 'A browser. No terminal, no clone, no account.',
     teaches: [
       'which seeds exist, and what each one changed',
-      'how an inheritance claim is checked, rather than believed',
+      'how a provenance claim is checked, rather than believed',
       'why the map fits on one page while the sites do not',
     ],
     entry: '/',
@@ -90,7 +90,7 @@ export const SEEDS: Seed[] = [
   {
     id: 'maintainer',
     title: 'The maintainer',
-    audience: 'The person keeping a child in step with the starter’s rules, and deciding what to keep.',
+    audience: 'The person keeping a seed in step with the starter’s rules, and deciding what to keep.',
     assumes: 'You have cloned the seed, and you own at least one of its pages.',
     teaches: [
       'what the inherited-page audit is for, and how it fails quietly',

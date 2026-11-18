@@ -37,7 +37,7 @@ a browser rather than believe in a paragraph.
 | `src/content/isotopes/` | This repository ships no isotopes, so a page describing them would describe nothing here |
 | `src/content/pitch/`, `src/content/writing/` | The commercial case for a documentation site is not the case for a map |
 | The seed cast | The audiences here are readers, growers, maintainers and packagers — not buyers and editors |
-| `examples/cornichon/` | The spell-check kit the parent documents; nothing in this repository runs it |
+| `examples/cornichon/` | The spell-check kit the starter documents; nothing in this repository runs it |
 | `public/bare/`, `public/nojs/` | The no-stylesheet and no-script artifacts, and the two seeds that pointed at them |
 | `rules.md` | Not republished here — see below |
 
@@ -45,25 +45,25 @@ Deleting a page is not the same as deleting a check. The guard's `examples` and 
 removed **because the artifacts they guarded were deleted**; every check that still has a subject
 still runs. A guard rule with nothing left to check is a green light with no wire.
 
-## `rules.md` is not published, and the rule is not the parent's
+## `rules.md` is not published, and the rule is not the starter's
 
-The parent publishes nine rules at `/rules.md`, generated from its own guard. Two children vendor
+The starter publishes nine rules at `/rules.md`, generated from its own guard. Two seeds vendor
 that file with a version and a hash, and pay for it with a CI catch-up step. This site does
-neither: it links the parent's copy and publishes no rules file at all — a leaf has no child to
+neither: it links the starter's copy and publishes no rules file at all — a leaf has no seed to
 defer to one, and the guard refuses the file rather than let the role be invented.
 
 The plot does have a rule of its own, and it lives where a leaf can keep one: the page
 [When a row is added](/docs/admission). `PLOT-01` is the admission test, `PLOT-02..04` are the
 properties the build checks at import time, and the guard refuses a build where the rule's
-sentence has gone missing. The parent's nine still apply by reference; the plot's one is its own.
+sentence has gone missing. The starter's nine still apply by reference; the plot's one is its own.
 
 ## What the plot does not depend on
 
-`inherits` on a row records where the deploy was cloned from, once. It is not a dependency, and
+`grownFrom` on a row records where the deploy was cloned from, once. It is not a dependency, and
 the build enforces the reading:
 
 - nothing here reads `le.gume` at build time or at run time;
-- the parent's rules are linked, not vendored, so there is no version to drift out of date;
+- the starter's rules are linked, not vendored, so there is no version to drift out of date;
 - deleting the solid edge would change the picture, not break the build.
 
 That is why "grown from the seed" is not on its own a reason for a row. The admission rule is
@@ -74,9 +74,9 @@ published deployment, or a tool that reads and writes the documentation.
 
 - **Nine pages of argument, gone.** The plot is smaller than the starter and has less to teach per
   page. That is the intended trade, not a bug.
-- **The guard is now this repository's, not the parent's.** Removing the two rules was a decision
-  with a reason, and the next child inherits the decision rather than the original file. If the
-  parent ships a new check, this repository has to choose it deliberately.
-- **One inherited failure remains reachable.** The parent's guard cannot tell whether a page is
+- **The guard is now this repository's, not the starter's.** Removing the two rules was a decision
+  with a reason, and the next seed takes the decision rather than the original file. If the
+  starter ships a new check, this repository has to choose it deliberately.
+- **One inherited failure remains reachable.** The starter's guard cannot tell whether a page is
   true; it can only tell whether the page reached the build. Every row on this plot is a page that
   has to be re-read when the seed it describes changes.

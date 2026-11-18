@@ -87,7 +87,7 @@ export function PlotPanel({ rowId }: { rowId: string }) {
                 </ul>
               ) : (
                 <p className="mt-2 text-sm text-muted">
-                  No section of the starter&rsquo;s shelf: this child replaced the cast and the
+                  No section of the starter&rsquo;s shelf: this seed replaced the cast and the
                   sections with its own.
                 </p>
               )}
@@ -107,8 +107,8 @@ export function PlotPanel({ rowId }: { rowId: string }) {
 
           <div className="grid gap-4 rounded-2xl border border-line bg-surface p-5 sm:grid-cols-3">
             <div>
-              <p className="text-xs tracking-[0.14em] text-muted uppercase">Inherits</p>
-              <p className="mt-1 font-mono text-sm text-cream">{row.inherits ?? '— (the starter)'}</p>
+              <p className="text-xs tracking-[0.14em] text-muted uppercase">Grown from</p>
+              <p className="mt-1 font-mono text-sm text-cream">{row.grownFrom ?? '— (this is the starter)'}</p>
             </div>
             <div>
               <p className="text-xs tracking-[0.14em] text-muted uppercase">Ships</p>
@@ -129,7 +129,7 @@ export function PlotPanel({ rowId }: { rowId: string }) {
                     </span>
                   </>
                 ) : row.role === 'starter' ? (
-                  'publishes rules.md; this is the source the children read'
+                  'publishes rules.md; this is the source the seeds read'
                 ) : (
                   'defers without a vendored copy'
                 )}

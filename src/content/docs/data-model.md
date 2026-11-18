@@ -13,7 +13,7 @@ The diagram and the tables are the same twenty-eight objects. So are the twenty-
 
 `src/lib/plot.ts` holds one record per row, in two shapes:
 
-- **a seed row** — a site grown from the starter: name, role, readiness, front door, parent, the
+- **a seed row** — a site grown from the starter: name, role, readiness, front door, the starter
   sections it keeps, what it added, the isotopes it publishes, the rules copy it vendors, the day
   its own history starts, and where its table sits on the map;
 - **a part row** — a library, tool, app or upstream: name, kind, language, what it provides, what it
@@ -28,7 +28,7 @@ for"; a part row answers "what does this do". Forcing one shape would have meant
 
 Frontmatter would have been the obvious place. It was rejected for two reasons.
 
-1. **The diagram needs types, not strings.** A rung is a number that indexes the shelf; `inherits`
+1. **The diagram needs types, not strings.** A rung is a number that indexes the shelf; `grownFrom`
    is either a key on the map or null. In frontmatter both are text, and the first typo becomes a
    wrong picture rather than a failed build.
 2. **Two sources drift at different speeds.** A page is edited for prose; a field is edited when
@@ -68,7 +68,7 @@ Nothing about an edge is hand-written in the drawing code.
 
 | Line | Comes from |
 | --- | --- |
-| solid, bar and crow's foot | every row with `role: 'seed'` gets one `inherits` edge to its parent — provenance from a clone, not a dependency: nothing here reads the parent at build or run time |
+| solid, bar and crow's foot | every row with `role: 'seed'` gets one `grownFrom` edge to the starter it was cloned from — provenance, not a dependency and not a lineage: nothing here reads the starter at build or run time |
 | dashed | a seed whose `vendors` is not null gets a second edge, carrying the version |
 | thin | `RELATIONS`, a short list of cross claims with a verb each |
 

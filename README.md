@@ -19,8 +19,8 @@ this repository tests the claim by being one of seven. It keeps the content mode
 deploy, adds [React Flow](https://reactflow.dev), and changes the subject to the family itself —
 plus the twenty-one libraries, tools, packages, apps and sandbox the systems describe.
 
-- **One page, three layers.** The map is twenty-eight entity tables and twenty-two lines: solid for inheritance, dashed
-  for a vendored copy of the parent's `rules.md`, thin for a cross claim. The lab's internal
+- **One page, three layers.** The map is twenty-eight entity tables and twenty-two lines: solid for provenance, dashed
+  for a vendored copy of the starter's `rules.md`, thin for a cross claim. The lab's internal
   dependencies stay in each row's `depends` field — drawn, they were a hairball.
 - **One record.** `src/lib/plot.ts` is the map's only input. The canvas, the tables and the
   twenty-eight pages under `/plot` are three renderings of the same objects.
@@ -72,7 +72,7 @@ scripts/deck.mjs                  the offline deck, built from src/content/docs/
 
 Two halves, one commit:
 
-1. a record in `src/lib/plot.ts` (`id`, `rung`, `front`, `live`, `inherits`, `since`, `at`, …);
+1. a record in `src/lib/plot.ts` (`id`, `rung`, `front`, `live`, `grownFrom`, `since`, `at`, …);
 2. a page at `src/content/plot/<id>.md`.
 
 Then `npm run build`. Missing either half is a failed import, not a warning.

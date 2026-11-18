@@ -27,6 +27,6 @@ changes nothing that ships.
 - **Plugins are the risk.** A vault that needs a community plugin to render is a vault that needs the
   plugin's author to keep working. This site's pages are plain enough that none is required.
 - **A second graph.** Obsidian's graph and the plot's graph are different claims — one is links
-  between notes, the other is inheritance between systems. Do not confuse them.
+  between notes, the other is provenance between releases. Do not confuse them.
 - **No row-level dependency.** Nothing in the build imports it, so nothing in the build can tell you
   whether it still opens the vault. That is a promise the page makes on the reader's behalf.

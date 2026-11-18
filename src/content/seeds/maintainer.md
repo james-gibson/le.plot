@@ -1,6 +1,6 @@
 ---
 title: The maintainer
-description: The person keeping a child in step with the parent's rules — and deciding what to keep.
+description: The person keeping a seed in step with the starter's rules — and deciding what to keep.
 order: 3
 updated: 2026-11-16
 tags: audience, rung-3
@@ -9,7 +9,7 @@ seeds: maintainer
 
 # The maintainer
 
-You own at least one page of one of these sites, and the parent keeps moving. This is the seed for
+You own at least one page of one of these sites, and the starter keeps moving. This is the seed for
 the part nobody puts on a roadmap.
 
 ## Start here
@@ -21,7 +21,7 @@ about deference: link it, pin it, or re-derive it — and say which.
 
 ## The recurring job
 
-1. Fetch the parent's `rules.md` and diff the ids.
+1. Fetch the starter's `rules.md` and diff the ids.
 2. Decide, per new rule: comply, override with a reason, or record that it does not apply.
 3. Re-run the inherited-page audit on the pages the rule touches.
 4. Rebuild. A rule you cannot check at a URL or in the repository is a rule you have not adopted.
@@ -33,5 +33,5 @@ about deference: link it, pin it, or re-derive it — and say which.
 - **A guard that only looks green.** Deleting a check because its subject was deleted is a
   decision; deleting a check because it failed is the one change that makes every other claim on
   the site false.
-- **A big-bang upgrade.** The parent is small and the children are small, so the honest migration
+- **A big-bang upgrade.** The starter is small and the seeds are small, so the honest migration
   is one rule at a time with a commit each.

@@ -17,7 +17,7 @@ slides and rendered to a single HTML file by the build.
 
 Every site grown from `le.gume` — and the libraries, tools and sandbox those sites describe — is on
 one page, as an entity table with keys and fields. The lines are relationships, not decoration:
-solid is inheritance, dashed is a vendored copy of the parent's rules, thin is a claim the row
+solid is provenance, dashed is a vendored copy of the starter's rules, thin is a claim the row
 states.
 ---
 
@@ -32,30 +32,30 @@ from the file tree, the build refuses to publish a contradiction, and the deploy
 - 1 build
 ---
 
-## The children
+## The seeds
 
 - **le.go** — a brick-set manual; every visual decision replaced
 - **le.gume-energy** — one home solar system, with a data pipeline and a rung-0 front door
 - **le.gume-shell** — the lab, from a shell prompt; all seven sections kept
-- **le.railhead** — somebody else's environment, with the parent's rules vendored
+- **le.railhead** — somebody else's environment, with the starter's rules vendored
 - **that-train-dashboard** — a research team's studies, published against le.railhead
 ---
 
 ## Two kinds of line
 
-A solid line says a child was grown from the starter: one parent, many children, keys in both
+A solid line says a seed was cloned from the starter: one source, many seeds, keys in both
 tables.
 
-A dashed line says the child keeps a copy of the parent's `rules.md`, and carries the version it
+A dashed line says the seed keeps a copy of the starter's `rules.md`, and carries the version it
 was taken at. Same two rows, a second claim about them.
 ---
 
 ## One rule behind
 
-`le.railhead` pins the rules at `29d863e`. That copy has rules one through eight. The parent now
+`le.railhead` pins the rules at `29d863e`. That copy has rules one through eight. The starter now
 publishes a ninth.
 
-The child's CI runs a catch-up check before the build. Being behind is allowed; being behind
+The seed's CI runs a catch-up check before the build. Being behind is allowed; being behind
 silently is not.
 ---
 
@@ -91,4 +91,4 @@ wants.
 - Read the map: `/`
 - Read the record: `/docs/data-model`
 - Read the audit: `/docs/inherited`
-- Read a child: `/plot/le.railhead`
+- Read a seed: `/plot/le.railhead`

@@ -23,7 +23,7 @@ paragraphs below. That is a drawing decision, not a claim that the dependency is
 | --- | --- |
 | [isotope](/plot/isotope) | `v0.3.4` in `go.mod` |
 | [ocd-smoke-alarm](/plot/ocd-smoke-alarm) | `v0.11.0` in `go.mod`; started as a LaunchAgent |
-| [adhd](/plot/adhd) | launched as a child process; its MCP tools are proxied through the app |
+| [adhd](/plot/adhd) | launched as a subprocess; its MCP tools are proxied through the app |
 
 ## The demo cluster
 

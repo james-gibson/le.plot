@@ -9,7 +9,7 @@ seeds: grower
 
 # The grower
 
-You want a site, not a reading list. Start from the starter, because that is what every child did.
+You want a site, not a reading list. Start from the starter, because that is what every seed did.
 
 ## Start here
 
@@ -36,5 +36,5 @@ after the tenth.
   cannot read.
 - **A theme.** The palette is nine tokens; changing them changes every component. That is a
   feature, and it is not the same thing as a design system you can buy.
-- **A promise about time.** Every child here is weeks old. The cost numbers on this site are
+- **A promise about time.** Every seed here is weeks old. The cost numbers on this site are
   measured, and the oldest one is thin.

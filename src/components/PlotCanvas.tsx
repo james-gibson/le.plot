@@ -16,7 +16,7 @@ import {
   NODE_W,
   PLOT,
   RELATIONS,
-  children,
+  clones,
   getPlotRow,
   rungLabel,
   type GroupId,
@@ -57,7 +57,7 @@ function centreOf(row: PlotRow): { x: number; y: number } {
   return { x: row.at.x + NODE_W / 2, y: row.at.y + 95 }
 }
 
-/** Which side of the parent a child sits on decides the handles the second line uses. */
+/** Which side of the starter a seed sits on decides the handles the second line uses. */
 function vendorHandles(child: PlotRow): { out: string; in: string } {
   const rootCentre = root.at.x + NODE_W / 2
   const childCentre = child.at.x + NODE_W / 2
@@ -68,9 +68,9 @@ function vendorHandles(child: PlotRow): { out: string; in: string } {
 
 const baseEdges: BuiltInEdge[] = []
 
-for (const child of children()) {
+for (const child of clones()) {
   baseEdges.push({
-    id: `${root.id}-inherits-${child.id}`,
+    id: `${root.id}-grownFrom-${child.id}`,
     source: root.id,
     target: child.id,
     sourceHandle: 'out',
@@ -99,7 +99,7 @@ for (const child of children()) {
 }
 
 // The cross claims. A same-row pair leaves and enters on the sides; a
-// cross-row pair uses the top and bottom, where inheritance already lives.
+// cross-row pair uses the top and bottom, where provenance already lives.
 for (const relation of RELATIONS) {
   const from = getPlotRow(relation.from)
   const to = getPlotRow(relation.to)
@@ -127,8 +127,8 @@ for (const relation of RELATIONS) {
 /**
  * Crow's-foot notation, drawn once as SVG markers and referenced by id.
  *
- * `er-one` is the bar at the parent end — exactly one parent. `er-many` is the
- * fork at the child end — many children per parent. Both are userSpaceOnUse so
+ * `er-one` is the bar at the starter end — exactly one starter. `er-many` is the
+ * fork at the seed end — many seeds per starter. Both are userSpaceOnUse so
  * the glyph does not grow with the stroke width.
  */
 function Markers() {

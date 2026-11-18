@@ -1,6 +1,6 @@
 ---
 title: le.gume-energy
-description: A non-identifying, local-time record of one home solar system — the child that carries numbers.
+description: A non-identifying, local-time record of one home solar system — the seed that carries numbers.
 order: 3
 updated: 2026-11-16
 tags: fork, data, local-time
@@ -9,7 +9,7 @@ seeds: reader, maintainer
 
 # le.gume-energy
 
-The starter documents a documentation site. This child documents a house.
+The starter documents a documentation site. This seed documents a house.
 
 `le.gume-energy` is a public record of one home solar system: production, weather, utility usage,
 and the events that explain the gaps. It keeps five of the seven sections, publishes two isotopes,
@@ -44,5 +44,5 @@ is the honest version of "updated regularly".
   succeed for the tail to stay true.
 - **A privacy budget.** The record is about a real house. It is non-identifying by construction, and
   every addition has to keep it that way — a constraint the starter never had to state.
-- **Five scripts' worth of surface** in a repository whose parent argues for a small stack. The
+- **Five scripts' worth of surface** in a repository cloned from one that argues for a small stack. The
   argument is not that the scripts are free; it is that the numbers are worth them.

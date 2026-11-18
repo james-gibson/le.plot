@@ -16,7 +16,7 @@ record can hold it, and whether the thing it invents belongs to everyone.
 
 Read [the record](/docs/data-model). Then read
 [le.railhead](/plot/le.railhead), which invented the one capability in this plot that other
-children would benefit from and has not yet proposed it upstream.
+seeds would benefit from and has not yet proposed it upstream.
 
 ## What a new row owes the plot
 
@@ -36,13 +36,13 @@ section and an agent prompt. A preference local to this seed is not, and declini
 is a valid answer.
 
 The vendored-rules pattern in `le.railhead` is the obvious open case. It is a script, a directory
-and a CI check — small, general, and currently relearned by the one child that needed it. That is
-exactly the failure the starter's rules warn about: an improvement that dies with the child.
+and a CI check — small, general, and currently relearned by the one seed that needed it. That is
+exactly the failure the starter's rules warn about: an improvement that dies with the seed.
 
 ## What this seed refuses
 
-- **A registry of every project.** The plot lists seeds, which is a claim about inheritance. A
+- **A registry of every project.** The plot lists seeds, which is a claim about provenance. A
   list of everything in the lab is a different instrument and a worse one here.
-- **Confidence about freshness.** A row's `since` is the first commit in the child's history. It is
+- **Confidence about freshness.** A row's `since` is the first commit in the seed's history. It is
   a measurement, and it will be stale the moment the record stops being maintained — which is why
   the record is checked against the pages and not against the world.

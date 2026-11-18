@@ -7,9 +7,9 @@
  *   part             a library, tool, app or upstream the sites are built on
  *                    or measured against
  *
- * A row that is a seed still has a page and inherits the starter's rules; a
- * row that is a part has a page too, because a diagram of systems nobody can
- * describe is decoration. Every row is one page at /plot/<id>.
+ * A row that is a seed still has a page and carries the starter's rules as a
+ * claim it can check; a row that is a part has a page too, because a diagram of
+ * systems nobody can describe is decoration. Every row is one page at /plot/<id>.
  *
  * This file is the diagram's only input. The canvas draws these objects as
  * tables, `/plot/<id>` renders the same object above the page's prose, and the
@@ -17,7 +17,8 @@
  *
  * Edges are derived, never hand-written:
  *
- *   - every seed has an `inherits` edge to its parent;
+ *   - every seed has a `grownFrom` edge to the starter it was cloned from —
+ *     provenance, drawn once, not a dependency and not a parent;
  *   - a seed with `vendors` gets a second, dashed edge carrying the version;
  *   - `RELATIONS` draws the cross-cutting claims (a seed publishing against a
  *     part, or a seed's studies running on one).
@@ -57,11 +58,11 @@ export type Port = {
   purpose: string
 }
 
-/** A child's vendored copy of the parent's rules, with the version it was taken at. */
+/** A seed's vendored copy of the starter's rules, with the version it was taken at. */
 export type Vendors = {
   /** the `le.gume` commit the copy names in its `version:` line */
   version: string
-  /** rule ids the child replaces on the record */
+  /** rule ids the seed replaces on the record */
   overrides: string[]
 }
 
@@ -96,15 +97,16 @@ export type SeedRow = Common & {
   rung: number
   /** the route a newcomer is meant to open first, on that site */
   front: string
-  /** the seed it was grown from; null for the starter */
-  inherits: string | null
+  /** the starter this deploy was cloned from; null on the starter itself.
+   *  Provenance, not a parent: nothing is built against it. */
+  grownFrom: string | null
   /** content sections it kept from the starter */
   keeps: string[]
   /** what it added that the starter does not have */
   adds: string[]
   /** isotopes it publishes, by pickle name */
   ships: string[]
-  /** a vendored copy of the parent's rules.md, if it keeps one */
+  /** a vendored copy of the starter's rules.md, if it keeps one */
   vendors: Vendors | null
 }
 
@@ -141,12 +143,12 @@ export const PLOT: PlotRow[] = [
     live: PARENT.origin,
     repo: 'james-gibson/le.gume',
     since: '2026-11-11',
-    inherits: null,
+    grownFrom: null,
     keeps: ['docs', 'seeds', 'factors', 'isotopes', 'guides', 'pitch', 'writing'],
     adds: ['the content model', 'the publish guard', 'rules.md, generated from the guard'],
     ships: ['cornichon', 'silverskin'],
     vendors: null,
-    note: 'The seed every site below was grown from. Its sections are the vocabulary the children keep or drop.',
+    note: 'The starter every site below was cloned from. Its sections are the vocabulary the seeds keep or drop.',
     at: row(655, 0),
   },
   {
@@ -160,7 +162,7 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/le.go',
     repo: 'james-gibson/le.go',
     since: '2026-11-15',
-    inherits: 'le.gume',
+    grownFrom: 'le.gume',
     keeps: ['docs', 'isotopes', 'seeds'],
     adds: [
       'a brick-set design language, with its own components',
@@ -183,7 +185,7 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/le.gume-energy',
     repo: 'james-gibson/le.gume-energy',
     since: '2026-11-13',
-    inherits: 'le.gume',
+    grownFrom: 'le.gume',
     keeps: ['docs', 'guides', 'isotopes', 'pitch', 'seeds'],
     adds: [
       'a daily export, run by launchd',
@@ -206,7 +208,7 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/le.gume-shell',
     repo: 'james-gibson/le.gume-shell',
     since: '2026-11-15',
-    inherits: 'le.gume',
+    grownFrom: 'le.gume',
     keeps: ['docs', 'seeds', 'factors', 'isotopes', 'guides', 'pitch', 'writing'],
     adds: [
       'a lab-operator seed on the shelf',
@@ -229,7 +231,7 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/le.railhead',
     repo: 'james-gibson/le.railhead',
     since: '2026-11-14',
-    inherits: 'le.gume',
+    grownFrom: 'le.gume',
     keeps: ['brief', 'ops', 'research', 'arena', 'seeds', 'verify'],
     adds: [
       'rules.md vendored at build time, with a catch-up check in CI',
@@ -238,7 +240,7 @@ export const PLOT: PlotRow[] = [
     ],
     ships: [],
     vendors: { version: '29d863e', overrides: ['RULES-02'] },
-    note: 'A record of somebody else’s environment, kept to the parent’s rules — and one rule behind them, on purpose, until the next catch-up.',
+    note: 'A record of somebody else’s environment, kept to the starter’s rules — and one rule behind them, on purpose, until the next catch-up.',
     at: row(786, 280),
   },
   {
@@ -252,10 +254,10 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/that-train-dashboard',
     repo: 'james-gibson/that-train-dashboard',
     since: '2026-11-12',
-    inherits: 'le.gume',
+    grownFrom: 'le.gume',
     keeps: [],
     adds: [
-      '1st-Pouf (claymorphism) instead of the parent’s component library',
+      '1st-Pouf (claymorphism) instead of the starter’s component library',
       'a studies register, published against le.railhead',
       'rules.md vendored, with one override on the record',
     ],
@@ -276,7 +278,7 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/le.ad',
     repo: 'james-gibson/le.ad',
     since: '2026-11-17',
-    inherits: 'le.gume',
+    grownFrom: 'le.gume',
     keeps: ['desk', 'isotope', 'docs'],
     adds: [
       'a lease protocol as the content: claim, heartbeat, release, sweep',
@@ -378,7 +380,7 @@ export const PLOT: PlotRow[] = [
     depends: [
       { id: 'isotope', verb: 'imports' },
       { id: 'ocd-smoke-alarm', verb: 'starts and manages' },
-      { id: 'adhd', verb: 'launches as a child process' },
+      { id: 'adhd', verb: 'launches as a subprocess' },
     ],
     ports: [
       { port: 19100, purpose: 'discovery registry at /cluster' },
@@ -500,7 +502,7 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/zaphood',
     repo: 'james-gibson/zaphood',
     since: '2026-11-13',
-    inherits: 'le.gume',
+    grownFrom: 'le.gume',
     keeps: [],
     adds: [
       'a component library installed the way a 1998 tutorial would',
@@ -509,7 +511,7 @@ export const PLOT: PlotRow[] = [
     ],
     ships: [],
     vendors: { version: '29d863e', overrides: ['RULES-06'] },
-    note: 'A child seed that breaks every polite rule of the internet on purpose: the content model survives the taste.',
+    note: 'A seed cloned from the starter that breaks every polite rule of the internet on purpose: the content model survives the taste.',
     at: row(1310, 280),
   },
   {
@@ -732,8 +734,8 @@ export function seeds(): SeedRow[] {
   return PLOT.filter((row): row is SeedRow => row.role !== 'part')
 }
 
-/** The children, in map order. */
-export function children(): SeedRow[] {
+/** The seeds cloned from the starter, in map order — not its children; see PLOT-01. */
+export function clones(): SeedRow[] {
   return PLOT.filter((row): row is SeedRow => row.role === 'seed')
 }
 

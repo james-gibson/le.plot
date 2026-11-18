@@ -36,7 +36,7 @@ export function PlotNode({ data, selected }: NodeProps<PlotFlowNode>) {
         selected ? 'border-pulse shadow-[0_0_0_1px_var(--color-pulse)]' : 'border-line'
       }`}
     >
-      {/* Vertical handles carry inheritance; the side pair carries a cross claim,
+      {/* Vertical handles carry provenance; the side pair carries a cross claim,
           so an edge that runs along a row does not leave the top of a card. */}
       <Handle id="in" type="target" position={Position.Top} style={{ opacity: 0 }} />
       <Handle
@@ -145,7 +145,7 @@ export function PlotNode({ data, selected }: NodeProps<PlotFlowNode>) {
           <>
             <Row k="rung" v={`${row.rung} · ${rungLabel(row.rung)}`} />
             <Row k="front" v={row.front} />
-            <Row k="FK" v={row.inherits ?? '—'} title={row.inherits ? `inherits ${row.inherits}` : 'the starter: no parent'} />
+            <Row k="FK" v={row.grownFrom ?? '—'} title={row.grownFrom ? `cloned from ${row.grownFrom}` : 'the starter itself'} />
           </>
         )}
       </div>
