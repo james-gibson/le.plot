@@ -15,7 +15,7 @@ slides and rendered to a single HTML file by the build.
 
 ## One page, twenty-eight tables
 
-Every site grown from `le.gume` — and the libraries, tools and sandbox those sites describe — is on
+Every site cut from `le.gume` — and the libraries, tools and sandbox those sites describe — is on
 one page, as an entity table with keys and fields. The lines are relationships, not decoration:
 solid is provenance, dashed is a vendored copy of the starter's rules, thin is a claim the row
 states.

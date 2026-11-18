@@ -145,7 +145,7 @@ export function PlotNode({ data, selected }: NodeProps<PlotFlowNode>) {
           <>
             <Row k="rung" v={`${row.rung} · ${rungLabel(row.rung)}`} />
             <Row k="front" v={row.front} />
-            <Row k="FK" v={row.grownFrom ?? '—'} title={row.grownFrom ? `cloned from ${row.grownFrom}` : 'the starter itself'} />
+            <Row k="FK" v={row.cuttingFrom ?? '—'} title={row.cuttingFrom ? `cloned from ${row.cuttingFrom}` : 'the starter itself'} />
           </>
         )}
       </div>

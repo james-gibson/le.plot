@@ -461,6 +461,43 @@ for (const marker of ['PLOT-03: one cell per row', 'PLOT-04: a row carries the e
   }
 }
 
+// --- the rule set and the arithmetic -------------------------------------
+// The family's claim is that a page states the rules the Go programs enforce and
+// the arithmetic they use. The doctor cannot read a Go repository from this
+// build, so it does the two things it can: it refuses a build where the claim
+// has gone, and it pins the seven ceilings so the table cannot silently rot.
+const ruleSet = await readText(join(DIST, 'docs/one-rule-set/index.html')).catch(() => '')
+if (!ruleSet) {
+  fail('rules', 'dist/docs/one-rule-set/index.html is missing — the family claim lives there')
+} else {
+  if (!/the rules the Go programs enforce/i.test(ruleSet)) {
+    fail('rules', 'the rule-set page no longer states that the rules are the programs\' rules')
+  }
+  // The ceilings are a table in the page, so read the rows: the first cell is the
+  // rung, the third is its ceiling. Matching bare numbers would pin the prose,
+  // which repeats "0" and "20" in half a dozen places and would pass a table
+  // that had been reordered.
+  const expected = [0, 20, 60, 100, 140, 180, 220]
+  const rows = [...ruleSet.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)]
+    .map((match) =>
+      [...match[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((cell) =>
+        cell[1].replace(/<[^>]+>/g, '').trim(),
+      ),
+    )
+    .filter((cells) => cells.length === 3 && /^\d+$/.test(cells[0]))
+  const ladder = rows.map((cells) => Number(cells[2]))
+  if (ladder.join(',') !== expected.join(',')) {
+    fail(
+      'rules',
+      `the rule-set page's ladder reads ${ladder.join(',') || '(nothing)'}, not ${expected.join(',')} — ` +
+        'the seven ceilings are the arithmetic, and they are pinned here',
+    )
+  }
+  if (!/a cutting taken from the stock|cutting/i.test(ruleSet)) {
+    fail('rules', 'the rule-set page no longer uses the propagation vocabulary (stock, cutting, sprout)')
+  }
+}
+
 // --- report ---------------------------------------------------------------
 if (failures.length) {
   console.error('guard: refused to publish\n')

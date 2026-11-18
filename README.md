@@ -1,6 +1,6 @@
 # le.plot
 
-The seed plot: the sites grown from [`le.gume`](https://james-gibson.github.io/le.gume/), and the lab
+The seed plot: the cuttings taken from [`le.gume`](https://james-gibson.github.io/le.gume/), and the lab
 they describe, drawn as entity tables on one page. Twenty-eight tables, twenty-two lines, and a page you can
 check behind every row.
 
@@ -15,7 +15,7 @@ check behind every row.
 ## What this is
 
 A seed grown from a seed. The starter argues that a documentation site is a file tree with a guard;
-this repository tests the claim by being one of seven. It keeps the content model, the guard and the
+this repository tests the claim by being one of seven cuttings. It keeps the content model, the guard and the
 deploy, adds [React Flow](https://reactflow.dev), and changes the subject to the family itself —
 plus the twenty-one libraries, tools, packages, apps and sandbox the systems describe.
 
@@ -72,7 +72,7 @@ scripts/deck.mjs                  the offline deck, built from src/content/docs/
 
 Two halves, one commit:
 
-1. a record in `src/lib/plot.ts` (`id`, `rung`, `front`, `live`, `grownFrom`, `since`, `at`, …);
+1. a record in `src/lib/plot.ts` (`id`, `rung`, `front`, `live`, `cuttingFrom`, `since`, `at`, …);
 2. a page at `src/content/plot/<id>.md`.
 
 Then `npm run build`. Missing either half is a failed import, not a warning.

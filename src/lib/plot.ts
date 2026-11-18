@@ -17,7 +17,7 @@
  *
  * Edges are derived, never hand-written:
  *
- *   - every seed has a `grownFrom` edge to the starter it was cloned from —
+ *   - every seed has a `cuttingFrom` edge to the starter it was cut from —
  *     provenance, drawn once, not a dependency and not a parent;
  *   - a seed with `vendors` gets a second, dashed edge carrying the version;
  *   - `RELATIONS` draws the cross-cutting claims (a seed publishing against a
@@ -93,13 +93,13 @@ type Common = {
 
 export type SeedRow = Common & {
   role: 'starter' | 'seed'
-  /** the readiness its front door assumes */
+  /** the readiness its front door assumes — the shelf's 1–4, not the 42i rung */
   rung: number
   /** the route a newcomer is meant to open first, on that site */
   front: string
   /** the starter this deploy was cloned from; null on the starter itself.
    *  Provenance, not a parent: nothing is built against it. */
-  grownFrom: string | null
+  cuttingFrom: string | null
   /** content sections it kept from the starter */
   keeps: string[]
   /** what it added that the starter does not have */
@@ -143,7 +143,7 @@ export const PLOT: PlotRow[] = [
     live: PARENT.origin,
     repo: 'james-gibson/le.gume',
     since: '2026-11-11',
-    grownFrom: null,
+    cuttingFrom: null,
     keeps: ['docs', 'seeds', 'factors', 'isotopes', 'guides', 'pitch', 'writing'],
     adds: ['the content model', 'the publish guard', 'rules.md, generated from the guard'],
     ships: ['cornichon', 'silverskin'],
@@ -162,7 +162,7 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/le.go',
     repo: 'james-gibson/le.go',
     since: '2026-11-15',
-    grownFrom: 'le.gume',
+    cuttingFrom: 'le.gume',
     keeps: ['docs', 'isotopes', 'seeds'],
     adds: [
       'a brick-set design language, with its own components',
@@ -185,7 +185,7 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/le.gume-energy',
     repo: 'james-gibson/le.gume-energy',
     since: '2026-11-13',
-    grownFrom: 'le.gume',
+    cuttingFrom: 'le.gume',
     keeps: ['docs', 'guides', 'isotopes', 'pitch', 'seeds'],
     adds: [
       'a daily export, run by launchd',
@@ -208,7 +208,7 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/le.gume-shell',
     repo: 'james-gibson/le.gume-shell',
     since: '2026-11-15',
-    grownFrom: 'le.gume',
+    cuttingFrom: 'le.gume',
     keeps: ['docs', 'seeds', 'factors', 'isotopes', 'guides', 'pitch', 'writing'],
     adds: [
       'a lab-operator seed on the shelf',
@@ -231,7 +231,7 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/le.railhead',
     repo: 'james-gibson/le.railhead',
     since: '2026-11-14',
-    grownFrom: 'le.gume',
+    cuttingFrom: 'le.gume',
     keeps: ['brief', 'ops', 'research', 'arena', 'seeds', 'verify'],
     adds: [
       'rules.md vendored at build time, with a catch-up check in CI',
@@ -254,7 +254,7 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/that-train-dashboard',
     repo: 'james-gibson/that-train-dashboard',
     since: '2026-11-12',
-    grownFrom: 'le.gume',
+    cuttingFrom: 'le.gume',
     keeps: [],
     adds: [
       '1st-Pouf (claymorphism) instead of the starter’s component library',
@@ -278,7 +278,7 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/le.ad',
     repo: 'james-gibson/le.ad',
     since: '2026-11-17',
-    grownFrom: 'le.gume',
+    cuttingFrom: 'le.gume',
     keeps: ['desk', 'isotope', 'docs'],
     adds: [
       'a lease protocol as the content: claim, heartbeat, release, sweep',
@@ -502,7 +502,7 @@ export const PLOT: PlotRow[] = [
     live: 'https://james-gibson.github.io/zaphood',
     repo: 'james-gibson/zaphood',
     since: '2026-11-13',
-    grownFrom: 'le.gume',
+    cuttingFrom: 'le.gume',
     keeps: [],
     adds: [
       'a component library installed the way a 1998 tutorial would',
@@ -734,8 +734,8 @@ export function seeds(): SeedRow[] {
   return PLOT.filter((row): row is SeedRow => row.role !== 'part')
 }
 
-/** The seeds cloned from the starter, in map order — not its children; see PLOT-01. */
-export function clones(): SeedRow[] {
+/** The cuttings taken from the starter, in map order — not its children; see PLOT-01. */
+export function cuttings(): SeedRow[] {
   return PLOT.filter((row): row is SeedRow => row.role === 'seed')
 }
 

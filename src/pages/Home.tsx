@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Button, CopyButton } from 'fancy-ui-react'
 import { PAGES } from '../lib/content'
-import { ALL_GROUPS, GROUPS, PLOT, RELATIONS, clones, parts, seeds, type GroupId } from '../lib/plot'
+import { ALL_GROUPS, GROUPS, PLOT, RELATIONS, cuttings, parts, seeds, type GroupId } from '../lib/plot'
 import { PARENT } from '../lib/site'
 import { MotionReveal } from '../lib/motion'
 import { PlotCanvas } from '../components/PlotCanvas'
@@ -149,7 +149,7 @@ export function Home() {
               The plot, in one page
             </h2>
             <p className="mt-2 max-w-2xl text-muted">
-              {PLOT.length} tables and {clones().length + clones().filter((seed) => seed.vendors).length + RELATIONS.length}{' '}
+              {PLOT.length} tables and {cuttings().length + cuttings().filter((seed) => seed.vendors).length + RELATIONS.length}{' '}
               lines, in three layers. Solid lines are provenance; dashed lines are a vendored copy
               of the starter&rsquo;s rules, carrying the version it was taken at; the thin lines are a
               claim a row states in full on its page.

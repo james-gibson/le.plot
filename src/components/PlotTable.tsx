@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
-import { KIND_LABEL, clones, parts, rungLabel, seeds, type GroupId } from '../lib/plot'
+import { KIND_LABEL, cuttings, parts, rungLabel, seeds, type GroupId } from '../lib/plot'
 
 /**
  * The map as tables.
  *
  * Rendered on the server, printed in the static shell, and the only version a
  * reader without JavaScript gets. Two tables because the plot has two kinds of
- * row: a site grown from the starter, and a part of the lab the sites describe.
+ * row: a cutting taken from the starter, and a part of the lab the sites describe.
  * Forcing them into one grid would mean columns that are blank half the time.
  */
 export function PlotTable({ groups }: { groups: GroupId[] }) {
@@ -17,17 +17,17 @@ export function PlotTable({ groups }: { groups: GroupId[] }) {
     <div className="space-y-10">
       <div>
         <h3 className="text-xs tracking-[0.18em] text-muted uppercase">
-          Grown from the starter — {seedRows.length} of {clones().length + 1} rows
+          Cutting from the starter — {seedRows.length} of {cuttings().length + 1} rows
         </h3>
         {seedRows.length === 0 ? (
           <p className="mt-3 rounded-xl border border-line px-4 py-3 text-sm text-muted">
-            No seed rows in this layer: the deployments are the ones grown from the starter.
+            No seed rows in this layer: the deployments are the cuttings taken from the starter.
           </p>
         ) : (
         <div className="mt-3 overflow-x-auto rounded-2xl border border-line">
           <table className="w-full border-collapse text-left text-sm">
             <caption className="sr-only">
-              One starter and the {clones().length} sites grown from it: readiness, front door,
+              One stock and the {cuttings().length} cuttings taken from it: readiness, front door,
               the starter it was cloned from, the isotopes it publishes, and the rules copy each keeps.
             </caption>
             <thead className="bg-surface-2 text-cream">
@@ -36,7 +36,7 @@ export function PlotTable({ groups }: { groups: GroupId[] }) {
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Role</th>
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Readiness</th>
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Front door</th>
-                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Grown from</th>
+                <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Cutting from</th>
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Ships</th>
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Rules</th>
                 <th scope="col" className="border-b border-line px-4 py-3 font-semibold">Since</th>
@@ -72,7 +72,7 @@ export function PlotTable({ groups }: { groups: GroupId[] }) {
                     {seed.front}
                   </td>
                   <td className="border-b border-line-soft px-4 py-3 font-mono text-xs text-muted">
-                    {seed.grownFrom ?? '—'}
+                    {seed.cuttingFrom ?? '—'}
                   </td>
                   <td className="border-b border-line-soft px-4 py-3 text-xs text-muted">
                     {seed.ships.length ? seed.ships.join(', ') : 'none'}

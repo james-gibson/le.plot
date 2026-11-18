@@ -59,14 +59,14 @@ sentence has gone missing. The starter's nine still apply by reference; the plot
 
 ## What the plot does not depend on
 
-`grownFrom` on a row records where the deploy was cloned from, once. It is not a dependency, and
+`cuttingFrom` on a row records the stock this deploy was cut from, once. It is not a dependency, and
 the build enforces the reading:
 
 - nothing here reads `le.gume` at build time or at run time;
 - the starter's rules are linked, not vendored, so there is no version to drift out of date;
 - deleting the solid edge would change the picture, not break the build.
 
-That is why "grown from the seed" is not on its own a reason for a row. The admission rule is
+That is why "cut from the seed" is not on its own a reason for a row. The admission rule is
 [PLOT-01](/docs/admission), and it asks what the plot can *observe* — a peer lab-safety names, a
 published deployment, or a tool that reads and writes the documentation.
 

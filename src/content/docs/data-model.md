@@ -28,7 +28,7 @@ for"; a part row answers "what does this do". Forcing one shape would have meant
 
 Frontmatter would have been the obvious place. It was rejected for two reasons.
 
-1. **The diagram needs types, not strings.** A rung is a number that indexes the shelf; `grownFrom`
+1. **The diagram needs types, not strings.** A rung is a number that indexes the shelf; `cuttingFrom`
    is either a key on the map or null. In frontmatter both are text, and the first typo becomes a
    wrong picture rather than a failed build.
 2. **Two sources drift at different speeds.** A page is edited for prose; a field is edited when
@@ -68,7 +68,7 @@ Nothing about an edge is hand-written in the drawing code.
 
 | Line | Comes from |
 | --- | --- |
-| solid, bar and crow's foot | every row with `role: 'seed'` gets one `grownFrom` edge to the starter it was cloned from — provenance, not a dependency and not a lineage: nothing here reads the starter at build or run time |
+| solid, bar and crow's foot | every row with `role: 'seed'` gets one `cuttingFrom` edge to the stock it was cut from — provenance, not a dependency and not a lineage: nothing here reads the starter at build or run time |
 | dashed | a seed whose `vendors` is not null gets a second edge, carrying the version |
 | thin | `RELATIONS`, a short list of cross claims with a verb each |
 

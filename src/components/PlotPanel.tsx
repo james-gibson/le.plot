@@ -107,8 +107,8 @@ export function PlotPanel({ rowId }: { rowId: string }) {
 
           <div className="grid gap-4 rounded-2xl border border-line bg-surface p-5 sm:grid-cols-3">
             <div>
-              <p className="text-xs tracking-[0.14em] text-muted uppercase">Grown from</p>
-              <p className="mt-1 font-mono text-sm text-cream">{row.grownFrom ?? '— (this is the starter)'}</p>
+              <p className="text-xs tracking-[0.14em] text-muted uppercase">Cutting from</p>
+              <p className="mt-1 font-mono text-sm text-cream">{row.cuttingFrom ?? '— (this is the starter)'}</p>
             </div>
             <div>
               <p className="text-xs tracking-[0.14em] text-muted uppercase">Ships</p>

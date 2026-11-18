@@ -16,7 +16,7 @@ import {
   NODE_W,
   PLOT,
   RELATIONS,
-  clones,
+  cuttings,
   getPlotRow,
   rungLabel,
   type GroupId,
@@ -68,9 +68,9 @@ function vendorHandles(child: PlotRow): { out: string; in: string } {
 
 const baseEdges: BuiltInEdge[] = []
 
-for (const child of clones()) {
+for (const child of cuttings()) {
   baseEdges.push({
-    id: `${root.id}-grownFrom-${child.id}`,
+    id: `${root.id}-cuttingFrom-${child.id}`,
     source: root.id,
     target: child.id,
     sourceHandle: 'out',
@@ -334,7 +334,7 @@ export function PlotCanvas({ groups, onToggle, onAll, picked, onPick }: Props) {
           <svg width="34" height="8" aria-hidden="true">
             <line x1="1" y1="4" x2="33" y2="4" stroke="#ff2d95" strokeWidth="1.4" />
           </svg>
-          grown from the starter — provenance, not a dependency
+          a cutting taken from the starter — provenance, not a dependency
         </span>
         <span className="flex items-center gap-2">
           <svg width="34" height="8" aria-hidden="true">

@@ -29,7 +29,7 @@ map is a catalogue of repositories.
 | layer | admitted when | the evidence | what it answers |
 | --- | --- | --- | --- |
 | `lab` | lab-safety names it as a lab tool, or keeps a sheet for it | a `### name — description` section in lab-safety's README, or `sheets/<name>.md` | what runs, and who checks it |
-| `examples` | it is published, and it was grown from the starter | an origin you can open, and a build whose guard you can read | what was grown from the starter |
+| `examples` | it is published, and it is a cutting taken from the starter | an origin you can open, and a build whose guard you can read | what was cut from the starter |
 | `docs` | it reads or writes the documentation | it edits the vault, or indexes it, or serves it | how the documentation is read and written |
 
 A row belongs to exactly one layer. A system that fits two is described by its strongest claim:
@@ -37,7 +37,7 @@ A row belongs to exactly one layer. A system that fits two is described by its s
 
 ## Provenance is not an admission test
 
-Each seed row carries `grownFrom`, and the map draws it as a solid line from the starter. That line
+Each seed row carries `cuttingFrom`, and the map draws it as a solid line from the starter. That line
 is **where the deploy was cloned from**, once. It is not a dependency:
 
 - nothing in this repository reads `le.gume` at build time or at run time;
@@ -45,7 +45,7 @@ is **where the deploy was cloned from**, once. It is not a dependency:
 - deleting the solid edge would change the picture, not break the build.
 
 So "it was cloned from the starter" is not a reason for a row. `le.ad` is on the plot because it is
-published and checkable at an origin, which is the `examples` clause; being grown from the starter
+published and checkable at an origin, which is the `examples` clause; being cut from the starter
 is how it got there, not why it is admitted. A clone with no published surface is a repository,
 and the plot does not hold repositories.
 
