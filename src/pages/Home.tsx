@@ -26,7 +26,7 @@ function parseView(value: string | null): GroupId[] {
 export function Home() {
   usePageMeta(
     undefined,
-    'One page, twenty-seven tables: the sites grown from le.gume, the lab they run in, and the tools that read and write them.',
+    'One page, twenty-eight tables: the sites grown from le.gume, the lab they run in, and the tools that read and write them.',
   )
 
   const [params, setParams] = useSearchParams()
@@ -90,7 +90,7 @@ export function Home() {
             <h1 className="mt-6 text-4xl leading-[1.05] font-semibold tracking-tight text-cream sm:text-6xl">
               One starter,
               <br />
-              <span className="text-pulse">twenty-seven</span> systems.
+              <span className="text-pulse">twenty-eight</span> systems.
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-8 text-muted">

@@ -28,7 +28,7 @@ import { PlotNode, type PlotFlowNode } from './PlotNode'
 /**
  * The map, with layers.
  *
- * Twenty-seven tables and twenty lines is too much to read at once, and most
+ * Twenty-eight tables and twenty-two lines is too much to read at once, and most
  * readers want one question answered: what is deployed, what runs here, or what
  * do I write with. So the map has three groups and a way back to everything.
  * The geography never moves — the same row sits in the same place in every

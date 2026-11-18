@@ -265,6 +265,31 @@ export const PLOT: PlotRow[] = [
     at: row(1048, 280),
   },
 
+  {
+    id: 'le.ad',
+    group: 'examples',
+    entity: 'le.ad',
+    title: 'An empty hot desk: six desks, one claim at a time, a lease that returns them',
+    role: 'seed',
+    rung: 1,
+    front: '/',
+    live: 'https://james-gibson.github.io/le.ad',
+    repo: 'james-gibson/le.ad',
+    since: '2026-11-17',
+    inherits: 'le.gume',
+    keeps: ['desk', 'isotope', 'docs'],
+    adds: [
+      'a lease protocol as the content: claim, heartbeat, release, sweep',
+      'an installable manifest with web+desk protocol handling and a launch queue consumer',
+      'three address forms for one desk, and a claim link that carries a lease',
+      'the tuiparts token contract, ported from the terminal to the browser',
+    ],
+    ships: [],
+    vendors: null,
+    note: 'The seed that holds no content. It is a connection point: a seed takes a desk, leaves a link, and silence returns the desk to the row.',
+    at: row(1572, 280),
+  },
+
   // --- the lab the sites describe and run in -------------------------------
   {
     id: 'isotope',
@@ -691,6 +716,11 @@ export const RELATIONS: Relation[] = [
     from: 'lezz.sea',
     to: 'ocd-smoke-alarm',
     verb: 'reads the scenarios and isotopes of',
+  },
+  {
+    from: 'le.ad',
+    to: 'isotope',
+    verb: 'proposes the desk-claim isotope to',
   },
 ]
 

@@ -9,7 +9,7 @@ seeds: grower, packager
 
 # The record
 
-The diagram and the tables are the same twenty-seven objects. So are the twenty-seven pages under `/plot`.
+The diagram and the tables are the same twenty-eight objects. So are the twenty-eight pages under `/plot`.
 
 `src/lib/plot.ts` holds one record per row, in two shapes:
 
@@ -93,7 +93,7 @@ mistake it met first and called it done.
 
 - **No fetched data.** The plot is not a live GitHub query. A build that needs the network to draw
   a diagram is a build that fails in a train.
-- **No layout engine.** Positions are declared in the record. Twenty-seven nodes do not need a force
+- **No layout engine.** Positions are declared in the record. Twenty-eight nodes do not need a force
   simulation, and a diagram that re-arranges itself is harder to return to than one that does not.
 - **No prose.** The record says `rung: 0`; the page says what that costs a homeowner. Mixing them
   would make the map a summary and the page a duplicate.
